@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="en" ng-app="wramtasApp">
 <head>
     <meta charset="UTF-8">
     <title>Single page web app using Angularjs</title>
@@ -8,28 +8,47 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="javascripts/script.js"></script>
+
+    <!-- App file -->
+    <script src="js/app.js"></script>
+
+    <!-- Controlllers -->
+
+    <script src="js/controllers/mainController.js"></script>
+    <script src="js/controllers/affiliateController.js"></script>
+    <script src="js/controllers/conferenceController.js"></script>
+    <script src="js/controllers/donateController.js"></script>
+    <script src="js/controllers/electionController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/profileController.js"></script>
+    <script src="js/controllers/spotlightController.js"></script>
+    <script src="js/controllers/aboutController.js"></script>
+
+    <!-- Services -->
+
+    <!-- Directives -->
+
+    <base href="/" />
+
 </head>
-<body>
+<body ng-controller="mainController">
     <div>
         <div>
             <nav class="navbar navbar-inverse" role="navigation" style="padding-left:130px;">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">News<span class="sr-only">(current)</span></a></li>
                     <li><a href="/about">About us</a></li>
-                    <li><a href="/contact">Affiliates</a></li>
-                    <li><a href="/contact">WRAMTA Conference</a></li>
-                    <li><a href="/contact">Spotlight</a></li>
-                    <li><a href="/contact">My WRAMTAS Profile</a></li>
-                    <li><a href="/contact">Elections</a></li>
+                    <li><a href="/affiliates">Affiliates</a></li>
+                    <li><a href="/conference">WRAMTA Conference</a></li>
+                    <li><a href="/spotlight">Spotlight</a></li>
+                    <li><a href="/profile">My WRAMTAS Profile</a></li>
+                    <li><a href="/elections">Elections</a></li>
                 </ul>
             </nav>
         </div>
         <br />
         <div class="jumbotron">
-            <p>
-                This is place to put content. You can put slider, short description about your website and place some links for navigation.
-            </p>
+            <div ng-view></div>
         </div>
     </div>
 </body>
