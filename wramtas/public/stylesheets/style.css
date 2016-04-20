@@ -1,7 +1,7 @@
 
 .logo {
-    max-width: 25%;
-    max-height: 25%;
+    max-width: 50%;
+    max-height: 50%;
     display: block;
     margin: 0 auto;
 }
@@ -13,3 +13,7 @@
 .dropdown-toggle:hover {
     cursor: pointer;
 }
+
+/*body {
+    background-color: #9D9D9D
+}*/
