@@ -18,6 +18,10 @@ app.config(function ($routeProvider, $locationProvider, $controllerProvider) {
 			templateUrl : '../partials/conference.html',
 			controller : 'conferenceController'
 		})
+		.when('/scholarships', {
+			templateUrl : '../partials/scholarships.html',
+			controller : 'scholarshipsController'
+		})
 		.when('/spotlight', {
 			templateUrl : '../partials/spotlight.html',
 			controller : 'spotlightController'

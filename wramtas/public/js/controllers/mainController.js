@@ -2,10 +2,6 @@
 app.controller('mainController', function ($scope, $location) {
     $scope.tabs = [
         {
-            href: '/',
-            title: 'News'
-        },
-        {
             href: '/about',
             title: 'About'
         },
@@ -15,7 +11,17 @@ app.controller('mainController', function ($scope, $location) {
         },
         {
             href: '/conference',
-            title: 'WRAMTA Conference'
+            title: 'Conferences',
+            subtabs: [
+                {
+                    href: '/conference',
+                    title: 'Regional and National Info'
+                },
+                {
+                    href: '/scholarships',
+                    title: 'Conference Scholarships'
+                }
+            ]
         },
         {
             href: '/spotlight',
@@ -32,5 +38,9 @@ app.controller('mainController', function ($scope, $location) {
 
     $scope.isActive = function(currentPage) {
         return currentPage === $location.path();
+    };
+
+    $scope.isDropdown = function(tab) {
+        return tab.hasOwnProperty('subtabs');
     };
 });

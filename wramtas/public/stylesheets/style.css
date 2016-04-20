@@ -1,7 +1,15 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+.logo {
+    max-width: 25%;
+    max-height: 25%;
+    display: block;
+    margin: 0 auto;
 }
-a {
-  color: #00b7ff;
+
+.indent-left {
+    padding-left: 50px;
+}
+
+.dropdown-toggle:hover {
+    cursor: pointer;
 }
