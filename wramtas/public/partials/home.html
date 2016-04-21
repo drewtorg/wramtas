@@ -1,3 +1,5 @@
-﻿<p>
-    {{message}}
-</p>
+<div ng-repeat='article in articles'>
+    <h2>{{ article.title }}</h2>
+    <p><i>Posted on {{ article.date }}</i></p>
+    <p>{{ article.text }}</p>
+</div>

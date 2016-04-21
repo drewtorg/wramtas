@@ -54,7 +54,22 @@
                 </ul>
             </nav>
         </div>
-        <div ng-view></div>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-3'>
+                    <form>
+                        <div class=form-group>
+                            <input type='text' class='form-control' placeholder="Username"/>
+                            <br/>
+                            <input type='password' class='form-control' placeholder="Password"/>
+                            <br/>
+                            <input type="submit" class='btn btn-primary'/>
+                        </div>
+                    </form>
+                </div>
+                <div class='col-md-7' ng-view></div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
