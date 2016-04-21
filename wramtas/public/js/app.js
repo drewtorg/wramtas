@@ -30,9 +30,13 @@ app.config(function ($routeProvider, $locationProvider, $controllerProvider) {
 			templateUrl : '../partials/profile.html',
 			controller : 'profileController'
 		})
-		.when('/elections', {
-			templateUrl : '../partials/election.html',
-			controller : 'electionController'
+		.when('/candidates', {
+			templateUrl : '../partials/candidates.html',
+			controller : 'candidateController'
+		})
+		.when('/nominate', {
+			templateUrl : '../partials/nominate.html',
+			controller : 'nominateController'
 		})
 		.when('/donate', {
 			templateUrl : '../partials/donate.html',

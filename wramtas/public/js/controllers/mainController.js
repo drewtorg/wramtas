@@ -20,7 +20,21 @@ app.controller('mainController', function ($scope, $location) {
                 {
                     href: '/scholarships',
                     title: 'Conference Scholarships'
-                }
+                },
+            ]
+        },
+        {
+            href: '/elections',
+            title: 'Elections',
+            subtabs: [
+                {
+                    href: '/nominate',
+                    title: 'Nominate for 2017-2018'
+                },
+                {
+                    href: '/candidates',
+                    title: 'Candidates'
+                },
             ]
         },
         {
@@ -31,10 +45,7 @@ app.controller('mainController', function ($scope, $location) {
             href: '/profile',
             title: 'My WRAMTAS Profile'
         },
-        {
-            href: '/elections',
-            title: 'Elections'
-        },];
+    ];
 
     $scope.isActive = function(currentPage) {
         return currentPage === $location.path();
