@@ -41,7 +41,8 @@ app.config(function ($routeProvider, $locationProvider, $controllerProvider) {
 		.when('/donate', {
 			templateUrl : '../partials/donate.html',
 			controller : 'donateController'
-		});
+		})
+		.otherwise('/');
 
 	$locationProvider.html5Mode(true);
 	app.controllerProvider = $controllerProvider;

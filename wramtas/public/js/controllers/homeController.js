@@ -19,5 +19,4 @@ app.controller('homeController', function ($scope) {
             date: 'February 6th, 2016'
         },
     ];
-
 });

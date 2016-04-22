@@ -47,11 +47,29 @@ app.controller('mainController', function ($scope, $location) {
         },
     ];
 
-    $scope.isActive = function(currentPage) {
-        return currentPage === $location.path();
+    $scope.form = {
+        username: '',
+        password: ''
+    };
+
+    $scope.isActive = function(tab) {
+        if(tab.href === $location.path())
+            return true;
+        if(tab.hasOwnProperty('subtabs')) {
+            for(i in tab.subtabs) {
+                if(tab.subtabs[i].href === $location.path())
+                    return true;
+            }
+        }
+        return false;
     };
 
     $scope.isDropdown = function(tab) {
         return tab.hasOwnProperty('subtabs');
+    };
+
+    $scope.logIn = function(form) {
+        console.log(form.username);
+        console.log(form.password);
     };
 });
