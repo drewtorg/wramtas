@@ -58,7 +58,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-var server = app.listen(8080, function() {
+var server = app.listen(80, function() {
     console.log('Ready on port %d', server.address().port);
 });
 

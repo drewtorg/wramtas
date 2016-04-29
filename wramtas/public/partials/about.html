@@ -1,3 +1,16 @@
-﻿<p>
-    {{message}}
-</p>
+﻿<div>
+    <p>{{aboutMessage}}</p>
+    <p>Contact us at: <a ng-href="mailto:{{contactEmail}}">{{contactEmail}}</a></p>
+</div>
+<div>
+    <h3>Executive Board Members {{years}}</h3>
+    <img class="img-responsive img-shadow" src="../images/about/wramtas_board.jpg" class=""/>
+</div>
+<div class="clearfix margin-top margin-bottom" ng-repeat="member in boardMembers">
+    <img class="img-responsive img-shadow pull-left margin-right" ng-src="../{{member.image}}"/>
+    <div>
+        <h3>{{member.name}} - {{member.title}}</h3>
+        <p>{{member.about}}</p>
+        <p ng-if="member.email !== ''">Contact: <a ng-href="mailto:{{member.email}}">{{member.email}}</a></p>
+    </div>
+</div>
