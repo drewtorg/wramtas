@@ -1,6 +1,6 @@
 ﻿
 app.controller('mainController', function ($scope, $location) {
-    $scope.tabs = [
+	$scope.tabs = [
         {
             href: '/about',
             title: 'About'

@@ -1,3 +1,6 @@
-﻿<p>
-    {{message}}
-</p>
+﻿<div ng-repeat="article in articles">
+    <h2>{{ article.title }}</h2>
+    <div ng-bind-html="trustAsHtml(article.html)"></div>
+    <textarea ui-tinymce="tinymceOptions" ng-model="article.html"></textarea>
+    <p><i>Posted on {{ article.date }}</i></p>
+</div>

@@ -1,4 +1,4 @@
-﻿var app = angular.module('wramtasApp', ['ngRoute']);
+﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize']);
 
 app.config(function ($routeProvider, $locationProvider, $controllerProvider) {
 	$routeProvider
