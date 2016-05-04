@@ -8,7 +8,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-sanitize.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
+
     <!-- Text Editor -->
     <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
     <script src="js/components/tinymce.js"></script>
@@ -36,6 +36,7 @@
     <!-- Services -->
 
     <!-- Directives -->
+    <script src="js/directives/blogPostDirective.js"></script>
 
     <!-- base setting for HTML5 routes -->
     <base href="/" />
@@ -65,7 +66,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <form ng-submit="logIn(form)">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <input type="text" class="form-control" placeholder="Username" ng-model="form.username"/>
                             <br/>
                             <input type="password" class="form-control" placeholder="Password" ng-model="form.password"/>
@@ -73,7 +74,7 @@
                             <input type="submit" class="btn btn-primary" value="Log in"/>
                             <a href="/register">Register</a>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
                 <div class="col-md-8" ng-view></div>
                 <div class="col-md-2"></div>

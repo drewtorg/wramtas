@@ -1,0 +1,8 @@
+<div>
+    <h2>{{ post.title }}<span class="glyphicon glyphicon-plus" ng-click="toggleEditMode()"></span></h2>
+    <div ng-hide="inEditMode" ng-bind-html="trustAsHtml(post.html)"></div>
+    <div ng-show="inEditMode">
+        <textarea ui-tinymce="tinymceOptions" ng-model="post.html"></textarea>
+    </div>
+    <p><i>Posted on {{post.date}}</i></p>
+<div>
