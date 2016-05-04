@@ -17,7 +17,7 @@ app.directive('blogPost', function ($sce) {
               			'save table contextmenu directionality template paste textcolor'
               		],
               		height: 400,
-              		toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | preview media fullpage | forecolor backcolor',
+              		toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor',
               		imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
               		style_formats_merge: true,
               		style_formats: [
