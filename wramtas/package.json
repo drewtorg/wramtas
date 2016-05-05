@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "install": "cd public && npm install",
     "start": "node ./bin/www"
   },
   "description": "wramtas",
