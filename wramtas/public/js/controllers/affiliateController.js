@@ -41,6 +41,10 @@
 			text : 'Utah State University',
 			link : 'http://www.usu.edu/'
 		},
+		{
+			text : 'Pacific University Oregon',
+			link : 'http://www.pacificu.edu/'
+		},
 	];
 
 	$scope.otherResources = [
