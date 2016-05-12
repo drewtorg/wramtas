@@ -3,7 +3,8 @@ app.directive('blogPost', function ($sce) {
         restrict: 'E',
         templateUrl: 'js/directives/blogPost.html',
         scope:{
-            post: '='
+            post: '=',
+            onDelete: '&',
         },
         compile: function(tElem, tAttrs){
             return {
@@ -46,16 +47,49 @@ app.directive('blogPost', function ($sce) {
               },
               post: function(scope, iElem, iAttrs){
 
+                  scope.post.inEditMode = angular.isDefined(scope.post.inEditMode) ? scope.post.inEditMode : false;
+
                   // TODO: Test to make sure no XSS can happen here!
                   scope.trustAsHtml = function (string) {
                       return $sce.trustAsHtml(string);
                   };
 
-                  scope.inEditMode = false;
+                  scope.toggleEditMode = function (){
+                      scope.post.inEditMode = !scope.post.inEditMode;
+                  };
 
-                  scope.toggleEditMode = function()
-                  {
-                      scope.inEditMode = !scope.inEditMode;
+                  scope.editPost = function() {
+                      scope.tempPost = angular.copy(scope.post);
+                      scope.toggleEditMode();
+                  };
+
+                  scope.deletePost = function() {
+                      scope.onDelete();
+                  };
+
+                  scope.savePost = function() {
+                      scope.post.html = angular.copy(scope.tempPost.html);
+
+                      var options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+                      if (angular.isDefined(scope.post.datePosted))
+                      {
+                          scope.post.dateModified = new Date(Date.now()).toLocaleDateString('en-US', options);
+                      }
+                      else {
+                          scope.post.datePosted = new Date(Date.now()).toLocaleDateString('en-US', options);
+                      }
+                      scope.toggleEditMode();
+                  };
+
+                  scope.undoPost = function() {
+                      if (scope.post.html === '') {
+                          scope.deletePost();
+                      }
+                      else {
+                          scope.tempPost.html = angular.copy(scope.post.html);
+                          scope.toggleEditMode();
+                      }
                   };
               }
             }
