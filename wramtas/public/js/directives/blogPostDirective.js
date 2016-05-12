@@ -54,6 +54,19 @@ app.directive('blogPost', function ($sce) {
                       return $sce.trustAsHtml(string);
                   };
 
+                  scope.getCurrentDate = function () {
+                      var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                      return new Date(Date.now()).toLocaleDateString('en-US', options);
+                  };
+
+                  scope.hasPostedDate = function() {
+                      return scope.post.datePosted !== undefined && scope.post.dateModified === undefined;
+                  };
+
+                  scope.hasModifiedDate = function() {
+                      return scope.post.dateModified !== undefined;
+                  };
+
                   scope.toggleEditMode = function (){
                       scope.post.inEditMode = !scope.post.inEditMode;
                   };
@@ -68,28 +81,21 @@ app.directive('blogPost', function ($sce) {
                   };
 
                   scope.savePost = function() {
-                      scope.post.html = angular.copy(scope.tempPost.html);
+                      if(angular.isDefined(scope.tempPost))
+                          scope.post.html = angular.copy(scope.tempPost.html);
 
-                      var options = { year: 'numeric', month: 'long', day: 'numeric' };
-
+                      var currentDate = scope.getCurrentDate();
                       if (angular.isDefined(scope.post.datePosted))
-                      {
-                          scope.post.dateModified = new Date(Date.now()).toLocaleDateString('en-US', options);
-                      }
-                      else {
-                          scope.post.datePosted = new Date(Date.now()).toLocaleDateString('en-US', options);
-                      }
+                          scope.post.dateModified = currentDate;
+                      else
+                          scope.post.datePosted = currentDate;
+
                       scope.toggleEditMode();
                   };
 
                   scope.undoPost = function() {
-                      if (scope.post.html === '') {
-                          scope.deletePost();
-                      }
-                      else {
-                          scope.tempPost.html = angular.copy(scope.post.html);
-                          scope.toggleEditMode();
-                      }
+                      scope.tempPost.html = angular.copy(scope.post.html);
+                      scope.toggleEditMode();
                   };
               }
             }

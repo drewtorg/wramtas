@@ -3,18 +3,24 @@
     <div class="margin-top" ng-show="post.inEditMode">
         <textarea ui-tinymce="tinymceOptions" ng-model="tempPost.html"></textarea>
     </div>
-    <p><i>Posted on {{post.datePosted}}</i></p>
-    <p ng-if="post.dateModified !== undefined"><i>Last modified on {{post.dateModified}}</i></p>
-    <button ng-hide="post.inEditMode" class="btn btn-primary" ng-click="editPost()">
-        Edit Post <span class="glyphicon glyphicon-edit"></span>
-    </button>
-    <button ng-show="post.inEditMode" class="btn btn-success" ng-click="savePost()">
-        Save Post <span class="glyphicon glyphicon-floppy-disk"></span>
-    </button>
-    <button ng-hide="post.inEditMode" class="btn btn-danger" ng-click="deletePost()">
-        Delete Post <span class="glyphicon glyphicon-trash"></span>
-    </button>
-    <button ng-show="post.inEditMode" class="btn btn-danger" ng-click="undoPost()">
-        Undo Changes <span class="glyphicon glyphicon-remove"></span>
-    </button>
-<div>
+    <p ng-if="hasPostedDate()">
+        <i>Posted on {{post.datePosted}}</i>
+    </p>
+    <p ng-if="hasModifiedDate()"><i>Last modified on {{post.dateModified}}</i></p>
+    <div>
+        <button ng-hide="post.inEditMode" class="btn btn-primary" ng-click="editPost()">
+            Edit Post <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button ng-hide="post.inEditMode" class="btn btn-danger" ng-click="deletePost()">
+            Delete Post <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </div>
+    <div class="margin-top">
+        <button ng-show="post.inEditMode" class="btn btn-success" ng-click="savePost()">
+            Save Post <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+        <button ng-show="post.inEditMode" class="btn btn-danger" ng-click="undoPost()">
+            Undo Changes <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>
+</div>

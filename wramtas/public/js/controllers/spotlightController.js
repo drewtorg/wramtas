@@ -16,11 +16,8 @@
 	];
 
 	$scope.addBlogPost = function(){
-		var options = { year: 'numeric', month: 'long', day: 'numeric' };
-		currentDate = new Date(Date.now()).toLocaleDateString('en-US', options);
 		newPost = {
 			html: '',
-			datePosted: currentDate,
 			inEditMode: true,
 		};
 		$scope.posts.unshift(newPost);
