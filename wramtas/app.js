@@ -4,10 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var users = require('./routes/users');
+var posts = require('./routes/posts');
 
 var app = express();
+
+// database setup
+mongoose.connect('mongodb://localhost/wramtas');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +26,7 @@ app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 
 app.use('/users', users);
+app.use('/posts', posts);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function (req, res) {
 	res.sendFile(__dirname + '/public/index.html');
@@ -56,7 +62,6 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 
 var server = app.listen(80, function() {
     console.log('Ready on port %d', server.address().port);
