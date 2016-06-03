@@ -1,6 +1,7 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" ng-app="wramtasApp">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <title>WRAMTAS</title>
     <script src="node_modules/angular/angular.min.js"></script>
@@ -43,31 +44,32 @@
     <!-- base setting for HTML5 routes -->
     <base href="/" />
 
-</head>
-<body ng-controller="mainController">
+  </head>
+
+  <body ng-controller="mainController">
     <div>
-        <div>
-            <img src="images/WRAMTAS.png" class="logo img-responsive center-block"/>
-            <nav class="navbar navbar-inverse" role="navigation">
-                <a class="navbar-brand" href="/">WRAMTAS</a>
-                <ul class="nav navbar-nav">
-                    <!-- TODO: fix this isDropdown nonsense -->
-                    <li ng-repeat="tab in tabs" ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
-                        <a ng-if="!isDropdown(tab)" ng-href="{{tab.href}}">{{tab.title}}</a>
-                        <a ng-if="isDropdown(tab)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{tab.title}}<span class="caret"></span></a>
-                        <ul ng-if="isDropdown(tab)" class="dropdown-menu">
-                            <li ng-repeat="subtab in tab.subtabs">
-                                <a ng-href="{{subtab.href}}">{{subtab.title}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <!-- <form ng-submit="logIn(form)">
+      <div>
+        <img src="images/WRAMTAS.png" class="logo img-responsive center-block" />
+        <nav class="navbar navbar-inverse" role="navigation">
+          <a class="navbar-brand" href="/">WRAMTAS</a>
+          <ul class="nav navbar-nav">
+            <!-- TODO: fix this isDropdown nonsense -->
+            <li ng-repeat="tab in tabs" ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
+              <a ng-if="!isDropdown(tab)" ng-href="{{tab.href}}">{{tab.title}}</a>
+              <a ng-if="isDropdown(tab)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{tab.title}}<span class="caret"></span></a>
+              <ul ng-if="isDropdown(tab)" class="dropdown-menu">
+                <li ng-repeat="subtab in tab.subtabs">
+                  <a ng-href="{{subtab.href}}">{{subtab.title}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <!-- <form ng-submit="logIn(form)">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Username" ng-model="form.username"/>
                             <br/>
@@ -77,11 +79,12 @@
                             <a href="/register">Register</a>
                         </div>
                     </form> -->
-                </div>
-                <div class="col-md-8" ng-view></div>
-                <div class="col-md-2"></div>
-            </div>
+          </div>
+          <div class="col-md-8" ng-view></div>
+          <div class="col-md-2"></div>
         </div>
+      </div>
     </div>
-</body>
+  </body>
+
 </html>
