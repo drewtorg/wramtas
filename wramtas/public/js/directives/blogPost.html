@@ -4,9 +4,9 @@
     <textarea ui-tinymce="tinymceOptions" ng-model="tempPost.html"></textarea>
   </div>
   <p ng-if="showPostedDate()">
-    <i>Posted on {{post.datePosted}}</i>
+    <i>Posted on {{getPrettyDate(post.datePosted)}}</i>
   </p>
-  <p ng-if="showModifiedDate()"><i>Last modified on {{post.dateModified}}</i></p>
+  <p ng-if="showModifiedDate()"><i>Last modified on {{getPrettyDate(post.dateModified)}}</i></p>
   <div>
     <button ng-hide="post.inEditMode" class="btn btn-primary" ng-click="editPost()">
       Edit Post <span class="glyphicon glyphicon-edit"></span>
