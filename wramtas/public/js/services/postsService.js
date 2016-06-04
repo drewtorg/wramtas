@@ -13,5 +13,5 @@ app.service('postsService', function($http) {
 
   this.deletePost = function(post) {
     return $http.delete('/posts/' + post._id);
-  }
+  };
 });
