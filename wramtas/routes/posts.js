@@ -26,7 +26,9 @@ router.get('/*', function(req, res) {
 // POST create new post
 router.post('/', function(req, res) {
   var newPost = new Post({
-    html: ''
+    html: '',
+    datePosted: Date.now(),
+    dateModified: Date.now()
   });
   newPost.save(function(err, post) {
     if (err) return err;
@@ -37,7 +39,9 @@ router.post('/', function(req, res) {
 // PUT update existing post
 router.put('/*', function(req, res) {
   req.body.dateModified = Date.now();
-  Post.findByIdAndUpdate(req.body._id, req.body, function(err, post) {
+  Post.findByIdAndUpdate(req.body._id, req.body, {
+    new: true
+  }, function(err, post) {
     if (err) return err;
     res.json(post);
   });

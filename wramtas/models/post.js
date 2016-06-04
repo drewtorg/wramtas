@@ -4,12 +4,9 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var postSchema = new Schema({
-  html: String
-}, {
-  timestamps: {
-    createdAt: 'datePosted',
-    updatedAt: 'dateModified'
-  }
+  html: String,
+  datePosted: Date,
+  dateModified: Date
 });
 
 // the schema is useless so far
