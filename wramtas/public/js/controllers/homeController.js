@@ -1,6 +1,8 @@
 ﻿
 app.controller('homeController', function($scope, postsService) {
-  postsService.getPosts().then(function(response) {
+  $scope.page = 'home';
+
+  postsService.getPosts($scope.page).then(function(response) {
     $scope.articles = response.data;
   });
 });

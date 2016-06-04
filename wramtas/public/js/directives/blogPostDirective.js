@@ -5,6 +5,7 @@ app.directive('blogPost', function($sce, postsService) {
     scope: {
       post: '=',
       onDelete: '&',
+      page: '=',
     },
     compile: function(tElem, tAttrs) {
       return {
@@ -48,7 +49,6 @@ app.directive('blogPost', function($sce, postsService) {
           };
         },
         post: function(scope, iElem, iAttrs) {
-
           scope.post.inEditMode = angular.isDefined(scope.post.inEditMode) ? scope.post.inEditMode : false;
 
           // TODO: Test to make sure no XSS can happen here!
@@ -84,14 +84,15 @@ app.directive('blogPost', function($sce, postsService) {
 
           scope.deletePost = function() {
             scope.onDelete();
-            postsService.deletePost(scope.post);
+            postsService.deletePost(scope.page, scope.post);
           };
 
           scope.savePost = function() {
             if (angular.isDefined(scope.tempPost))
               scope.post.html = angular.copy(scope.tempPost.html);
 
-            postsService.savePost(scope.post).then(function(response) {
+            console.log(scope.page);
+            postsService.savePost(scope.page, scope.post).then(function(response) {
               scope.post.datePosted = response.data.datePosted;
               scope.post.dateModified = response.data.dateModified;
               scope.toggleEditMode();

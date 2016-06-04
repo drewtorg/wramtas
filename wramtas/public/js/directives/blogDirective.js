@@ -4,6 +4,7 @@ app.directive('blog', function($sce, postsService) {
     templateUrl: 'js/directives/blog.html',
     scope: {
       posts: '=',
+      page: '='
     },
     controller: ['$scope', function($scope) {
       $scope.addBlogPost = function() {
@@ -11,7 +12,8 @@ app.directive('blog', function($sce, postsService) {
           html: '',
           inEditMode: true,
         };
-        postsService.createPost(newPost).then(function(response) {
+        postsService.createPost($scope.page).then(function(response) {
+          console.log($scope.page);
           newPost._id = response.data._id;
           newPost.datePosted = response.data.datePosted;
           newPost.dateModified = response.data.dateModified;
