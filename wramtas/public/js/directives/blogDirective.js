@@ -13,7 +13,6 @@ app.directive('blog', function($sce, postsService) {
           inEditMode: true,
         };
         postsService.createPost($scope.page).then(function(response) {
-          console.log($scope.page);
           newPost._id = response.data._id;
           newPost.datePosted = response.data.datePosted;
           newPost.dateModified = response.data.dateModified;

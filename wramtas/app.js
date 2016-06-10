@@ -6,18 +6,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var users = require('./routes/users');
 var posts = require('./routes/posts');
+var login = require('./routes/login');
+var logout = require('./routes/logout');
+var register = require('./routes/register');
+var ping = require('./routes/ping');
 
 var app = express();
 
-// database setup
-mongoose.connect('mongodb://localhost/wramtas');
-
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 app.set('json spaces', 2);
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -27,14 +28,33 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', users);
 app.use('/posts', posts);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/register', register);
+app.use('/login', login);
+app.use('/logout', logout);
+app.use('/ping', ping);
 app.use('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+// passport config
+var Account = require('./models/account');
+passport.use(Account.createStrategy());
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// database setup
+mongoose.connect('mongodb://localhost/wramtas');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

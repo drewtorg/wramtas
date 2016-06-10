@@ -91,7 +91,6 @@ app.directive('blogPost', function($sce, postsService) {
             if (angular.isDefined(scope.tempPost))
               scope.post.html = angular.copy(scope.tempPost.html);
 
-            console.log(scope.page);
             postsService.savePost(scope.page, scope.post).then(function(response) {
               scope.post.datePosted = response.data.datePosted;
               scope.post.dateModified = response.data.dateModified;
