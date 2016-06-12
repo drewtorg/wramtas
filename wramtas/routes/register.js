@@ -3,10 +3,6 @@ var passport = require('passport');
 var Account = require('../models/account');
 var router = express.Router();
 
-router.get('/', function(req, res) {
-  res.render('register', {});
-});
-
 router.post('/', function(req, res, next) {
   Account.register(new Account({
     username: req.body.username
@@ -15,7 +11,6 @@ router.post('/', function(req, res, next) {
       res.redirect('/');
     }
 
-    console.log('After register');
     passport.authenticate('local')(req, res, function() {
       req.session.save(function(err) {
         if (err) {

@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(require('express-session')({
+  // TODO: make a secret based on system variables
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false
@@ -37,6 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
+// TODO: set up routing config file
 app.use('/users', users);
 app.use('/posts', posts);
 app.use('/register', register);

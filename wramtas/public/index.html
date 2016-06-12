@@ -50,6 +50,7 @@
     <div>
       <div>
         <img src="images/WRAMTAS.png" class="logo img-responsive center-block" />
+        <!-- TODO: consider making this a directive -->
         <nav class="navbar navbar-inverse" role="navigation">
           <a class="navbar-brand" href="/">WRAMTAS</a>
           <ul class="nav navbar-nav">
@@ -69,16 +70,17 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2">
-            <!-- <form ng-submit="logIn(form)">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" ng-model="form.username"/>
-                            <br/>
-                            <input type="password" class="form-control" placeholder="Password" ng-model="form.password"/>
-                            <br/>
-                            <input type="submit" class="btn btn-primary" value="Log in"/>
-                            <a href="/register">Register</a>
-                        </div>
-                    </form> -->
+            <!-- TODO: consider making this a directive -->
+            <form ng-submit="logIn(form)">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" ng-model="form.username" />
+                <br/>
+                <input type="password" class="form-control" placeholder="Password" ng-model="form.password" />
+                <br/>
+                <input type="submit" class="btn btn-primary" value="Log in" />
+                <a href="/register">Register</a>
+              </div>
+            </form>
           </div>
           <div class="col-md-8" ng-view></div>
           <div class="col-md-2"></div>
