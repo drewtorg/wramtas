@@ -1,0 +1,6 @@
+<img class="img-responsive img-shadow pull-left margin-right" ng-src="../{{bio.image}}" />
+<div>
+  <h3>{{bio.name}} - {{bio.title}}</h3>
+  <p>{{bio.about}}</p>
+  <p ng-if="bio.email !== ''">Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a></p>
+</div>

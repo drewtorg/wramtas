@@ -6,20 +6,12 @@
   <h3>Executive Board Members {{years}}</h3>
   <img class="img-responsive img-shadow" src="../images/about/wramtas_board.jpg" />
 </div>
-<div class="clearfix margin-top margin-bottom" ng-repeat="member in boardMembers">
-  <img class="img-responsive img-shadow pull-left margin-right" ng-src="../{{member.image}}" />
-  <div>
-    <h3>{{member.name}} - {{member.title}}</h3>
-    <p>{{member.about}}</p>
-    <p ng-if="member.email !== ''">Contact: <a ng-href="mailto:{{member.email}}">{{member.email}}</a></p>
-  </div>
+<div class="clearfix margin-top margin-bottom" ng-repeat="bio in boardMembers">
+  <bio bio="bio" on-delete="bios.splice($index, 1)" type="reps">
+  </bio>
 </div>
 <h3>University Representatives</h3>
-<div class="clearfix margin-top margin-bottom" ng-repeat="rep in universityReps">
-  <img class="img-responsive img-shadow pull-left margin-right" ng-src="../{{rep.image}}" />
-  <div>
-    <h3>{{rep.name}} - {{rep.title}}</h3>
-    <p>{{rep.about}}</p>
-    <p ng-if="rep.email !== ''">Contact: <a ng-href="mailto:{{rep.email}}">{{rep.email}}</a></p>
-  </div>
+<div class="clearfix margin-top margin-bottom" ng-repeat="bio in universityReps">
+  <bio bio="bio" on-delete="bios.splice($index, 1)" type="reps">
+  </bio>
 </div>
