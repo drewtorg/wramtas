@@ -8,10 +8,10 @@ app.service('biosService', function($http) {
   };
 
   this.saveBio = function(type, bio) {
-    return $http.put('/bios/' + bio._id + '?type=' + type, post);
+    return $http.put('/bios/' + bio._id + '?type=' + type, bio);
   };
 
   this.deleteBio = function(type, bio) {
-    return $http.delete('/posts/' + bio._id + '?type=' + type);
+    return $http.delete('/bios/' + bio._id + '?type=' + type);
   };
 });
