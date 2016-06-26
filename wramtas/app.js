@@ -69,7 +69,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var server = app.listen(80, function() {
+var server = app.listen(3000, function() {
   console.log('Ready on port %d', server.address().port);
 });
 
