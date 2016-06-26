@@ -15,8 +15,8 @@ app.directive('bio', function(biosService) {
       };
 
       $scope.editBio = function() {
-        $scope.tempBio = angular.copy($scope.bio);
         $scope.toggleEditMode();
+        $scope.tempBio = angular.copy($scope.bio);
       };
 
       $scope.deleteBio = function() {
@@ -26,7 +26,7 @@ app.directive('bio', function(biosService) {
 
       $scope.saveBio = function() {
         if (angular.isDefined($scope.tempBio))
-          $scope.bio.about = angular.copy($scope.tempBio.about);
+          $scope.bio = angular.copy($scope.tempBio);
 
         biosService.saveBio($scope.type, $scope.bio).then(function(response) {
           $scope.toggleEditMode();
@@ -36,7 +36,7 @@ app.directive('bio', function(biosService) {
       $scope.undoBio = function() {
         // this is the case when we are undoing after clicking edit
         if (angular.isDefined($scope.tempBio))
-          $scope.tempBio.about = angular.copy($scope.bio.about);
+          $scope.tempBio = angular.copy($scope.bio);
 
         // this is the case when we are undoing after clicing add
         if (!angular.isDefined($scope.tempBio) || $scope.tempBio.about === '')
