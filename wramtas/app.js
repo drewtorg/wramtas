@@ -15,6 +15,7 @@ var login = require('./routes/login');
 var logout = require('./routes/logout');
 var register = require('./routes/register');
 var ping = require('./routes/ping');
+var bios = require('./routes/bios');
 
 var app = express();
 
@@ -45,6 +46,8 @@ app.use('/register', register);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/ping', ping);
+app.use('/bios', bios);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });

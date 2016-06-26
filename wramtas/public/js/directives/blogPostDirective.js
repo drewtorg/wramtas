@@ -4,8 +4,8 @@ app.directive('blogPost', function($sce, postsService) {
     templateUrl: 'js/directives/blogPost.html',
     scope: {
       post: '=',
-      onDelete: '&',
       page: '=',
+      onDelete: '&',
     },
     compile: function(tElem, tAttrs) {
       return {

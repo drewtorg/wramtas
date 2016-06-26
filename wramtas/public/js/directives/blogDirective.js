@@ -3,10 +3,13 @@ app.directive('blog', function($sce, postsService) {
     restrict: 'E',
     templateUrl: 'js/directives/blog.html',
     scope: {
-      posts: '=',
-      page: '='
+      page: '@'
     },
     controller: ['$scope', function($scope) {
+      postsService.getPosts($scope.page).then(function(response) {
+        $scope.posts = response.data;
+      });
+
       $scope.addBlogPost = function() {
         var newPost = {
           html: '',
