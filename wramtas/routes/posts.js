@@ -13,7 +13,7 @@ var getIdFromRequest = function(req) {
 // alternative would be to do a total refresh on delete
 router.get('/', function(req, res) {
   var Post = mongoose.model(req.query.page + '_post', postSchema);
-  Post.find().sort('-dateModified').find(function(err, posts) {
+  Post.find().sort('-datePosted').find(function(err, posts) {
     if (err) res.status(200).end();
     res.json(posts);
   });

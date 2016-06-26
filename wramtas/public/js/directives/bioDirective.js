@@ -4,7 +4,7 @@ app.directive('bio', function(biosService) {
     templateUrl: 'js/directives/bio.html',
     scope: {
       bio: '=',
-      type: '=',
+      type: '@',
       onDelete: '&',
     },
     controller: ['$scope', function($scope) {
@@ -25,8 +25,13 @@ app.directive('bio', function(biosService) {
       };
 
       $scope.saveBio = function() {
-        if (angular.isDefined($scope.tempBio))
-          $scope.bio = angular.copy($scope.tempBio);
+        if (angular.isDefined($scope.tempBio)) {
+          $scope.bio.about = angular.copy($scope.tempBio.about);
+          $scope.bio.name = angular.copy($scope.tempBio.name);
+          $scope.bio.title = angular.copy($scope.tempBio.title);
+          $scope.bio.email = angular.copy($scope.tempBio.email);
+          $scope.bio.image = angular.copy($scope.tempBio.image);
+        }
 
         biosService.saveBio($scope.type, $scope.bio).then(function(response) {
           $scope.toggleEditMode();
@@ -38,8 +43,8 @@ app.directive('bio', function(biosService) {
         if (angular.isDefined($scope.tempBio))
           $scope.tempBio = angular.copy($scope.bio);
 
-        // this is the case when we are undoing after clicing add
-        if (!angular.isDefined($scope.tempBio) || $scope.tempBio.about === '')
+        // this is the case when we are undoing after clicking add
+        if (!angular.isDefined($scope.tempBio))
           $scope.deleteBio();
 
         $scope.toggleEditMode();
