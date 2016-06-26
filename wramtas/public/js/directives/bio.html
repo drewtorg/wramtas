@@ -1,6 +1,35 @@
-<img class="img-responsive img-shadow pull-left margin-right bio-image" ng-src="../{{bio.image}}" />
+<div ng-hide="bio.inEditMode">
+  <img class="img-responsive img-shadow pull-left margin-right bio-image" ng-src="../{{bio.image}}" />
+  <div>
+    <h3>{{bio.name}} - {{bio.title}}</h3>
+    <p>{{bio.about}}</p>
+    <p ng-if="bio.email !== ''">Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a></p>
+  </div>
+</div>
+<ng-form ng-show="bio.inEditMode" class="margin-top">
+  <label for="name">Name:</label>
+  <input type="text" class="form-control" ng-model="tempBio.name" maxlength="20" id="name"></input>
+  <label for="position">Board Position/University:</label>
+  <input type="text" class="form-control" ng-model="tempBio.title" id="position"></input>
+  <label for="about">About:</label>
+  <textarea class="form-control" ng-model="tempBio.about" rows="7" id="about"></textarea>
+  <!-- TODO: use flow.js or angular-file-upload to handle the uploading of images -->
+  <label for="image">Image:</label>
+  <input type="text" class="form-control" ng-model="tempBio.image" />
+</ng-form>
 <div>
-  <h3>{{bio.name}} - {{bio.title}}</h3>
-  <p>{{bio.about}}</p>
-  <p ng-if="bio.email !== ''">Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a></p>
+  <button ng-hide="bio.inEditMode" class="btn btn-primary" ng-click="editBio()">
+    Edit Bio <span class="glyphicon glyphicon-edit"></span>
+  </button>
+  <button ng-hide="bio.inEditMode" class="btn btn-danger" ng-click="deleteBio()">
+    Delete Bio <span class="glyphicon glyphicon-trash"></span>
+  </button>
+</div>
+<div class="margin-top">
+  <button ng-show="bio.inEditMode" class="btn btn-success" ng-click="saveBio()">
+    Save Bio <span class="glyphicon glyphicon-floppy-disk"></span>
+  </button>
+  <button ng-show="bio.inEditMode" class="btn btn-danger" ng-click="undoBio()">
+    Undo Changes <span class="glyphicon glyphicon-remove"></span>
+  </button>
 </div>
