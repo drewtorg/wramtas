@@ -1,41 +1,46 @@
 
 .logo {
-    max-width: 50%;
-    max-height: 50%;
+  max-width: 50%;
+  max-height: 50%;
 }
 
 .indent-left {
-    padding-left: 50px;
+  padding-left: 50px;
 }
 
 .dropdown-toggle:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .padding-top {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .padding-bottom {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .no-margin-top {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 .margin-right {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .margin-top {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .margin-bottom {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .img-shadow {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.bio-image {
+  max-width: 300px;
+  max-height: 300px;
 }
