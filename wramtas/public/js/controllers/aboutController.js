@@ -6,12 +6,4 @@ app.controller('aboutController', function($scope, biosService) {
   $scope.contactEmail = 'amtas.wr@gmail.com';
 
   $scope.years = '2015-2016';
-
-  biosService.getBios('reps').then(function(response) {
-    $scope.universityReps = response.data;
-  });
-
-  biosService.getBios('board').then(function(response) {
-    $scope.boardMembers = response.data;
-  });
 });

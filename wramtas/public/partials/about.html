@@ -6,12 +6,6 @@
   <h3>Executive Board Members {{years}}</h3>
   <img class="img-responsive img-shadow" src="../images/about/wramtas_board.jpg" />
 </div>
-<div class="clearfix margin-top margin-bottom" ng-repeat="bio in boardMembers">
-  <bio bio="bio" on-delete="bios.splice($index, 1)" type="reps">
-  </bio>
-</div>
+<bio-list type="board"></bio-list>
 <h3>University Representatives</h3>
-<div class="clearfix margin-top margin-bottom" ng-repeat="bio in universityReps">
-  <bio bio="bio" on-delete="bios.splice($index, 1)" type="reps">
-  </bio>
-</div>
+<bio-list type="reps"></bio-list>
