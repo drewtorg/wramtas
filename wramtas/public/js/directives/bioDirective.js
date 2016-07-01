@@ -8,7 +8,17 @@ app.directive('bio', function(biosService) {
       onDelete: '&',
     },
     controller: ['$scope', function($scope) {
+      $scope.uploader = {};
       $scope.bio.inEditMode = angular.isDefined($scope.bio.inEditMode) ? $scope.bio.inEditMode : false;
+
+      $scope.onFileUploadSuccess = function($message) {
+        var res = JSON.parse($message);
+        $scope.bio.image = angular.copy('images/' + res.filename);
+
+        biosService.saveBio($scope.type, $scope.bio).then(function(response) {
+          $scope.toggleEditMode();
+        });
+      };
 
       $scope.toggleEditMode = function() {
         $scope.bio.inEditMode = !$scope.bio.inEditMode;
@@ -30,15 +40,18 @@ app.directive('bio', function(biosService) {
           $scope.bio.name = angular.copy($scope.tempBio.name);
           $scope.bio.title = angular.copy($scope.tempBio.title);
           $scope.bio.email = angular.copy($scope.tempBio.email);
-          $scope.bio.image = angular.copy($scope.tempBio.image);
+          if ($scope.uploader.flow.files.length)
+            $scope.uploader.flow.upload();
+          else
+            biosService.saveBio($scope.type, $scope.bio).then(function(response) {
+              $scope.toggleEditMode();
+            });
         }
-
-        biosService.saveBio($scope.type, $scope.bio).then(function(response) {
-          $scope.toggleEditMode();
-        });
       };
 
       $scope.undoBio = function() {
+        $scope.uploader.flow.cancel();
+
         // this is the case when we are undoing after clicking edit
         if (angular.isDefined($scope.tempBio))
           $scope.tempBio = angular.copy($scope.bio);

@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
 var bios = require('./routes/bios');
+var images = require('./routes/images');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use('/users', users);
 app.use('/posts', posts);
 app.use('/bios', bios);
+app.use('/images', images);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');

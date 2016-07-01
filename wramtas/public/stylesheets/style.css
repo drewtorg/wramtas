@@ -44,3 +44,17 @@
   max-width: 300px;
   max-height: 300px;
 }
+
+input[type="file"] {
+  visibility: hidden;
+  position: absolute;
+}
+
+.file-upload {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.inline {
+  display: inline;
+}
