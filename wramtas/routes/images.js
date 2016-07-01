@@ -11,12 +11,8 @@ router.post('/', function(req, res, next) {
     if (err) {
       return res.end("Error uploading file.");
     }
-    res.end("File is uploaded");
+    res.json(req.files[0]);
   });
-});
-
-router.get('/', function(req, res, next) {
-  res.send("This is the one");
 });
 
 module.exports = router;

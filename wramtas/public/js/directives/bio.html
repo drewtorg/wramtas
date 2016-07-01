@@ -6,7 +6,7 @@
     <p ng-if="bio.email !== ''">Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a></p>
   </div>
 </div>
-<div flow-init flow-files-submitted="$flow.upload()" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" ng-show="bio.inEditMode">
+<div flow-init flow-name="uploader.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-file-success="onFileUploadSuccess($message)" ng-show="bio.inEditMode">
   <label for="name">Name:</label>
   <input type="text" class="form-control" ng-model="tempBio.name" id="name" />
   <label for="position">Board Position/University:</label>
@@ -15,7 +15,7 @@
   <input type="text" class="form-control" ng-model="tempBio.email" id="email" />
   <label for="about">About:</label>
   <textarea class="form-control" ng-model="tempBio.about" rows="7" id="about"></textarea>
-  <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn>Upload Image
+  <span class="btn btn-primary" ng-hide="$flow.files.length" flow-btn>Upload Image
     <input type="file" id="image" class="pull-right" flow-btn/>
   </span>
   <span class="btn btn-info" ng-show="$flow.files.length" flow-btn>Change
@@ -23,24 +23,9 @@
   </span>
   <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Remove
   </span>
-  <!-- <label for="image" class="file-upload btn btn-primary margin-top">Upload Image</label> -->
   <img class="img-responsive img-shadow bio-image inline margin-top" ng-show="$flow.files.length" flow-img="$flow.files[0]" />
+  <img class="img-responsive img-shadow bio-image inline margin-top" ng-hide="$flow.files.length" ng-src="{{tempBio.image}}" />
 </div>
-<!-- <div flow-init flow-name="uploader.flow" ng-show="bio.inEditMode">
-  <label for="name">Name:</label>
-  <input type="text" class="form-control" ng-model="tempBio.name" id="name" />
-  <label for="position">Board Position/University:</label>
-  <input type="text" class="form-control" ng-model="tempBio.title" id="position" />
-  <label for="email">Email Address:</label>
-  <input type="text" class="form-control" ng-model="tempBio.email" id="email" />
-  <label for="about">About:</label>
-  <textarea class="form-control" ng-model="tempBio.about" rows="7" id="about"></textarea>
-  <label for="image" class="file-upload btn btn-primary margin-top">Upload Image</label>
-  <form>
-    <input type="file" id="image" class="pull-right" flow-btn />
-    <img class="img-responsive img-shadow bio-image inline margin-top" flow-img="$flow.files[0]" />
-  </form>
-</div> -->
 <div>
   <button ng-hide="bio.inEditMode" class="btn btn-primary" ng-click="editBio()">
     Edit Bio <span class="glyphicon glyphicon-edit"></span>
