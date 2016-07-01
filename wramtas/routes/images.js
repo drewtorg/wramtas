@@ -2,7 +2,7 @@ var express = require('express');
 var multer = require('multer');
 var upload = multer({
   dest: './public/images/'
-}).single('userPhoto');
+}).any();
 
 var router = express.Router();
 

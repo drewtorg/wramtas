@@ -8,6 +8,8 @@ app.directive('bio', function(biosService) {
       onDelete: '&',
     },
     controller: ['$scope', function($scope) {
+      $scope.uploader = {};
+
       $scope.bio.inEditMode = angular.isDefined($scope.bio.inEditMode) ? $scope.bio.inEditMode : false;
 
       $scope.toggleEditMode = function() {
@@ -26,6 +28,8 @@ app.directive('bio', function(biosService) {
 
       $scope.saveBio = function() {
         if (angular.isDefined($scope.tempBio)) {
+          // $scope.uploader.flow.upload();
+          // console.log($scope.uploader.flow.files);
           $scope.bio.about = angular.copy($scope.tempBio.about);
           $scope.bio.name = angular.copy($scope.tempBio.name);
           $scope.bio.title = angular.copy($scope.tempBio.title);
