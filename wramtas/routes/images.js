@@ -1,5 +1,6 @@
 var express = require('express');
 var multer = require('multer');
+// TODO: limit on file size and file type
 var upload = multer({
   dest: './public/images/'
 }).any();
