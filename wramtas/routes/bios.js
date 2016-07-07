@@ -11,9 +11,10 @@ var getIdFromRequest = function(req) {
 // GET all bios
 router.get('/', function(req, res) {
   var Bio = mongoose.model(req.query.type + '_bios', bioSchema);
-  Bio.find({}, function(err, bios) {
+  Bio.find().sort('-createdAt').find(function(err, bios) {
     if (err) res.status(200).end();
-    res.json(bios);
+    else
+      res.json(bios);
   });
 });
 

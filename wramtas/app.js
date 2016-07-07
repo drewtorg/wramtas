@@ -16,6 +16,7 @@ var logout = require('./routes/logout');
 var register = require('./routes/register');
 var ping = require('./routes/ping');
 var bios = require('./routes/bios');
+var images = require('./routes/images');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use('/login', login);
 app.use('/logout', logout);
 app.use('/ping', ping);
 app.use('/bios', bios);
+app.use('/images', images);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
@@ -92,7 +94,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var server = app.listen(80, function() {
+var server = app.listen(3000, function() {
   console.log('Ready on port %d', server.address().port);
 });
 

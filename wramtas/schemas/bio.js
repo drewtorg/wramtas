@@ -9,6 +9,8 @@ var bioSchema = new Schema({
   about: String,
   image: String,
   email: String
+}, {
+  timestamps: true
 });
 
 // make this available to our users in our Node applications
