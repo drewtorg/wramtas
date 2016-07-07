@@ -8,15 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
-var users = require('./routes/users');
-var posts = require('./routes/posts');
-var login = require('./routes/login');
-var logout = require('./routes/logout');
-var register = require('./routes/register');
-var ping = require('./routes/ping');
-var bios = require('./routes/bios');
-var images = require('./routes/images');
+var fs = require('fs');
 
 var app = express();
 
@@ -39,16 +31,11 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, 'public')));
-// TODO: set up routing config file
-app.use('/users', users);
-app.use('/posts', posts);
-app.use('/register', register);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/ping', ping);
-app.use('/bios', bios);
-app.use('/images', images);
+var routePath = './routes/';
+fs.readdirSync(routePath).forEach(function(file) {
+  file = file.split('.js')[0];
+  app.use('/' + file, require(routePath + file));
+});
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
