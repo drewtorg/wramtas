@@ -1,5 +1,7 @@
 ﻿
 var express = require('express');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -17,17 +19,31 @@ app.set('json spaces', 2);
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
+// database setup
+mongoose.connect('mongodb://localhost/wramtas');
+
+// Passport does not directly manage your session, it only uses the session.
+// So you configure session attributes (e.g. life of your session) via express
+var sessionOpts = {
+  saveUninitialized: true, // saved new sessions
+  resave: false, // do not automatically write to the session store
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  }),
+  secret: 'keyboard cat',
+  cookie: {
+    httpOnly: true,
+    maxAge: 2419200000
+  } // configure when sessions expires
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
-app.use(require('express-session')({
-  // TODO: make a secret based on system variables
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(cookieParser('keyboard cat'));
+app.use(session(sessionOpts));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,9 +62,6 @@ var Account = require('./models/account');
 passport.use(Account.createStrategy());
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
-
-// database setup
-mongoose.connect('mongodb://localhost/wramtas');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

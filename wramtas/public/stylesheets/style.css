@@ -58,3 +58,7 @@ input[type="file"] {
 .inline {
   display: inline;
 }
+
+.pointer {
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow']);
+var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow', 'ngCookies']);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider

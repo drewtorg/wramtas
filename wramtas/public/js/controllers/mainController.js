@@ -1,5 +1,5 @@
 ﻿
-app.controller('mainController', function($scope, $location, $http) {
+app.controller('mainController', function($scope, $location, $http, $cookies) {
   $scope.tabs = [{
     href: '/about',
     title: 'About'
@@ -56,11 +56,14 @@ app.controller('mainController', function($scope, $location, $http) {
   };
 
   $scope.logIn = function(form) {
-    console.log(form.username);
-    console.log(form.password);
+    $http.post('/login', form).then(function(response) {
+      $cookies.put('session', angular.toJson(response.data));
+    });
   };
 
   $scope.register = function(form) {
-    return $http.post('/register', form);
+    $http.post('/register', form).then(function(response) {
+      $cookies.session = angular.toJson(response.data);
+    });
   };
 });

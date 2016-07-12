@@ -5,10 +5,13 @@ var router = express.Router();
 
 router.post('/', function(req, res, next) {
   Account.register(new Account({
-    username: req.body.username
+    username: req.body.username,
+    role: 'user'
   }), req.body.password, function(err, account) {
     if (err) {
-      res.redirect('/');
+      res.json({
+        error: err
+      });
     }
 
     passport.authenticate('local')(req, res, function() {
@@ -16,7 +19,7 @@ router.post('/', function(req, res, next) {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        res.json(req.session);
       });
     });
   });

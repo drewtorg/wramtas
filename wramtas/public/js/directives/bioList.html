@@ -1,4 +1,4 @@
-<button class="btn btn-primary margin-top" ng-click="addBio()">
+<button class="btn btn-primary margin-top" ng-if="isAdmin()" ng-click="isAdmin()">
   Add Bio <span class="glyphicon glyphicon-plus"></span>
 </button>
 <div class="clearfix" ng-repeat="bio in bios">
