@@ -72,6 +72,6 @@ app.controller('mainController', function($scope, $location, $http, $cookies, au
   };
 
   $scope.getUsername = function() {
-    return angular.fromJson($cookies.get('session')).passport.user;
+    return angular.fromJson($cookies.get('session')).username;
   };
 });

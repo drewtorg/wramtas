@@ -1,4 +1,4 @@
-app.directive('blogPost', function($sce, postsService) {
+app.directive('blogPost', function($sce, postsService, authService) {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/blogPost.html',
@@ -50,6 +50,10 @@ app.directive('blogPost', function($sce, postsService) {
         },
         post: function(scope, iElem, iAttrs) {
           scope.post.inEditMode = angular.isDefined(scope.post.inEditMode) ? scope.post.inEditMode : false;
+
+          scope.isAdmin = function() {
+            return authService.isAdmin();
+          };
 
           // TODO: Test to make sure no XSS can happen here!
           scope.trustAsHtml = function(string) {

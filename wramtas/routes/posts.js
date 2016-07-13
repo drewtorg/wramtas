@@ -38,7 +38,6 @@ router.post('/', function(req, res) {
   });
   newPost.save(function(err, post) {
     if (err) {
-      console.log(err);
       return err;
     }
     res.json(post);

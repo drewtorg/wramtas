@@ -6,7 +6,7 @@
     <p ng-if="bio.email !== ''">Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a></p>
   </div>
 </div>
-<div flow-init flow-name="uploader.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-file-success="onFileUploadSuccess($message)" ng-show="bio.inEditMode">
+<div ng-if="isAdmin()" flow-init flow-name="uploader.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-file-success="onFileUploadSuccess($message)" ng-show="bio.inEditMode">
   <label for="name">Name:</label>
   <input type="text" class="form-control" ng-model="tempBio.name" id="name" />
   <label for="position">Board Position/University:</label>
@@ -26,7 +26,7 @@
   <img class="img-responsive img-shadow bio-image inline margin-top" ng-show="$flow.files.length" flow-img="$flow.files[0]" />
   <img class="img-responsive img-shadow bio-image inline margin-top" ng-hide="$flow.files.length" ng-src="{{tempBio.image}}" />
 </div>
-<div>
+<div ng-if="isAdmin()">
   <button ng-hide="bio.inEditMode" class="btn btn-primary" ng-click="editBio()">
     Edit Bio <span class="glyphicon glyphicon-edit"></span>
   </button>
@@ -34,7 +34,7 @@
     Delete Bio <span class="glyphicon glyphicon-trash"></span>
   </button>
 </div>
-<div class="margin-top">
+<div class="margin-top" ng-if="isAdmin()">
   <button ng-show="bio.inEditMode" class="btn btn-success" ng-click="saveBio()">
     Save Bio <span class="glyphicon glyphicon-floppy-disk"></span>
   </button>

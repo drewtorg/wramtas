@@ -5,8 +5,7 @@ var router = express.Router();
 
 router.post('/', function(req, res, next) {
   Account.register(new Account({
-    username: req.body.username,
-    role: 'user'
+    username: req.body.username
   }), req.body.password, function(err, account) {
     if (err) {
       res.json({
@@ -19,7 +18,7 @@ router.post('/', function(req, res, next) {
         if (err) {
           return next(err);
         }
-        res.json(req.session);
+        res.json(req.user);
       });
     });
   });

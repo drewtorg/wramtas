@@ -1,5 +1,5 @@
 <div>
-  <div>
+  <div ng-if="isAdmin()">
     <button ng-hide="post.inEditMode" class="btn btn-primary" ng-click="editPost()">
       Edit Post <span class="glyphicon glyphicon-edit"></span>
     </button>
@@ -7,7 +7,7 @@
       Delete Post <span class="glyphicon glyphicon-trash"></span>
     </button>
   </div>
-  <div class="margin-top">
+  <div class="margin-top" ng-if="isAdmin()">
     <button ng-show="post.inEditMode" class="btn btn-success" ng-click="savePost()">
       Save Post <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>

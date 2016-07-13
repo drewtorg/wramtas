@@ -1,4 +1,4 @@
-app.directive('blog', function($sce, postsService) {
+app.directive('blog', function($sce, postsService, authService) {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/blog.html',
@@ -9,6 +9,10 @@ app.directive('blog', function($sce, postsService) {
       postsService.getPosts($scope.page).then(function(response) {
         $scope.posts = response.data;
       });
+
+      $scope.isAdmin = function() {
+        return authService.isAdmin();
+      };
 
       $scope.addBlogPost = function() {
         var newPost = {
