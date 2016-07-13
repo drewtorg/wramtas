@@ -10,11 +10,6 @@ app.directive('bioList', function(biosService, $cookies) {
         $scope.bios = res.data;
       });
 
-      $scope.isAdmin = function() {
-        console.log(angular.fromJson($cookies.get('session')).role);
-        return angular.fromJson($cookies.get('session')).role === 'admin';
-      }
-
       $scope.addBio = function() {
         var newBio = {
           inEditMode: true,

@@ -1,5 +1,5 @@
 ﻿
-app.controller('mainController', function($scope, $location, $http, $cookies) {
+app.controller('mainController', function($scope, $location, $http, $cookies, authService) {
   $scope.tabs = [{
     href: '/about',
     title: 'About'
@@ -56,14 +56,22 @@ app.controller('mainController', function($scope, $location, $http, $cookies) {
   };
 
   $scope.logIn = function(form) {
-    $http.post('/login', form).then(function(response) {
-      $cookies.put('session', angular.toJson(response.data));
-    });
+    authService.logIn(form);
   };
 
   $scope.register = function(form) {
-    $http.post('/register', form).then(function(response) {
-      $cookies.session = angular.toJson(response.data);
-    });
+    authService.register(form);
+  };
+
+  $scope.isLoggedIn = function() {
+    return authService.isLoggedIn();
+  };
+
+  $scope.logout = function() {
+    authService.logout();
+  };
+
+  $scope.getUsername = function() {
+    return angular.fromJson($cookies.get('session')).passport.user;
   };
 });

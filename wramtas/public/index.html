@@ -27,21 +27,22 @@
     <script src="js/configs/flow.js"></script>
 
     <!-- Services -->
-    <script src="js/services/postsService.js"></script>
+    <script src="js/services/authService.js"></script>
     <script src="js/services/biosService.js"></script>
+    <script src="js/services/postsService.js"></script>
 
     <!-- Controlllers -->
     <script src="js/controllers/mainController.js"></script>
-    <script src="js/controllers/affiliateController.js"></script>
-    <script src="js/controllers/conferenceController.js"></script>
-    <script src="js/controllers/scholarshipsController.js"></script>
-    <script src="js/controllers/donateController.js"></script>
-    <script src="js/controllers/candidateController.js"></script>
-    <script src="js/controllers/nominateController.js"></script>
-    <script src="js/controllers/homeController.js"></script>
-    <script src="js/controllers/profileController.js"></script>
-    <script src="js/controllers/spotlightController.js"></script>
     <script src="js/controllers/aboutController.js"></script>
+    <script src="js/controllers/affiliateController.js"></script>
+    <script src="js/controllers/candidateController.js"></script>
+    <script src="js/controllers/conferenceController.js"></script>
+    <script src="js/controllers/donateController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/nominateController.js"></script>
+    <script src="js/controllers/profileController.js"></script>
+    <script src="js/controllers/scholarshipsController.js"></script>
+    <script src="js/controllers/spotlightController.js"></script>
 
     <!-- Directives -->
     <script src="js/directives/blogPostDirective.js"></script>
@@ -79,7 +80,7 @@
         <div class="row">
           <div class="col-md-2">
             <!-- TODO: consider making this a directive -->
-            <form ng-submit="logIn(form)">
+            <form ng-if="!isLoggedIn()" ng-submit="logIn(form)">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Username" ng-model="form.username" />
                 <br/>
@@ -89,6 +90,12 @@
                 <a class="pointer" ng-click="register(form)">Register</a>
               </div>
             </form>
+            <div ng-if="isLoggedIn()">
+              <p>
+                Welcome, {{ getUsername() }}
+                <a class="pointer" ng-click="logout()">Logout</a>
+              </p>
+            </div>
           </div>
           <div class="col-md-8" ng-view></div>
           <div class="col-md-2"></div>
