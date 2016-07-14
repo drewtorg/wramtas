@@ -31,7 +31,7 @@
     <script src="js/services/biosService.js"></script>
     <script src="js/services/postsService.js"></script>
 
-    <!-- Controlllers -->
+    <!-- Controllers -->
     <script src="js/controllers/mainController.js"></script>
     <script src="js/controllers/aboutController.js"></script>
     <script src="js/controllers/affiliateController.js"></script>
@@ -81,7 +81,7 @@
           <div class="col-md-2">
             <!-- TODO: consider making this a directive -->
             <form ng-if="!isLoggedIn()" ng-submit="logIn(form)">
-              <div class="form-group">
+              <div class="form-group login-box">
                 <input type="text" class="form-control" placeholder="Username" ng-model="form.username" />
                 <br/>
                 <input type="password" class="form-control" placeholder="Password" ng-model="form.password" />
@@ -90,11 +90,9 @@
                 <a class="pointer" ng-click="register(form)">Register</a>
               </div>
             </form>
-            <div ng-if="isLoggedIn()">
-              <p>
-                Welcome, {{ getUsername() }}
-                <a class="pointer" ng-click="logout()">Logout</a>
-              </p>
+            <div ng-if="isLoggedIn()" class="login-box">
+              <p>Welcome, {{ getUsername() }}!</p>
+              <a class="pointer" ng-click="logout()">Logout</a>
             </div>
           </div>
           <div class="col-md-8" ng-view></div>
