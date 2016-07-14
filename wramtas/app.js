@@ -1,44 +1,67 @@
 ﻿
 var express = require('express');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
-var users = require('./routes/users');
-var posts = require('./routes/posts');
-var bios = require('./routes/bios');
-var images = require('./routes/images');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var fs = require('fs');
 
 var app = express();
 
-// database setup
-mongoose.connect('mongodb://localhost/wramtas');
-
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 app.set('json spaces', 2);
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
+// database setup
+mongoose.connect('mongodb://localhost/wramtas');
+
+// Passport does not directly manage your session, it only uses the session.
+// So you configure session attributes (e.g. life of your session) via express
+var sessionOpts = {
+  saveUninitialized: true, // saved new sessions
+  resave: false, // do not automatically write to the session store
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  }),
+  secret: 'keyboard cat',
+  cookie: {
+    httpOnly: true,
+    maxAge: 2419200000
+  } // configure when sessions expires
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(cookieParser('keyboard cat'));
+app.use(session(sessionOpts));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/users', users);
-app.use('/posts', posts);
-app.use('/bios', bios);
-app.use('/images', images);
+var routePath = './routes/';
+fs.readdirSync(routePath).forEach(function(file) {
+  file = file.split('.js')[0];
+  app.use('/' + file, require(routePath + file));
+});
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+// passport config
+var Account = require('./models/account');
+passport.use(Account.createStrategy());
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

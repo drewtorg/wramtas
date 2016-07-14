@@ -58,3 +58,18 @@ input[type="file"] {
 .inline {
   display: inline;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.info {
+    max-width: 85%;
+}
+
+.login-box {
+  padding: 15px;
+  border: 1px solid #BABABA;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}

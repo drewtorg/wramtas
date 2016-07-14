@@ -1,3 +1,4 @@
-﻿app.controller('conferenceController', function ($scope) {
-	$scope.message = 'Conferences!';
+﻿
+app.controller('conferenceController', function($scope) {
+
 });

@@ -1,4 +1,4 @@
-app.directive('blogPost', function($sce, postsService) {
+app.directive('blogPost', function($sce, postsService, authService) {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/blogPost.html',
@@ -51,6 +51,10 @@ app.directive('blogPost', function($sce, postsService) {
         post: function(scope, iElem, iAttrs) {
           scope.post.inEditMode = angular.isDefined(scope.post.inEditMode) ? scope.post.inEditMode : false;
 
+          scope.isAdmin = function() {
+            return authService.isAdmin();
+          };
+
           // TODO: Test to make sure no XSS can happen here!
           scope.trustAsHtml = function(string) {
             return $sce.trustAsHtml(string);
@@ -91,7 +95,6 @@ app.directive('blogPost', function($sce, postsService) {
             if (angular.isDefined(scope.tempPost))
               scope.post.html = angular.copy(scope.tempPost.html);
 
-            console.log(scope.page);
             postsService.savePost(scope.page, scope.post).then(function(response) {
               scope.post.datePosted = response.data.datePosted;
               scope.post.dateModified = response.data.dateModified;

@@ -1,4 +1,4 @@
-app.directive('bioList', function(biosService) {
+app.directive('bioList', function(biosService, $cookies, authService) {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/bioList.html',
@@ -9,6 +9,10 @@ app.directive('bioList', function(biosService) {
       biosService.getBios($scope.type).then(function(res) {
         $scope.bios = res.data;
       });
+
+      $scope.isAdmin = function() {
+        return authService.isAdmin();
+      };
 
       $scope.addBio = function() {
         var newBio = {

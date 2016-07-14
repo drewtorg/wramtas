@@ -7,6 +7,7 @@
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
     <script src="node_modules/ng-flow/dist/ng-flow-standalone.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -26,21 +27,22 @@
     <script src="js/configs/flow.js"></script>
 
     <!-- Services -->
-    <script src="js/services/postsService.js"></script>
+    <script src="js/services/authService.js"></script>
     <script src="js/services/biosService.js"></script>
+    <script src="js/services/postsService.js"></script>
 
-    <!-- Controlllers -->
+    <!-- Controllers -->
     <script src="js/controllers/mainController.js"></script>
-    <script src="js/controllers/affiliateController.js"></script>
-    <script src="js/controllers/conferenceController.js"></script>
-    <script src="js/controllers/scholarshipsController.js"></script>
-    <script src="js/controllers/donateController.js"></script>
-    <script src="js/controllers/candidateController.js"></script>
-    <script src="js/controllers/nominateController.js"></script>
-    <script src="js/controllers/homeController.js"></script>
-    <script src="js/controllers/profileController.js"></script>
-    <script src="js/controllers/spotlightController.js"></script>
     <script src="js/controllers/aboutController.js"></script>
+    <script src="js/controllers/affiliateController.js"></script>
+    <script src="js/controllers/candidateController.js"></script>
+    <script src="js/controllers/conferenceController.js"></script>
+    <script src="js/controllers/donateController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/nominateController.js"></script>
+    <script src="js/controllers/profileController.js"></script>
+    <script src="js/controllers/scholarshipsController.js"></script>
+    <script src="js/controllers/spotlightController.js"></script>
 
     <!-- Directives -->
     <script src="js/directives/blogPostDirective.js"></script>
@@ -57,6 +59,7 @@
     <div>
       <div>
         <img src="images/WRAMTAS.png" class="logo img-responsive center-block" />
+        <!-- TODO: consider making this a directive -->
         <nav class="navbar navbar-inverse" role="navigation">
           <a class="navbar-brand" href="/">WRAMTAS</a>
           <ul class="nav navbar-nav">
@@ -76,16 +79,21 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2">
-            <!-- <form ng-submit="logIn(form)">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" ng-model="form.username"/>
-                            <br/>
-                            <input type="password" class="form-control" placeholder="Password" ng-model="form.password"/>
-                            <br/>
-                            <input type="submit" class="btn btn-primary" value="Log in"/>
-                            <a href="/register">Register</a>
-                        </div>
-                    </form> -->
+            <!-- TODO: consider making this a directive -->
+            <form ng-if="!isLoggedIn()" ng-submit="logIn(form)">
+              <div class="form-group login-box">
+                <input type="text" class="form-control" placeholder="Username" ng-model="form.username" />
+                <br/>
+                <input type="password" class="form-control" placeholder="Password" ng-model="form.password" />
+                <br/>
+                <input type="submit" class="btn btn-primary" value="Log in" />
+                <a class="pointer" ng-click="register(form)">Register</a>
+              </div>
+            </form>
+            <div ng-if="isLoggedIn()" class="login-box">
+              <p>Welcome, {{ getUsername() }}!</p>
+              <a class="pointer" ng-click="logout()">Logout</a>
+            </div>
           </div>
           <div class="col-md-8" ng-view></div>
           <div class="col-md-2"></div>

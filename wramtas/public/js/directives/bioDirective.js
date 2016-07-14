@@ -1,4 +1,4 @@
-app.directive('bio', function(biosService) {
+app.directive('bio', function(biosService, authService) {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/bio.html',
@@ -10,6 +10,10 @@ app.directive('bio', function(biosService) {
     controller: ['$scope', function($scope) {
       $scope.uploader = {};
       $scope.bio.inEditMode = angular.isDefined($scope.bio.inEditMode) ? $scope.bio.inEditMode : false;
+
+      $scope.isAdmin = function() {
+        return authService.isAdmin();
+      };
 
       $scope.onFileUploadSuccess = function($message) {
         var res = JSON.parse($message);
