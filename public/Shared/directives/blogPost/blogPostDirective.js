@@ -1,7 +1,7 @@
 app.directive('blogPost', function($sce, postsService, authService) {
   return {
     restrict: 'E',
-    templateUrl: 'shared/directives/blogPost/blogPost.html',
+    templateUrl: 'Shared/directives/blogPost/blogPost.html',
     scope: {
       post: '=',
       page: '=',

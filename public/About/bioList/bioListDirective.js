@@ -1,7 +1,7 @@
 app.directive('bioList', function(biosService, $cookies, authService) {
   return {
     restrict: 'E',
-    templateUrl: 'about/bioList/bioList.html',
+    templateUrl: 'About/bioList/bioList.html',
     scope: {
       type: '@'
     },
