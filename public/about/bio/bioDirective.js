@@ -1,7 +1,7 @@
 app.directive('bio', function(biosService, authService) {
   return {
     restrict: 'E',
-    templateUrl: 'js/directives/bio.html',
+    templateUrl: 'js/directives/bio/bio.html',
     scope: {
       bio: '=',
       type: '@',
