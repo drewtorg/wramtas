@@ -4,43 +4,43 @@ var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', '
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'Home/home.html',
+      templateUrl: 'pages/Home/home.html',
       controller: 'homeController'
     })
     .when('/about', {
-      templateUrl: 'About/about.html',
+      templateUrl: 'pages/About/about.html',
       controller: 'aboutController'
     })
     .when('/affiliates', {
-      templateUrl: 'Affiliates/affiliates.html',
+      templateUrl: 'pages/Affiliates/affiliates.html',
       controller: 'affiliatesController'
     })
     .when('/conference', {
-      templateUrl: 'Conference/conference.html',
+      templateUrl: 'pages/Conference/conference.html',
       controller: 'conferenceController'
     })
     .when('/scholarships', {
-      templateUrl: 'Scholarships/scholarships.html',
+      templateUrl: 'pages/Scholarships/scholarships.html',
       controller: 'scholarshipsController'
     })
     .when('/spotlight', {
-      templateUrl: 'Spotlight/spotlight.html',
+      templateUrl: 'pages/Spotlight/spotlight.html',
       controller: 'spotlightController'
     })
     .when('/profile', {
-      templateUrl: 'Profile/profile.html',
+      templateUrl: 'pages/Profile/profile.html',
       controller: 'profileController'
     })
     .when('/candidates', {
-      templateUrl: 'Candidates/candidates.html',
+      templateUrl: 'pages/Candidates/candidates.html',
       controller: 'candidatesController'
     })
     .when('/nominate', {
-      templateUrl: 'Nominate/nominate.html',
+      templateUrl: 'pages/Nominate/nominate.html',
       controller: 'nominateController'
     })
     .when('/donate', {
-      templateUrl: 'Donate/donate.html',
+      templateUrl: 'pages/Donate/donate.html',
       controller: 'donateController'
     })
     .otherwise('/');
