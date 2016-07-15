@@ -14,41 +14,41 @@
 
     <!-- Text Editor -->
     <script src="node_modules/tinymce/tinymce.min.js"></script>
-    <script src="js/components/tinymce.js"></script>
+    <script src="components/tinymce.js"></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/style.css">
 
     <!-- App file -->
-    <script src="js/app.js"></script>
+    <script src="app.js"></script>
 
     <!--  Configs -->
-    <script src="js/configs/flow.js"></script>
+    <script src="configs/flow.js"></script>
 
     <!-- Services -->
-    <script src="js/services/authService.js"></script>
-    <script src="js/services/biosService.js"></script>
-    <script src="js/services/postsService.js"></script>
+    <script src="about/biosService.js"></script>
+    <script src="shared/services/authService.js"></script>
+    <script src="shared/services/postsService.js"></script>
 
     <!-- Controllers -->
-    <script src="js/controllers/mainController.js"></script>
-    <script src="js/controllers/aboutController.js"></script>
-    <script src="js/controllers/affiliateController.js"></script>
-    <script src="js/controllers/candidateController.js"></script>
-    <script src="js/controllers/conferenceController.js"></script>
-    <script src="js/controllers/donateController.js"></script>
-    <script src="js/controllers/homeController.js"></script>
-    <script src="js/controllers/nominateController.js"></script>
-    <script src="js/controllers/profileController.js"></script>
-    <script src="js/controllers/scholarshipsController.js"></script>
-    <script src="js/controllers/spotlightController.js"></script>
+    <script src="mainController.js"></script>
+    <script src="about/aboutController.js"></script>
+    <script src="affiliates/affiliatesController.js"></script>
+    <script src="candidates/candidatesController.js"></script>
+    <script src="conference/conferenceController.js"></script>
+    <script src="donate/donateController.js"></script>
+    <script src="home/homeController.js"></script>
+    <script src="nominate/nominateController.js"></script>
+    <script src="profile/profileController.js"></script>
+    <script src="scholarships/scholarshipsController.js"></script>
+    <script src="spotlight/spotlightController.js"></script>
 
     <!-- Directives -->
-    <script src="js/directives/blogPostDirective.js"></script>
-    <script src="js/directives/blogDirective.js"></script>
-    <script src="js/directives/bioDirective.js"></script>
-    <script src="js/directives/bioListDirective.js"></script>
+    <script src="shared/directives/blogPost/blogPostDirective.js"></script>
+    <script src="shared/directives/blog/blogDirective.js"></script>
+    <script src="about/bio/bioDirective.js"></script>
+    <script src="about/bioList/bioListDirective.js"></script>
 
     <!-- base setting for HTML5 routes -->
     <base href="/" />
@@ -58,7 +58,7 @@
   <body ng-controller="mainController">
     <div>
       <div>
-        <img src="images/WRAMTAS.png" class="logo img-responsive center-block" />
+        <img src="WRAMTAS.png" class="logo img-responsive center-block" />
         <!-- TODO: consider making this a directive -->
         <nav class="navbar navbar-inverse" role="navigation">
           <a class="navbar-brand" href="/">WRAMTAS</a>
