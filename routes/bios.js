@@ -37,10 +37,7 @@ router.post('/', function(req, res) {
     email: ''
   });
   newBio.save(function(err, bio) {
-    if (err) {
-      console.log(err);
-      return err;
-    }
+    if (err) return err;
     res.json(bio);
   });
 });

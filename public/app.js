@@ -4,43 +4,43 @@ var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', '
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: '../partials/home.html',
+      templateUrl: 'pages/Home/home.html',
       controller: 'homeController'
     })
     .when('/about', {
-      templateUrl: '../partials/about.html',
+      templateUrl: 'pages/About/about.html',
       controller: 'aboutController'
     })
     .when('/affiliates', {
-      templateUrl: '../partials/affiliates.html',
-      controller: 'affiliateController'
+      templateUrl: 'pages/Affiliates/affiliates.html',
+      controller: 'affiliatesController'
     })
     .when('/conference', {
-      templateUrl: '../partials/conference.html',
+      templateUrl: 'pages/Conference/conference.html',
       controller: 'conferenceController'
     })
     .when('/scholarships', {
-      templateUrl: '../partials/scholarships.html',
+      templateUrl: 'pages/Scholarships/scholarships.html',
       controller: 'scholarshipsController'
     })
     .when('/spotlight', {
-      templateUrl: '../partials/spotlight.html',
+      templateUrl: 'pages/Spotlight/spotlight.html',
       controller: 'spotlightController'
     })
     .when('/profile', {
-      templateUrl: '../partials/profile.html',
+      templateUrl: 'pages/Profile/profile.html',
       controller: 'profileController'
     })
     .when('/candidates', {
-      templateUrl: '../partials/candidates.html',
-      controller: 'candidateController'
+      templateUrl: 'pages/Candidates/candidates.html',
+      controller: 'candidatesController'
     })
     .when('/nominate', {
-      templateUrl: '../partials/nominate.html',
+      templateUrl: 'pages/Nominate/nominate.html',
       controller: 'nominateController'
     })
     .when('/donate', {
-      templateUrl: '../partials/donate.html',
+      templateUrl: 'pages/Donate/donate.html',
       controller: 'donateController'
     })
     .otherwise('/');

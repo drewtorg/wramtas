@@ -1,5 +1,4 @@
-﻿
-app.controller('mainController', function($scope, $location, $http, $cookies, authService) {
+﻿app.controller('mainController', function($scope, $location, $http, $cookies, authService) {
   $scope.tabs = [{
     href: '/about',
     title: 'About'
@@ -15,7 +14,7 @@ app.controller('mainController', function($scope, $location, $http, $cookies, au
     }, {
       href: '/scholarships',
       title: 'Conference Scholarships'
-    }, ]
+    }]
   }, {
     href: '/elections',
     title: 'Elections',
@@ -25,14 +24,14 @@ app.controller('mainController', function($scope, $location, $http, $cookies, au
     }, {
       href: '/candidates',
       title: 'Candidates'
-    }, ]
+    }]
   }, {
     href: '/spotlight',
     title: 'Spotlight'
   }, {
     href: '/profile',
     title: 'My WRAMTAS Profile'
-  }, ];
+  }];
 
   $scope.form = {
     username: '',
@@ -42,8 +41,8 @@ app.controller('mainController', function($scope, $location, $http, $cookies, au
   $scope.isActive = function(tab) {
     if (tab.href === $location.path())
       return true;
-    if (tab.hasOwnProperty('subtabs')) {
-      for (i in tab.subtabs) {
+    if ('subtabs' in tab) {
+      for (var i in tab.subtabs) {
         if (tab.subtabs[i].href === $location.path())
           return true;
       }
@@ -52,7 +51,7 @@ app.controller('mainController', function($scope, $location, $http, $cookies, au
   };
 
   $scope.isDropdown = function(tab) {
-    return tab.hasOwnProperty('subtabs');
+    return 'subtabs' in tab;
   };
 
   $scope.logIn = function(form) {
