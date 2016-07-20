@@ -1,4 +1,4 @@
-﻿
+﻿/* eslint no-sync: "off" */
 var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -9,7 +9,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var fs = require('fs');
 
 var app = express();
@@ -17,7 +16,7 @@ var app = express();
 // view engine setup
 app.set('json spaces', 2);
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use(logger('dev'));
 
 // database setup
@@ -49,12 +48,12 @@ app.use(passport.session());
 
 var routePath = './routes/';
 fs.readdirSync(routePath).forEach(function(file) {
-  file = file.split('.js')[0];
-  app.use('/' + file, require(routePath + file));
+  var name = file.split('.js')[0];
+  app.use('/' + name, require(routePath + name)); // eslint-disable-line global-require
 });
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
-  res.sendFile(__dirname + '/public/pages/index.html');
+  res.sendFile(path.join(__dirname, '/public/pages/index.html'));
 });
 
 // passport config
