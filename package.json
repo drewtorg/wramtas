@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "install": "cd public && npm install",
-    "start": "node ./bin/www"
+    "start": "sudo service mongod start && sudo nodemon ./app.js"
   },
   "description": "wramtas",
   "author": {
