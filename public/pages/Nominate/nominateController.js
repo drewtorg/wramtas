@@ -1,24 +1,25 @@
-﻿app.controller('nominateController', function($scope) {
+﻿app.controller('nominateController', function($scope, nominateService, universitiesService, positionsService) {
   $scope.message = 'Nominations for the 2017-2018 WRAMTAS board will open on February 13th, 2017 and close on March 13th, 2017';
 
   $scope.form = {};
+  $scope.universities = {};
+  $scope.positions = {};
 
-  $scope.universities = [{
-    id: 1,
-    name: 'Utah State University'
-  }, {
-    id: 2,
-    name: 'Marylhurst University'
-  }];
+  universitiesService.getUniversities().then(function(response) {
+    $scope.universities = response.data;
+    for (var i = 1; i <= $scope.universities.length; i += 1)
+      $scope.universities[i - 1].id = i;
+    $scope.form.university = $scope.universities[0];
+  });
 
-  $scope.positions = [{
-    id: 1,
-    name: 'President'
-  }, {
-    id: 2,
-    name: 'Under-President'
-  }];
+  positionsService.getPositions().then(function(response) {
+    $scope.positions = response.data;
+    for (var i = 1; i <= $scope.positions.length; i += 1)
+      $scope.positions[i - 1].id = i;
+    $scope.form.position = $scope.positions[0];
+  });
 
-  $scope.form.position = $scope.positions[0];
-  $scope.form.university = $scope.universities[0];
+  $scope.submitNomination = function(form) {
+    nominateService.sendNominationEmail(form);
+  };
 });
