@@ -1,0 +1,24 @@
+<h2>Application for the Executive Board</h2>
+<p>
+  Remember, only members of the AMTA can hold positions on the Executive Board. If you are not a member of the AMTA, your application will be rejected.
+</p>
+<form class="form-group" ng-submit="submitApplication(form)">
+  <input type="text" class="form-control margin-bottom" placeholder="Full Name" ng-model="form.name" />
+  <select class="form-control margin-bottom" ng-model="form.university" ng-options="option.name for option in universities track by option.id"></select>
+  <select class="form-control margin-bottom" ng-model="form.position" ng-options="option.title for option in positions track by option.id"> </select>
+  <input type="text" class="form-control margin-bottom" placeholder="Email Address" ng-model="form.email" />
+  <input type="text" class="form-control margin-bottom" placeholder="AMTA Membership Number" ng-model="form.amtaId" />
+  <!-- TODO: Add support for uploading a resume.
+    This needs to be a file upload control.  Consider doing re-using code from image uploads.
+    <input type="text" class="form-control margin-bottom" placeholder="Resumè" ng-model="form.amtaId" />
+  -->
+  <!-- TODO: Add support for uploading a video.
+    This needs to be a file upload control.  Consider doing re-using code from image uploads.
+    <input type="text" class="form-control margin-bottom" placeholder="Video" ng-model="form.amtaId" />
+  -->
+  <!-- We could probably use the same WYSIWYG editor from the posts for this. -->
+  <input type="text" class="form-control margin-bottom" placeholder="Bio" ng-model="form.bio" />
+  <button class="btn btn-primary" value="Submit Application">Save Application</button>
+  <input type="submit" class="btn btn-primary" value="Submit Application" />
+</form>
+<pre class="alert alert-info" ng-show="showDisclaimer">{{disclaimer}}</pre>
