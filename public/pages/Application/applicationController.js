@@ -3,7 +3,7 @@ app.controller('applicationController', function($scope, $routeParams, applicati
   $scope.universities = {};
   $scope.positions = {};
   $scope.showNotice = false;
-  $scope.submitNotice = 'Thank for for submitting your application! The WRAMTAS Executive Board will review all applications on March 13th, 2017 to make sure it contains accurate and appropriate information.  Come back to http://wramsat.org/ after that date to see all the accepted applications.';
+  $scope.submitNotice = 'Thank for for submitting your application! The WRAMTAS Executive Board will review all applications on March 13th, 2017 to make sure it contains accurate and appropriate information.  Come back to http://wramtas.org/ after that date to see all the accepted applications.';
   $scope.saveNotice = 'You have saved your application, but it is not yet submitted.  When you are ready, submit your application for final review by hitting the "Submit Application" button.';
   $scope.errorNotice = 'Your application could not be found.  Please check that you have used the correct link.  If this doesn\'t work, nominate yourself and try the new application sent to you.';
   $scope.application = {};

@@ -10,8 +10,14 @@ var Application = new Schema({
   resume: String,
   video: String,
   bio: String,
-  approved: Boolean,
-  submitted: Boolean
+  approved: {
+    type: Boolean,
+    default: false
+  },
+  submitted: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('Application', Application);
