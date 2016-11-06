@@ -1,26 +1,28 @@
 <h2>Application for the Executive Board</h2>
 <div ng-show="application">
-  <p>
-    Remember, only members of the AMTA can hold positions on the Executive Board. If you are not a member of the AMTA, your application will be rejected.
-  </p>
-  <form class="form-group" ng-submit="submitApplication(application)">
-    <input type="text" class="form-control margin-bottom" placeholder="Full Name" ng-model="application.name" />
-    <select class="form-control margin-bottom" ng-model="application.university" ng-options="option.name for option in universities track by option.id"></select>
-    <select class="form-control margin-bottom" ng-model="application.position" ng-options="option.title for option in positions track by option.id"> </select>
-    <input type="text" class="form-control margin-bottom" placeholder="Email Address" ng-model="application.email" />
-    <input type="text" class="form-control margin-bottom" placeholder="AMTA Membership Number" ng-model="application.amtaId" />
-    <!-- TODO: Add support for uploading a resume.
+  <div class="alert alert-info" ng-show="showNotice">{{notice}}</div>
+  <div ng-show="isValidApplication()">
+    <p>
+      Remember, only members of the AMTA can hold positions on the Executive Board. If you are not a member of the AMTA, your application will be rejected.
+    </p>
+    <form class="form-group" ng-submit="submitApplication(application)">
+      <input type="text" class="form-control margin-bottom" placeholder="Full Name" ng-model="application.name" />
+      <select class="form-control margin-bottom" ng-model="application.university" ng-options="option.name for option in universities track by option.id"></select>
+      <select class="form-control margin-bottom" ng-model="application.position" ng-options="option.title for option in positions track by option.id"> </select>
+      <input type="text" class="form-control margin-bottom" placeholder="Email Address" ng-model="application.email" />
+      <input type="text" class="form-control margin-bottom" placeholder="AMTA Membership Number" ng-model="application.amtaId" />
+      <!-- TODO: Add support for uploading a resume.
     This needs to be a file upload control.  Consider re-using code from image uploads.
     <input type="text" class="form-control margin-bottom" placeholder="Resumè" ng-model="application.amtaId" />
   -->
-    <!-- TODO: Add support for uploading a video.
+      <!-- TODO: Add support for uploading a video.
     This needs to be a file upload control.  Consider re-using code from image uploads.
     <input type="text" class="form-control margin-bottom" placeholder="Video" ng-model="application.amtaId" />
   -->
-    <!-- We could probably use the same WYSIWYG editor from the posts for this. -->
-    <input type="text" class="form-control margin-bottom" placeholder="Bio" ng-model="application.bio" />
-    <button class="btn btn-primary" ng-click="saveApplication(application)">Save Application</button>
-    <input type="submit" class="btn btn-primary" value="Submit Application" />
-  </form>
+      <!-- We could probably use the same WYSIWYG editor from the posts for this. -->
+      <input type="text" class="form-control margin-bottom" placeholder="Bio" ng-model="application.bio" />
+      <button class="btn btn-primary" ng-click="saveApplication(application)">Save Application</button>
+      <input type="submit" class="btn btn-primary" value="Submit Application" />
+    </form>
+  </div>
 </div>
-<pre class="alert alert-info" ng-show="showNotice">{{notice}}</pre>
