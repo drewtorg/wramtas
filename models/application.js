@@ -7,8 +7,6 @@ var Application = new Schema({
   amtaId: String,
   position: String,
   email: String,
-  resume: String,
-  video: String,
   bio: String,
   approved: {
     type: Boolean,

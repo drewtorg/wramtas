@@ -12,14 +12,18 @@ router.get('/:_id', function(req, res) {
 
 // PUT update an existing application
 router.put('/:_id', function(req, res) {
-  Application.findByIdAndUpdate(req.params._id, {
-    new: true
-  }, function(err, application) {
-    if (!err)
-      res.json(application);
-    else
-      res.sendStatus(404);
-  })
+  // Pull out the ids since that is all that is needed
+  req.body.position = req.body.position._id;
+  req.body.university = req.body.university._id;
+  Application.findByIdAndUpdate(req.params._id, req.body, {
+      new: true
+    },
+    function(err, application) {
+      if (!err)
+        res.json(application);
+      else
+        res.sendStatus(404);
+    })
 });
 
 module.exports = router;

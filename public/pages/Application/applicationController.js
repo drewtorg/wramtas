@@ -1,4 +1,4 @@
-app.controller('applicationController', function($scope, $routeParams, applicationService, universitiesService, positionsService) {
+app.controller('applicationController', function($scope, $routeParams, $anchorScroll, applicationService, universitiesService, positionsService) {
   $scope.form = {};
   $scope.universities = {};
   $scope.positions = {};
@@ -8,7 +8,7 @@ app.controller('applicationController', function($scope, $routeParams, applicati
   $scope.submittedNotice = 'Your application has already been submitted.  You will be notified if your application needs to be modified and re-submitted.';
   $scope.errorNotice = 'Your application could not be found.  Please check that you have used the correct link.  If this doesn\'t work, nominate yourself and try the new application sent to you.';
   $scope.application = {};
-  $scope.validApplication = false;
+  $scope.showApplication = false;
   $scope.tinymceOptions = {
     selector: 'textarea',
     theme: 'modern',
@@ -53,7 +53,7 @@ app.controller('applicationController', function($scope, $routeParams, applicati
       $scope.popupNotice($scope.submittedNotice);
     else {
       $scope.application = response.data;
-      $scope.validApplication = true;
+      $scope.showApplication = true;
 
       universitiesService.getUniversities().then(function(response) {
         $scope.universities = response.data;
@@ -81,10 +81,6 @@ app.controller('applicationController', function($scope, $routeParams, applicati
     }
   });
 
-  $scope.isValidApplication = function() {
-    return $scope.validApplication;
-  }
-
   $scope.popupNotice = function(notice) {
     $scope.showNotice = true;
     $scope.notice = notice;
@@ -92,11 +88,14 @@ app.controller('applicationController', function($scope, $routeParams, applicati
 
   $scope.submitApplication = function(form) {
     applicationService.submitApplication(form);
+    $scope.showApplication = false;
     $scope.popupNotice($scope.submitNotice);
+    $anchorScroll();
   };
 
   $scope.saveApplication = function(form) {
     applicationService.saveApplication(form);
     $scope.popupNotice($scope.saveNotice);
+    $anchorScroll();
   };
 });
