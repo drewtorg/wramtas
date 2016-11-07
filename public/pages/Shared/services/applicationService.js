@@ -11,4 +11,16 @@ app.service('applicationService', function($http) {
   this.getApplication = function(id) {
     return $http.get('/applications/' + id);
   }
+
+  this.getApplications = function() {
+    return $http.get('/applications');
+  }
+
+  this.rejectApplication = function(id) {
+    return $http.delete('/applications/' + id);
+  }
+
+  this.approveApplication = function(id) {
+    return $http.post('/applications/' + id);
+  }
 });
