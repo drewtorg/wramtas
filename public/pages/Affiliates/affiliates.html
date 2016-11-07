@@ -1,20 +1,20 @@
 <div class="indent-left">
-    <h2 class="no-margin-top padding-bottom">Affiliates</h2>
+  <h2 class="no-margin-top padding-bottom">Affiliates</h2>
 
-    <p ng-repeat="affiliate in affiliates">
-        <a ng-href="{{affiliate.link}}">{{affiliate.text}}</a>
-    </p>
+  <p ng-repeat="affiliate in affiliates">
+    <a ng-href="{{affiliate.link}}">{{affiliate.text}}</a>
+  </p>
 
-    <h3 class="padding-bottom">Universities in the Western Region</h3>
+  <h3 class="padding-bottom">Universities in the Western Region</h3>
 
-    <p ng-repeat="university in universities">
-        <a ng-href="{{university.link}}">{{university.text}}</a>
-    </p>
+  <p ng-repeat="university in universities">
+    <a ng-href="{{university.link}}">{{university.name}}</a>
+  </p>
 
-    <h3 class="padding-bottom">Other Resources</h3>
+  <h3 class="padding-bottom">Other Resources</h3>
 
-    <p ng-repeat="resource in otherResources">
-        <a ng-href="{{resource.link}}">{{resource.text}}</a>
-    </p>
-    <br/>
+  <p ng-repeat="resource in otherResources">
+    <a ng-href="{{resource.link}}">{{resource.text}}</a>
+  </p>
+  <br/>
 </div>
