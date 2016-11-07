@@ -216,3 +216,6 @@ ModelManifest.xml
 
 # JS Config Files
 launch.json
+
+# Environment variables file
+.env

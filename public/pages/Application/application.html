@@ -1,0 +1,21 @@
+<h2>Application for the Executive Board</h2>
+<div ng-show="application">
+  <div class="alert alert-info" ng-show="showNotice">{{notice}}</div>
+  <div ng-show="showApplication">
+    <p>
+      Remember, only members of the AMTA can hold positions on the Executive Board. If you are not a member of the AMTA, your application will be rejected.
+    </p>
+    <div class="form-group">
+      <input type="text" class="form-control margin-bottom" placeholder="Full Name" ng-model="application.name" />
+      <select class="form-control margin-bottom" ng-model="application.university" ng-options="option.name for option in universities track by option.id"></select>
+      <select class="form-control margin-bottom" ng-model="application.position" ng-options="option.title for option in positions track by option.id"> </select>
+      <input type="text" class="form-control margin-bottom" placeholder="Email Address" ng-model="application.email" />
+      <input type="text" class="form-control margin-bottom" placeholder="AMTA Membership Number" ng-model="application.amtaId" />
+      <p>Use this space to tell us who you are and why you should be the {{application.position.title}} of the WRAMTAS Student Board. You may include links to videos, pictures, or even your resume.</p>
+      <!-- This could probably work as a new directive to share with the posts -->
+      <textarea ui-tinymce="tinymceOptions" ng-model="application.bio"></textarea>
+      <button class="btn btn-primary margin-top" ng-click="saveApplication(application)">Save Application</button>
+      <button class="btn btn-primary margin-top" ng-click="submitApplication(application)">Submit Application</button>
+    </div>
+  </div>
+</div>

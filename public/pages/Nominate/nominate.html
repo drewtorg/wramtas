@@ -1,3 +1,12 @@
+<h2>Nominations</h2>
 <p>
-    {{message}}
+  Remember, only members of the AMTA can hold positions on the Executive Board. Before nominating yourself or anyone else, confirm that they are a member of the AMTA.
 </p>
+<form class="form-group" ng-submit="submitNomination(form)">
+  <input type="text" class="form-control margin-bottom" placeholder="Name of Nominee" ng-model="form.name" />
+  <select class="form-control margin-bottom" ng-model="form.university" ng-options="option.name for option in universities track by option.id"></select>
+  <select class="form-control margin-bottom" ng-model="form.position" ng-options="option.title for option in positions track by option.id"> </select>
+  <input type="text" class="form-control margin-bottom" placeholder="Email Address of Nominee" ng-model="form.email" />
+  <input type="text" class="form-control margin-bottom" placeholder="AMTA Membership Number" ng-model="form.amtaId" />
+  <input type="submit" class="btn btn-primary" value="Nominate" />
+</form>

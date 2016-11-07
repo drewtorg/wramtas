@@ -1,5 +1,4 @@
-﻿
-var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow', 'ngCookies']);
+﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow', 'ngCookies']);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
@@ -14,6 +13,10 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
     .when('/affiliates', {
       templateUrl: 'pages/Affiliates/affiliates.html',
       controller: 'affiliatesController'
+    })
+    .when('/application', {
+      templateUrl: 'pages/Application/application.html',
+      controller: 'applicationController'
     })
     .when('/conference', {
       templateUrl: 'pages/Conference/conference.html',
