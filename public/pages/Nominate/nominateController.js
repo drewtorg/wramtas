@@ -4,6 +4,8 @@
   $scope.form = {};
   $scope.universities = {};
   $scope.positions = {};
+  $scope.showNotice = false;
+  $scope.notice = 'Thank you for submitting your nomination.  An email has been sent to the address you listed.';
 
   universitiesService.getUniversities().then(function(response) {
     $scope.universities = response.data;
@@ -20,6 +22,7 @@
   });
 
   $scope.submitNomination = function(form) {
+    $scope.showNotice = true;
     nominateService.sendNominationEmail(form);
   };
 });

@@ -1,7 +1,63 @@
-app.controller('candidatesController', function($scope, applicationService) {
+app.controller('candidatesController', function($scope, $sce, applicationService, authService, positionsService) {
   $scope.candidates = {};
+  $scope.buttonText = {};
 
   applicationService.getApplications().then(function(response) {
     $scope.candidates = response.data;
+    $scope.candidates.forEach(function(element) {
+      $scope.buttonText[element._id] = 'Reject';
+    });
   });
+
+  positionsService.getPositions().then(function(response) {
+    $scope.positions = {};
+    for (var i = 0; i < response.data.length; i += 1) {
+      var id = response.data[i]._id;
+      $scope.positions[id] = response.data[i].title;
+    }
+  });
+
+  $scope.isAdmin = function() {
+    return authService.isAdmin();
+  };
+
+  $scope.trustAsHtml = function(string) {
+    return $sce.trustAsHtml(string);
+  };
+
+  $scope.approvedAndSubmitted = function(candidate) {
+    return candidate.approved && candidate.submitted;
+  };
+
+  $scope.notApprovedAndSubmitted = function(candidate) {
+    return !candidate.approved && candidate.submitted;
+  };
+
+  $scope.approveApplication = function(candidate) {
+    candidate.approved = true;
+    applicationService.postApplication(candidate);
+  }
+
+  $scope.toggleReject = function(candidate) {
+    if ($scope.buttonText[candidate._id] === 'Reject')
+      $scope.buttonText[candidate._id] = 'Cancel';
+    else
+      $scope.buttonText[candidate._id] = 'Reject';
+  }
+
+  $scope.showRejectReason = function(candidate) {
+    return $scope.buttonText[candidate._id] === 'Cancel';
+  }
+
+  $scope.rejectButtonText = function(candidate) {
+    return $scope.buttonText[candidate._id];
+  }
+
+  $scope.rejectApplication = function(candidate) {
+    candidate.submitted = false;
+    candidate.approved = false;
+    candidate.positionName = $scope.positions[candidate.position];
+    $scope.toggleReject(candidate);
+    applicationService.postApplication(candidate);
+  }
 });

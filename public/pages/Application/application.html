@@ -11,7 +11,8 @@
       <select class="form-control margin-bottom" ng-model="application.position" ng-options="option.title for option in positions track by option.id"> </select>
       <input type="text" class="form-control margin-bottom" placeholder="Email Address" ng-model="application.email" />
       <input type="text" class="form-control margin-bottom" placeholder="AMTA Membership Number" ng-model="application.amtaId" />
-      <p>Use this space to tell us who you are and why you should be the {{application.position.title}} of the WRAMTAS Student Board. You may include links to videos, pictures, or even your resume.</p>
+      <p>Use this space to tell us who you are and why you should be the {{application.position.title}} of the WRAMTAS Student Board. You may include links to videos, pictures, or even your resume. Be sure to use the preview option found under View > Preview
+        as this will show exactly what your application will look like when it is displayed on the website.</p>
       <!-- This could probably work as a new directive to share with the posts -->
       <textarea ui-tinymce="tinymceOptions" ng-model="application.bio"></textarea>
       <button class="btn btn-primary margin-top" ng-click="saveApplication(application)">Save Application</button>

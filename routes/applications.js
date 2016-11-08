@@ -39,33 +39,21 @@ router.put('/:_id', function(req, res) {
     });
 });
 
-// POST approves the application for posting on the candidates page
-router.post('/:id', function(req, res) {
-  req.body.approved = true;
-  Application.findByIdAndUpdate(req.params._id, req.body, {
-      new: true
-    },
-    function(err, application) {
-      res.json(application);
-    });
-});
+// POST approves or rejects the application for posting on the candidates page
+router.post('/:_id', function(req, res) {
+  if (req.body.approved === false) {
+    var data = {
+      from: 'WRAMTAS <nominations@' + domain + '>',
+      to: req.body.email,
+      subject: 'WRAMTAS Executive Board Application',
+      text: 'Dear ' + req.body.name + ', your application for ' + req.body.positionName + ' on the WRAMTAS Executive Board has been rejected for the following reason: "' + req.body.reason + '".  Click this link to address the issues with your application and re-submit it: http://wramtas.org/application?_id=' + req.body._id + '.  We apologize for the inconvenience and hope you will re-submit your application promptly.'
+    };
 
-// DELETE rejects an application by setting it back to un-submitted
-//        and sending an email notification to the original submitter
-router.delete('/:id', function(req, res) {
-  req.body.submitted = false;
-  var data = {
-    from: 'Mailgun Sandbox <postmaster@' + domain + '>',
-    to: req.body.email,
-    subject: 'WRAMTAS Executive Board Nomination',
-    text: 'Dear ' + req.body.name + ', your application for ' + req.body.position.name + ' on the WRAMTAS Executive Board has been rejected for the following reason: "' + req.body.reason + '".  Click this link to address the issues with your application and re-submit it: http://wramtas.org/application?_id=' + req.body._id + '.  We apologize for the inconvenience and hope you will re-submit your application promptly.'
-  };
-
-  mailgun.messages().send(data, function(error, body) {
-    res.status(200).end();
-  });
-  // don't save off the reason for rejecting the application
-  Reflect.deleteProperty(req.body, 'reason');
+    mailgun.messages().send(data, function(error, body) {});
+    // don't save off the reason for rejecting the application
+    delete req.body.reason;
+    delete req.body.positionName;
+  }
   Application.findByIdAndUpdate(req.params._id, req.body, {
       new: true
     },

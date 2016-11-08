@@ -1,11 +1,11 @@
 app.service('applicationService', function($http) {
-  this.submitApplication = function(info) {
-    info.submitted = true;
-    return $http.put('/applications/' + info._id, info);
+  this.submitApplication = function(application) {
+    application.submitted = true;
+    return $http.put('/applications/' + application._id, application);
   };
 
-  this.saveApplication = function(info) {
-    return $http.put('/applications/' + info._id, info);
+  this.saveApplication = function(application) {
+    return $http.put('/applications/' + application._id, application);
   };
 
   this.getApplication = function(id) {
@@ -16,11 +16,7 @@ app.service('applicationService', function($http) {
     return $http.get('/applications');
   }
 
-  this.rejectApplication = function(id) {
-    return $http.delete('/applications/' + id);
-  }
-
-  this.approveApplication = function(id) {
-    return $http.post('/applications/' + id);
+  this.postApplication = function(application) {
+    return $http.post('/applications/' + application._id, application);
   }
 });
