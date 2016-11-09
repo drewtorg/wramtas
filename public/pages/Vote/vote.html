@@ -1,0 +1,23 @@
+<div>
+  <div ng-show="!showVotePanel && !spinning">
+    <p>Before you can begin voting, we ask that you fill in your name and AMTA number to ensure you are allowed to vote. If you do not have an AMTA number, you can become a member of AMTA at <a href="http://www.musictherapy.org/" />musictherapy.org</a>.</p>
+    <form class="form-inline" ng-submit="showSpinner()">
+      <input class="form-control margin-bottom" type="text" placeholder="First Name" />
+      <input class="form-control margin-bottom" type="text" placeholder="Last Name" />
+      <input class="form-control margin-bottom" type="text" placeholder="AMTA ID Number" />
+      <input class="btn btn-primary margin-bottom" type="submit" value="Vote Now!" />
+    </form>
+  </div>
+  <div ng-show="showVotePanel && !spinning">
+    <p>Hey</p>
+  </div>
+  <!-- At some point these can be removed whe nwe have more controls -->
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <span us-spinner="spinnerOpts" spinner-key="spinner"></span>
+</div>
