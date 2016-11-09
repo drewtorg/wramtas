@@ -24,6 +24,9 @@
     }, {
       href: '/candidates',
       title: 'Candidates'
+    }, {
+      href: '/vote',
+      title: 'Vote'
     }]
   }, {
     href: '/spotlight',
