@@ -1,4 +1,4 @@
-app.controller('candidatesController', function($scope, $sce, applicationService, authService, positionsService) {
+app.controller('candidatesController', function($scope, $filter, $sce, applicationService, authService, positionsService) {
   $scope.candidates = {};
   $scope.buttonText = {};
 
@@ -23,6 +23,20 @@ app.controller('candidatesController', function($scope, $sce, applicationService
 
   $scope.trustAsHtml = function(string) {
     return $sce.trustAsHtml(string);
+  };
+
+  $scope.hasApprovedCandidates = function(candidateGroup) {
+    for (var index in candidateGroup)
+      if ($scope.approvedAndSubmitted(candidateGroup[index]))
+        return true;
+    return false;
+  };
+
+  $scope.hasSubmittedCandidates = function(candidateGroup) {
+    for (var index in candidateGroup)
+      if ($scope.notApprovedAndSubmitted(candidateGroup[index]))
+        return true;
+    return false;
   };
 
   $scope.approvedAndSubmitted = function(candidate) {

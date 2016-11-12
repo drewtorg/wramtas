@@ -1,6 +1,6 @@
-<div>
+<div class="margin-top">
   <div ng-show="!showVotePanel && !spinning">
-    <p>Before you can begin voting, we ask that you fill in your name and AMTA number to ensure you are allowed to vote. If you do not have an AMTA number, you can become a member of AMTA at <a href="http://www.musictherapy.org/" />musictherapy.org</a>.</p>
+    <p>Before you can begin voting, we ask that you fill in your name and AMTA number to ensure you are allowed to vote. If you do not have an AMTA number, you can become a member of AMTA at <a href="http://www.musictherapy.org/">musictherapy.org</a>.</p>
     <form class="form-inline" ng-submit="showSpinner()">
       <input class="form-control margin-bottom" type="text" placeholder="First Name" />
       <input class="form-control margin-bottom" type="text" placeholder="Last Name" />
@@ -8,15 +8,26 @@
       <input class="btn btn-primary margin-bottom" type="submit" value="Vote Now!" />
     </form>
   </div>
-  <div ng-show="showVotePanel && !spinning">
-    <p>Hey</p>
+  <div class="row" ng-show="showVotePanel && !spinning">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <p>Carefully select your preferred candidates and cast your vote when you are ready. Thanks again for participating!</p>
+      <form class="form-horizontal form-centered ballot-box" ng-submit="castVote(ballot)">
+        <div class="margin-bottom" ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
+          <div class="form-group" ng-show="hasApprovedCandidates(candidateGroup)">
+            <label class="col-sm-4 control-label">{{positions[id]}}:</label>
+            <div class="col-sm-8">
+              <select class="form-control pull-right" ng-model="ballot[id]" ng-options="option.name for option in candidateGroup track by option.id"></select>
+            </div>
+          </div>
+        </div>
+        <div class="text-right">
+          <input type="submit" class="btn btn-primary" value="Vote" />
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
   </div>
-  <!-- At some point these can be removed whe nwe have more controls -->
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
   <br/>
   <br/>
   <span us-spinner="spinnerOpts" spinner-key="spinner"></span>
