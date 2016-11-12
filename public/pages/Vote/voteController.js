@@ -1,11 +1,15 @@
-app.controller('voteController', function($scope, $filter, $interval, applicationService, positionsService, usSpinnerService) {
-  $scope.message = 'Vote here!';
+app.controller('voteController', function($scope, $filter, $interval, applicationService, electionService, positionsService, usSpinnerService, voteService) {
   $scope.spinning = false;
   $scope.showVotePanel = false;
   $scope.candidates = {};
   $scope.ballot = {};
   $scope.positions = {};
   $scope.voted = false;
+  $scope.isElectionRunning = false;
+
+  electionService.isElectionRunning().then(function(election) {
+    $scope.isElectionRunning = election.startDate < Date.now() && Date.now() < election.endDate;
+  });
 
   $scope.spinnerOpts = {
     radius: 20,
@@ -19,8 +23,11 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
 
   $scope.hasApprovedCandidates = function(candidateGroup) {
     for (var index in candidateGroup)
-      if ($scope.approvedAndSubmitted(candidateGroup[index]))
+      if ($scope.approvedAndSubmitted(candidateGroup[index])) {
+        // default candidate choice
+        $scope.ballot[candidateGroup[index].position] = candidateGroup[index];
         return true;
+      }
     return false;
   };
 
@@ -48,5 +55,6 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
 
   $scope.castVote = function(ballot) {
     console.log(ballot);
+    voteService.sendBallot(ballot);
   }
 });

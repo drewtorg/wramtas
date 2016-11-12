@@ -15,6 +15,10 @@ var Application = new Schema({
   submitted: {
     type: Boolean,
     default: false
+  },
+  votes: {
+    type: Number,
+    default: 0
   }
 });
 

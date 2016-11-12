@@ -29,6 +29,9 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
     .when('/donate', {
       templateUrl: 'pages/Donate/donate.html',
       controller: 'donateController'
+    }).when('/election-info', {
+      templateUrl: 'pages/ElectionInfo/electionInfo.html',
+      controller: 'electionInfoController'
     })
     .when('/nominate', {
       templateUrl: 'pages/Nominate/nominate.html',
