@@ -1,6 +1,7 @@
-app.controller('candidatesController', function($scope, $filter, $sce, applicationService, authService, positionsService) {
+app.controller('candidatesController', function($scope, $filter, $sce, applicationService, authService, electionService, positionsService) {
   $scope.candidates = {};
   $scope.buttonText = {};
+  $scope.isElectionRunning = false;
 
   applicationService.getApplications().then(function(response) {
     $scope.candidates = response.data;
@@ -15,6 +16,12 @@ app.controller('candidatesController', function($scope, $filter, $sce, applicati
       var id = response.data[i]._id;
       $scope.positions[id] = response.data[i].title;
     }
+  });
+
+  electionService.isElectionRunning().then(function(election) {
+    var dates = election.data;
+    if (dates)
+      $scope.isElectionRunning = Date.parse(dates.startDate) < Date.now() && Date.now() < Date.parse(dates.endDate);
   });
 
   $scope.isAdmin = function() {

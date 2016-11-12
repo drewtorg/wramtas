@@ -5,7 +5,7 @@ var router = express.Router();
 
 // GET the current election
 router.get('/', function(req, res) {
-  Election.find({}, function(err, election) {
+  Election.findOne(function(err, election) {
     res.json(election);
   })
 });
@@ -21,10 +21,9 @@ router.post('/', function(req, res) {
 // DELETE the current election and all applications
 router.delete('/', function(req, res) {
   Election.remove({}, function() {
-    // Careful when testing this
-    // Application.remove({}, function() {
-    //   res.status(200).end();
-    // });
+    Application.remove({}, function() {
+      res.status(200).end();
+    });
   });
 });
 

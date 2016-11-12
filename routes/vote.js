@@ -9,9 +9,10 @@ router.put('/', function(req, res) {
     var vote = ballot[index];
     // Update the candidate with another vote
     Application.findById(vote._id, function(err, found) {
-      if (!found.votes) found.votes = 1;
-      else found.votes += 1;
-      Application.findByIdAndUpdate(found._id, found);
+      found.votes += 1;
+      Application.findByIdAndUpdate(found._id, found, {
+        new: true
+      }, function(err, updated) {});
     });
   }
   res.status(200).end();

@@ -7,15 +7,17 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
   $scope.voted = false;
   $scope.isElectionRunning = false;
 
-  electionService.isElectionRunning().then(function(election) {
-    $scope.isElectionRunning = election.startDate < Date.now() && Date.now() < election.endDate;
-  });
-
   $scope.spinnerOpts = {
     radius: 20,
     width: 8,
     length: 16
   }
+
+  electionService.isElectionRunning().then(function(election) {
+    var dates = election.data;
+    if (dates)
+      $scope.isElectionRunning = Date.parse(dates.startDate) < Date.now() && Date.now() < Date.parse(dates.endDate);
+  });
 
   applicationService.getApplications().then(function(response) {
     $scope.candidates = $filter('filter')(response.data, $scope.approvedAndSubmitted);
@@ -54,7 +56,6 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
   }
 
   $scope.castVote = function(ballot) {
-    console.log(ballot);
     voteService.sendBallot(ballot);
   }
 });
