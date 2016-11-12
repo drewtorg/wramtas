@@ -22,7 +22,8 @@
           </table>
         </div>
       </div>
-      <button class="btn btn-primary margin-bottom" ng-click="deleteElection()">Clear Election</button>
+      <p>A note on clearing elections: This also deletes all applications from this election. Only click this button when you're sure the election is over or if you need to scrap the current one.</p>
+      <button class="btn btn-danger margin-bottom" ng-click="deleteElection()" uib-tooltip="Deletes all record of the current election. Use extreme caution!">{{deleteText}}</button>
     </div>
     <div ng-show="!isElectionRunning">
       <h3>Create an Election</h3>

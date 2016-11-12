@@ -56,7 +56,6 @@ app.controller('electionInfoController', function($scope, $filter, authService, 
   }
 
   $scope.createElection = function(dates) {
-    // console.log(dates);
     $scope.isElectionRunning = dates.startDate < Date.now();
     electionService.createElection(dates);
   }
