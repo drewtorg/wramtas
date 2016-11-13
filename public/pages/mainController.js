@@ -19,11 +19,17 @@
     href: '/elections',
     title: 'Elections',
     subtabs: [{
+      href: '/election-info',
+      title: 'General Election Information'
+    }, {
       href: '/nominate',
-      title: 'Nominate for 2017-2018'
+      title: 'Nominate WRAMTAS Members'
     }, {
       href: '/candidates',
-      title: 'Candidates'
+      title: 'View Candidates'
+    }, {
+      href: '/vote',
+      title: 'Vote for WRAMTAS Board'
     }]
   }, {
     href: '/spotlight',

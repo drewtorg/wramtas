@@ -55,7 +55,6 @@ app.directive('blogPost', function($sce, postsService, authService) {
             return authService.isAdmin();
           };
 
-          // TODO: Test to make sure no XSS can happen here!
           scope.trustAsHtml = function(string) {
             return $sce.trustAsHtml(string);
           };

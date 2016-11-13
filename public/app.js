@@ -1,4 +1,4 @@
-﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow', 'ngCookies']);
+﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow', 'ngCookies', 'angular.filter', 'angularSpinner', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
@@ -18,9 +18,28 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/Application/application.html',
       controller: 'applicationController'
     })
+    .when('/candidates', {
+      templateUrl: 'pages/Candidates/candidates.html',
+      controller: 'candidatesController'
+    })
     .when('/conference', {
       templateUrl: 'pages/Conference/conference.html',
       controller: 'conferenceController'
+    })
+    .when('/donate', {
+      templateUrl: 'pages/Donate/donate.html',
+      controller: 'donateController'
+    }).when('/election-info', {
+      templateUrl: 'pages/ElectionInfo/electionInfo.html',
+      controller: 'electionInfoController'
+    })
+    .when('/nominate', {
+      templateUrl: 'pages/Nominate/nominate.html',
+      controller: 'nominateController'
+    })
+    .when('/profile', {
+      templateUrl: 'pages/Profile/profile.html',
+      controller: 'profileController'
     })
     .when('/scholarships', {
       templateUrl: 'pages/Scholarships/scholarships.html',
@@ -30,21 +49,9 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/Spotlight/spotlight.html',
       controller: 'spotlightController'
     })
-    .when('/profile', {
-      templateUrl: 'pages/Profile/profile.html',
-      controller: 'profileController'
-    })
-    .when('/candidates', {
-      templateUrl: 'pages/Candidates/candidates.html',
-      controller: 'candidatesController'
-    })
-    .when('/nominate', {
-      templateUrl: 'pages/Nominate/nominate.html',
-      controller: 'nominateController'
-    })
-    .when('/donate', {
-      templateUrl: 'pages/Donate/donate.html',
-      controller: 'donateController'
+    .when('/vote', {
+      templateUrl: 'pages/Vote/vote.html',
+      controller: 'voteController'
     })
     .otherwise('/');
 
