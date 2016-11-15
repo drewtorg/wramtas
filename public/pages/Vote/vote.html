@@ -13,20 +13,23 @@
     <div class="row" ng-show="showVotePanel && !spinning">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <p>Carefully select your preferred candidates and cast your vote when you are ready. Thanks again for participating!</p>
-        <form class="form-horizontal form-centered ballot-box" ng-submit="castVote(ballot)">
-          <div class="margin-bottom" ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
-            <div class="form-group" ng-show="hasApprovedCandidates(candidateGroup)">
-              <label class="col-sm-4 control-label">{{positions[id]}}:</label>
-              <div class="col-sm-8">
-                <select class="form-control pull-right" ng-model="ballot[id]" ng-options="option.name for option in candidateGroup track by option.id"></select>
+        <div ng-show="!hasVoted">
+          <p>Carefully select your preferred candidates and cast your vote when you are ready. Thanks again for participating!</p>
+          <form class="form-horizontal form-centered ballot-box" ng-submit="castVote(ballot)">
+            <div class="margin-bottom" ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
+              <div class="form-group" ng-show="hasApprovedCandidates(candidateGroup)">
+                <label class="col-sm-4 control-label">{{positions[id]}}:</label>
+                <div class="col-sm-8">
+                  <select class="form-control pull-right" ng-model="ballot[id]" ng-options="option.name for option in candidateGroup track by option.id"></select>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="text-right">
-            <input type="submit" class="btn btn-primary" value="Vote" />
-          </div>
-        </form>
+            <div class="text-right">
+              <input type="submit" class="btn btn-primary" value="Vote" />
+            </div>
+          </form>
+        </div>
+        <div class="alert alert-info" ng-show="hasVoted">Thank you for voting in this election!</div>
       </div>
       <div class="col-md-2"></div>
     </div>

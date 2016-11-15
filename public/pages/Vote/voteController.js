@@ -1,6 +1,7 @@
 app.controller('voteController', function($scope, $filter, $interval, applicationService, electionService, positionsService, usSpinnerService, voteService) {
   $scope.spinning = false;
   $scope.showVotePanel = false;
+  $scope.hasVoted = false;
   $scope.candidates = {};
   $scope.ballot = {};
   $scope.positions = {};
@@ -56,6 +57,7 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
   }
 
   $scope.castVote = function(ballot) {
+    $scope.hasVoted = true;
     voteService.sendBallot(ballot);
   }
 });
