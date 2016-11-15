@@ -28,7 +28,8 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
     for (var index in candidateGroup)
       if ($scope.approvedAndSubmitted(candidateGroup[index])) {
         // default candidate choice
-        $scope.ballot[candidateGroup[index].position] = candidateGroup[index];
+        if (!$scope.ballot[candidateGroup[index].position])
+          $scope.ballot[candidateGroup[index].position] = candidateGroup[index];
         return true;
       }
     return false;

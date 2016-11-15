@@ -20,7 +20,7 @@
               <div class="form-group" ng-show="hasApprovedCandidates(candidateGroup)">
                 <label class="col-sm-4 control-label">{{positions[id]}}:</label>
                 <div class="col-sm-8">
-                  <select class="form-control pull-right" ng-model="ballot[id]" ng-options="option.name for option in candidateGroup track by option.id"></select>
+                  <select class="form-control pull-right" ng-model="ballot[id]" ng-options="option.name for option in candidateGroup"></select>
                 </div>
               </div>
             </div>
