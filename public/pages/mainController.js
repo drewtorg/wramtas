@@ -34,9 +34,6 @@
   }, {
     href: '/spotlight',
     title: 'Spotlight'
-  }, {
-    href: '/profile',
-    title: 'My WRAMTAS Profile'
   }];
 
   $scope.form = {
