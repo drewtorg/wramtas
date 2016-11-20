@@ -1,6 +1,4 @@
 ﻿app.controller('nominateController', function($scope, electionService, nominateService, universitiesService, positionsService) {
-  $scope.message = 'Nominations for the 2017-2018 WRAMTAS board will open on February 13th, 2017 and close on March 13th, 2017';
-
   $scope.form = {};
   $scope.universities = {};
   $scope.positions = {};
@@ -25,7 +23,7 @@
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates)
-      $scope.isElectionRunning = Date.parse(dates.startDate) < Date.now() && Date.now() < Date.parse(dates.endDate);
+      $scope.isElectionRunning = Date.parse(dates.nominationStartDate) < Date.now() && Date.now() < Date.parse(dates.nominationEndDate);
   });
 
   $scope.submitNomination = function(form) {
