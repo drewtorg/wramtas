@@ -22,7 +22,7 @@
     $scope.form.position = $scope.positions[0];
   });
 
-  electionService.isElectionRunning().then(function(election) {
+  electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates)
       $scope.isElectionRunning = Date.parse(dates.startDate) < Date.now() && Date.now() < Date.parse(dates.endDate);

@@ -18,7 +18,7 @@ app.controller('candidatesController', function($scope, $filter, $sce, applicati
     }
   });
 
-  electionService.isElectionRunning().then(function(election) {
+  electionService.gtCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates)
       $scope.isElectionRunning = Date.parse(dates.startDate) < Date.now() && Date.now() < Date.parse(dates.endDate);
