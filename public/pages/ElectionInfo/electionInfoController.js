@@ -1,30 +1,46 @@
 app.controller('electionInfoController', function($scope, $filter, authService, electionService, positionsService, applicationService) {
   $scope.isElectionRunning = false;
   $scope.candidates = {};
-  $scope.startDate = {
-    opened: false
-  };
-  $scope.endDate = {
-    opened: false
-  };
+  $scope.opened = {
+    nominationStartDate: false,
+    nominationEndDate: false,
+    votingStartDate: false,
+    votingEndDate: false
+  }
   $scope.dates = {
-    startDate: Date.now(),
-    endDate: Date.now()
+    nominationStartDate: {
+      date: Date.now(),
+      opened: false
+    },
+    nominationEndDate: {
+      date: Date.now(),
+      opened: false
+    },
+    votingStartDate: {
+      date: Date.now(),
+      opened: false
+    },
+    votingEndDate: {
+      date: Date.now(),
+      opened: false
+    }
   };
-
-  $scope.format = 'longDate'
-
+  $scope.format = 'MM/dd/yy H:mm a'
   $scope.dateOptions = {
-    formatYear: 'yy',
     maxDate: new Date(2025, 5, 22),
     minDate: new Date(),
     startingDay: 1
   };
-
-  electionService.isElectionRunning().then(function(election) {
+  $scope.showModifiedMessage = false;
+  electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
-    if (dates)
-      $scope.isElectionRunning = Date.parse(dates.startDate) < Date.now();
+    if (dates) {
+      $scope.isElectionRunning = true;
+      for (var prop in dates) {
+        if ($scope.dates[prop])
+          $scope.dates[prop].date = new Date(dates[prop]).getTime();
+      }
+    }
   });
 
   applicationService.getApplications().then(function(response) {
@@ -56,8 +72,13 @@ app.controller('electionInfoController', function($scope, $filter, authService, 
   }
 
   $scope.createElection = function(dates) {
-    $scope.isElectionRunning = dates.startDate < Date.now();
+    $scope.isElectionRunning = true;
     electionService.createElection(dates);
+  }
+
+  $scope.modifyElection = function(dates) {
+    electionService.modifyElection(dates);
+    $scope.showModifiedMessage = true;
   }
 
   $scope.deleteElection = function() {

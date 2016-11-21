@@ -12,9 +12,26 @@ router.get('/', function(req, res) {
 
 // POST create a new election
 router.post('/', function(req, res) {
+  var dates = req.body;
+  for (var prop in dates) {
+    dates[prop] = dates[prop].date;
+  }
   var election = new Election(req.body);
   election.save(function(err) {
     res.status(200).end();
+  })
+});
+
+// PUT updates an existing election
+router.put('/', function(req, res) {
+  var dates = req.body;
+  for (var prop in dates) {
+    dates[prop] = dates[prop].date;
+  }
+  Election.findOneAndUpdate({}, req.body, {
+    new: true
+  }, function(err, election) {
+    res.json(election);
   })
 });
 

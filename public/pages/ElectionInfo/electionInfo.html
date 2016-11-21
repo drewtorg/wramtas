@@ -1,8 +1,10 @@
 <div>
   <h2>General Election Information</h2>
+  <!-- TODO: Should be editable by an admin -->
   <p>Lots of info on how the election works</p>
   <div ng-show="isAdmin()">
-    <div ng-show="isElectionRunning">
+    <div ng-if="isElectionRunning">
+      <hr/>
       <h3>Election Results</h3>
       <!-- One table per position -->
       <div ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
@@ -22,26 +24,82 @@
           </table>
         </div>
       </div>
-      <p>A note on clearing elections: This also deletes all applications from this election. Only click this button when you're sure the election is over or if you need to scrap the current one.</p>
-      <button class="btn btn-danger margin-bottom" ng-click="deleteElection()" uib-tooltip="Deletes all record of the current election. Use extreme caution!">Delete Election</button>
-    </div>
-    <div ng-show="!isElectionRunning">
-      <h3>Create an Election</h3>
-      <p>There is currently no election set up yet. If you would like to start a new election cycle, please choose a start and end date.</p>
-      <form class="form-inline" ng-submit="createElection(dates)">
+      <hr/>
+      <h3>Modify Election Dates/Times</h3>
+      <form class="form-inline" ng-submit="modifyElection(dates)">
         <div class="row">
           <div class="form-group col-md-6">
-            <label class="control-label">Start Date:</label>
+            <label class="control-label">Nominations Begin:</label>
             <p class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.startDate" is-open="startDate.opened" datepicker-options="dateOptions" close-text="Close" />
-              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(startDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.nominationStartDate.date" is-open="dates.nominationStartDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.nominationStartDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
             </p>
           </div>
           <div class="form-group col-md-6">
-            <label class="control-label">End Date:</label>
+            <label class="control-label">Nominations End:</label>
             <p class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.endDate" is-open="endDate.opened" datepicker-options="dateOptions" close-text="Close" />
-              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(endDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.nominationEndDate.date" is-open="dates.nominationEndDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.nominationEndDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="control-label">Voting Begins:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.votingStartDate.date" is-open="dates.votingStartDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.votingStartDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Voting Ends:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.votingEndDate.date" is-open="dates.votingEndDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.votingEndDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Modify Election" />
+        <span class="alert alert-info margin-top" ng-show="showModifiedMessage">The election dates/times have been modified.</span>
+      </form>
+      <hr/>
+      <h3>Delete Current Election</h3>
+      <p>A note on clearing elections: This also deletes all applications from this election. Only click this button when you're sure the election is over or if you need to scrap the current one.</p>
+      <button class="btn btn-danger margin-bottom" ng-click="deleteElection()" uib-tooltip="Deletes all record of the current election. Use extreme caution!">Delete Election</button>
+    </div>
+    <div ng-if="!isElectionRunning">
+      <h3>Create an Election</h3>
+      <p>There is currently no election set up yet. If you would like to start a new election cycle, please choose the nomination and votings dates that are in line with the by-laws.</p>
+      <form class="form-inline" ng-submit="createElection(dates)">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="control-label">Nominations Begin:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.nominationStartDate.date" is-open="dates.nominationStartDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.nominationStartDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Nominations End:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.nominationEndDate.date" is-open="dates.nominationEndDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.nominationEndDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="control-label">Voting Begins:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.votingStartDate.date" is-open="dates.votingStartDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.votingStartDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Voting Ends:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.votingEndDate.date" is-open="dates.votingEndDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.votingEndDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
             </p>
           </div>
         </div>

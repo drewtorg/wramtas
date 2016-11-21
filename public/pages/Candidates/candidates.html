@@ -1,8 +1,9 @@
 ﻿<div>
-  <div class="alert alert-info margin-top" ng-show="!isElectionRunning"><span>The election for this year has not begun.  Please refer to <a ng-href="/election-info">this page</a> for more information on the next election.</span></div>
+  <div class="alert alert-info margin-top" ng-show="!isElectionRunning"><span>The election for this year has not begun.  Please refer to the <a ng-href="/election-info">General Election Info</a> page for more information on the next election.</span></div>
   <div ng-show="isElectionRunning">
-    <h2>WRAMTAS Executive Board 2017-2018 Candidates</h2>
-    <!-- Approved applications -->
+    <!-- Approved Candidates -->
+    <h2>WRAMTAS Executive Board Candidates</h2>
+    <div class="alert alert-info" ng-hide="candidates">There are currently no candidates for the WRAMTAS Executive Board.</div>
     <div ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
       <div ng-show="hasApprovedCandidates(candidateGroup)">
         <h3>Running for {{positions[id]}}:</h3>
@@ -13,7 +14,7 @@
       </div>
     </div>
     <hr/>
-    <!-- Pending approval -->
+    <!-- Candidates Pending Approval -->
     <div ng-show="isAdmin()">
       <h2>Applications Pending Approval</h2>
       <div ng-show="!hasSubmittedCandidates(candidates)">
