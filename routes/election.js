@@ -38,9 +38,9 @@ router.put('/', function(req, res) {
 // DELETE the current election and all applications
 router.delete('/', function(req, res) {
   Election.remove({}, function() {
-    // Application.remove({}, function() {
-    //   res.status(200).end();
-    // });
+    Application.remove({}, function() {
+      res.status(200).end();
+    });
   });
 });
 
