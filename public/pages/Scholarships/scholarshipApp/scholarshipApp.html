@@ -1,3 +1,22 @@
 <div>
-  <textarea ui-tinymce="tinymceOptions" ng-model="application.prompt"></textarea>
+  <div ng-if="isAdmin()">
+    <button ng-hide="scholarship.inEditMode" class="btn btn-primary" ng-click="editScholarship()">
+      Edit Scholarship <span class="glyphicon glyphicon-edit"></span>
+    </button>
+    <button ng-hide="scholarship.inEditMode" class="btn btn-danger" ng-click="deleteScholarship()">
+      Delete Scholarship <span class="glyphicon glyphicon-trash"></span>
+    </button>
+  </div>
+  <div class="margin-top" ng-if="isAdmin()">
+    <button ng-show="scholarship.inEditMode" class="btn btn-success" ng-click="saveScholarship()">
+      Save Scholarship <span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
+    <button ng-show="scholarship.inEditMode" class="btn btn-danger" ng-click="undoEdits()">
+      Undo Changes <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
+  <div ng-hide="scholarship.inEditMode" ng-bind-html="trustAsHtml(scholarship.prompt)"></div>
+  <div class="margin-top" ng-show="scholarship.inEditMode">
+    <textarea ui-tinymce="tinymceOptions" ng-model="scholarship.prompt"></textarea>
+  </div>
 </div>

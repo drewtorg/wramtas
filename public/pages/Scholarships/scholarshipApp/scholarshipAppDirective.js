@@ -3,8 +3,8 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
     restrict: 'E',
     templateUrl: '/pages/Scholarships/scholarshipApp/scholarshipApp.html',
     scope: {
-      application: '=',
-      onDelete: '&'
+      scholarship: '=',
+      // onDelete: '&'
     },
     compile: function(tElem, tAttrs) {
       return {
@@ -49,63 +49,59 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
         },
         post: function(scope, iElem, iAttrs) {
           scope.uploader = {};
-          scope.application.inEditMode = angular.isDefined(scope.application.inEditMode) ? scope.application.inEditMode : false;
+          scope.scholarship.inEditMode = angular.isDefined(scope.scholarship.inEditMode) ? scope.scholarship.inEditMode : false;
 
           scope.isAdmin = function() {
             return authService.isAdmin();
           };
 
-          scope.onFileUploadSuccess = function($message) {
-            var res = JSON.parse($message);
-            scope.application.upload = angular.copy('uploads/' + res.filename);
+          // scope.onFileUploadSuccess = function($message) {
+          //   var res = JSON.parse($message);
+          //   scope.scholarship.upload = angular.copy('scholarship-apps/' + res.filename);
 
-            scholarshipsService.uploadApplication(scope.application).then(function(response) {
-              scope.toggleEditMode();
-            });
-          };
+          //   scholarshipsService.uploadApplication(scope.scholarship).then(function(response) {
+          //     scope.toggleEditMode();
+          //   });
+          // };
 
           scope.toggleEditMode = function() {
-            scope.application.inEditMode = !scope.application.inEditMode;
+            scope.scholarship.inEditMode = !scope.scholarship.inEditMode;
           };
 
           scope.editScholarship = function() {
             scope.toggleEditMode();
-            scope.tempScholarship = angular.copy(scope.application);
+            scope.tempScholarship = angular.copy(scope.scholarship);
           };
 
           scope.deleteScholarship = function() {
-            scope.onDelete();
-            scholarshipsService.deleteScholarship(scope.application);
+            // scope.onDelete();
+            scholarshipsService.deleteScholarship(scope.scholarship);
           };
 
-          scope.savescholarship = function() {
-            // if (angular.isDefined(scope.tempBio)) {
-            //   scope.bio.about = angular.copy(scope.tempBio.about);
-            //   scope.bio.name = angular.copy(scope.tempBio.name);
-            //   scope.bio.title = angular.copy(scope.tempBio.title);
-            //   scope.bio.email = angular.copy(scope.tempBio.email);
-            //   if (scope.uploader.flow.files.length)
-            //     scope.uploader.flow.upload();
-            //   else
-            //     biosService.saveBio(scope.type, scope.bio).then(function(response) {
-            //       scope.toggleEditMode();
-            //     });
-            // }
+          scope.saveScholarship = function() {
+            if (angular.isDefined(scope.tempScholarship)) {
+              scope.scholarship.prompt = angular.copy(scope.tempScholarship.prompt);
+              // if (scope.uploader.flow.files.length)
+              //   scope.uploader.flow.upload();
+              scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {
+                scope.toggleEditMode();
+              });
+            }
           };
 
-          // scope.undoBio = function() {
-          //   scope.uploader.flow.cancel();
+          scope.undoEdits = function() {
+            // scope.uploader.flow.cancel();
 
-          //   // this is the case when we are undoing after clicking edit
-          //   if (angular.isDefined(scope.tempBio))
-          //     scope.tempBio = angular.copy(scope.bio);
+            // this is the case when we are undoing after clicking edit
+            if (angular.isDefined(scope.tempScholarship))
+              scope.tempScholarship = angular.copy(scope.scholarship);
 
-          //   // this is the case when we are undoing after clicking add
-          //   if (!angular.isDefined(scope.tempBio))
-          //     scope.deleteBio();
+            // this is the case when we are undoing after clicking add
+            if (!angular.isDefined(scope.tempScholarship) || scope.tempScholarship.prompt === '')
+              scope.deleteScholarship();
 
-          //   scope.toggleEditMode();
-          // };
+            scope.toggleEditMode();
+          };
         }
       }
     }
