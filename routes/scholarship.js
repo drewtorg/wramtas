@@ -28,7 +28,7 @@ router.put('/:_id', function(req, res) {
 
 // DELETE the scholarship with the given id
 router.delete('/:_id', function(req, res) {
-  Scholarship.findByIdAndRemove(req.body._id, function(err, doc) {
+  Scholarship.findByIdAndRemove(req.params._id, function(err, doc) {
     res.status(200).end();
   });
 });

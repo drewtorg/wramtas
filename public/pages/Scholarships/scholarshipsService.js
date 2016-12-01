@@ -4,18 +4,18 @@ app.service('scholarshipsService', function($http) {
   };
 
   this.saveScholarship = function(info) {
-    $http.put('/scholarship/' + info._id, info);
+    return $http.put('/scholarship/' + info._id, info);
   };
 
   this.deleteScholarship = function(info) {
-    $http.delete('/scholarship/' + info._id);
+    return $http.delete('/scholarship/' + info._id);
   };
 
   this.createScholarship = function() {
-    $http.post('/scholarship/');
+    return $http.post('/scholarship');
   };
 
   this.getScholarships = function() {
-    $http.get('/scholarship');
-  }
+    return $http.get('/scholarship');
+  };
 });

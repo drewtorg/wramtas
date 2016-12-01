@@ -6,7 +6,11 @@ var Scholarship = new Schema({
     type: String,
     default: ''
   },
-  uploads: [String]
+  submissions: [{
+    name: String,
+    amtaId: String,
+    submissionPaths: [String]
+  }]
 });
 
 module.exports = mongoose.model('Scholarship', Scholarship);

@@ -82,6 +82,14 @@ input[type="file"] {
   margin: 15px 0px 15px 0px;
 }
 
+.scholarship-box {
+  padding: 15px;
+  border: 1px solid #BABABA;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 15px 0px 15px 0px;
+}
+
 .ballot-box {
   padding: 15px;
   border: 1px solid #BABABA;

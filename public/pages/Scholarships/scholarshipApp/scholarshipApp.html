@@ -1,4 +1,4 @@
-<div>
+<div class="margin-bottom">
   <div ng-if="isAdmin()">
     <button ng-hide="scholarship.inEditMode" class="btn btn-primary" ng-click="editScholarship()">
       Edit Scholarship <span class="glyphicon glyphicon-edit"></span>
@@ -6,8 +6,6 @@
     <button ng-hide="scholarship.inEditMode" class="btn btn-danger" ng-click="deleteScholarship()">
       Delete Scholarship <span class="glyphicon glyphicon-trash"></span>
     </button>
-  </div>
-  <div class="margin-top" ng-if="isAdmin()">
     <button ng-show="scholarship.inEditMode" class="btn btn-success" ng-click="saveScholarship()">
       Save Scholarship <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
@@ -15,8 +13,36 @@
       Undo Changes <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
-  <div ng-hide="scholarship.inEditMode" ng-bind-html="trustAsHtml(scholarship.prompt)"></div>
-  <div class="margin-top" ng-show="scholarship.inEditMode">
-    <textarea ui-tinymce="tinymceOptions" ng-model="scholarship.prompt"></textarea>
+  <div class="margin-top">
+    <div ng-hide="scholarship.inEditMode" ng-bind-html="trustAsHtml(scholarship.prompt)"></div>
+    <div ng-show="scholarship.inEditMode">
+      <textarea ui-tinymce="tinymceOptions" ng-model="tempScholarship.prompt"></textarea>
+    </div>
+  </div>
+  <div ng-if="!isAdmin()">
+    <div ng-if="!showApp">
+      <button class="btn btn-primary" ng-click="toggleShowApp()">Apply Now</button>
+    </div>
+    <div ng-if="showApp">
+      <form class="form-group" ng-submit="submitScholarshipApp()">
+        <input type="text" class="form-control margin-top" ng-model="app.name" placeholder="Full Name" />
+        <input type="text" class="form-control margin-top" ng-model="app.amtaId" placeholder="AMTA Number" />
+        <div class="margin-top" flow-init="{singleFile:false}" flow-name="uploader.flow" flow-file-success="onFileUploadSuccess($message)">
+          <span class="btn btn-primary" flow-btn>Upload File
+          <input type="file" pull-right flow-btn/>
+        </span>
+          <div class="scholarship-box" ng-show="$flow.files.length">
+            <div ng-repeat="file in $flow.files">
+              <span>{{file.name}}</span>
+              <span class="btn btn-danger" ng-click="file.cancel()">Remove</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top">
+          <input type="submit" class="btn btn-success" value="Submit">
+          <button class="btn btn-danger" ng-click="toggleShowApp()">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

@@ -4,7 +4,7 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
     templateUrl: '/pages/Scholarships/scholarshipApp/scholarshipApp.html',
     scope: {
       scholarship: '=',
-      // onDelete: '&'
+      onDelete: '&'
     },
     compile: function(tElem, tAttrs) {
       return {
@@ -50,22 +50,36 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
         post: function(scope, iElem, iAttrs) {
           scope.uploader = {};
           scope.scholarship.inEditMode = angular.isDefined(scope.scholarship.inEditMode) ? scope.scholarship.inEditMode : false;
+          scope.showApp = false;
+          scope.app = {
+            name: '',
+            amtaId: '',
+            submissionPaths: []
+          };
 
           scope.isAdmin = function() {
             return authService.isAdmin();
           };
 
-          // scope.onFileUploadSuccess = function($message) {
-          //   var res = JSON.parse($message);
-          //   scope.scholarship.upload = angular.copy('scholarship-apps/' + res.filename);
+          scope.onFileUploadSuccess = function($message) {
+            var res = JSON.parse($message);
+            scope.scholarship.upload = angular.copy('scholarship-apps/' + res.filename);
 
-          //   scholarshipsService.uploadApplication(scope.scholarship).then(function(response) {
-          //     scope.toggleEditMode();
-          //   });
-          // };
+            scholarshipsService.uploadApplication(scope.scholarship).then(function(response) {
+              scope.toggleEditMode();
+            });
+          };
+
+          scope.trustAsHtml = function(string) {
+            return $sce.trustAsHtml(string);
+          };
 
           scope.toggleEditMode = function() {
             scope.scholarship.inEditMode = !scope.scholarship.inEditMode;
+          };
+
+          scope.toggleShowApp = function() {
+            scope.showApp = !scope.showApp;
           };
 
           scope.editScholarship = function() {
@@ -74,15 +88,17 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
           };
 
           scope.deleteScholarship = function() {
-            // scope.onDelete();
+            scope.onDelete();
             scholarshipsService.deleteScholarship(scope.scholarship);
           };
 
           scope.saveScholarship = function() {
             if (angular.isDefined(scope.tempScholarship)) {
               scope.scholarship.prompt = angular.copy(scope.tempScholarship.prompt);
+              scope.scholarship.numUploads = angular.copy(scope.tempScholarship.numUploads);
               // if (scope.uploader.flow.files.length)
               //   scope.uploader.flow.upload();
+
               scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {
                 scope.toggleEditMode();
               });
