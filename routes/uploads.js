@@ -12,7 +12,8 @@ router.post('/', function(req, res, next) {
     if (err) {
       return res.end("Error uploading file.");
     }
-    res.json(req.files[0]);
+    console.log(req);
+    res.json(req.files);
   });
 });
 

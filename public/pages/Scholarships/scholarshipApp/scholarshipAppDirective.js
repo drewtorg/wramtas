@@ -61,15 +61,6 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
             return authService.isAdmin();
           };
 
-          scope.onFileUploadSuccess = function($message) {
-            var res = JSON.parse($message);
-            scope.scholarship.upload = angular.copy('scholarship-apps/' + res.filename);
-
-            scholarshipsService.uploadApplication(scope.scholarship).then(function(response) {
-              scope.toggleEditMode();
-            });
-          };
-
           scope.trustAsHtml = function(string) {
             return $sce.trustAsHtml(string);
           };
@@ -96,8 +87,6 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
             if (angular.isDefined(scope.tempScholarship)) {
               scope.scholarship.prompt = angular.copy(scope.tempScholarship.prompt);
               scope.scholarship.numUploads = angular.copy(scope.tempScholarship.numUploads);
-              // if (scope.uploader.flow.files.length)
-              //   scope.uploader.flow.upload();
 
               scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {
                 scope.toggleEditMode();
@@ -106,8 +95,6 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
           };
 
           scope.undoEdits = function() {
-            // scope.uploader.flow.cancel();
-
             // this is the case when we are undoing after clicking edit
             if (angular.isDefined(scope.tempScholarship))
               scope.tempScholarship = angular.copy(scope.scholarship);
@@ -118,6 +105,28 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
 
             scope.toggleEditMode();
           };
+
+          scope.submitScholarshipApp = function() {
+            if (scope.uploader.flow.files.length) {
+              scope.uploader.flow.upload();
+              console.log('Sent the upload');
+            } else
+              scholarshipsService.uploadApplication(scope.app).then(function(response) {
+                scope.toggleEditMode();
+              });
+          }
+
+          scope.onFileUploadSucces = function($message) {
+            var files = JSON.parse($message);
+            console.log(files);
+            for (let file of files) {
+              scope.app.submissionPaths.push(angular.copy('scholarship-apps/' + file.filename));
+            }
+            console.log(app);
+            scholarshipsService.uploadScholarshipApplication(scope.app).then(function(response) {
+              scope.toggleEditMode();
+            });
+          }
         }
       }
     }

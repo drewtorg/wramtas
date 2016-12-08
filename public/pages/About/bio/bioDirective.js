@@ -17,7 +17,7 @@ app.directive('bio', function(biosService, authService) {
 
       $scope.onFileUploadSuccess = function($message) {
         var res = JSON.parse($message);
-        $scope.bio.image = angular.copy('uploads/' + res.filename);
+        $scope.bio.image = angular.copy('uploads/' + res[0].filename);
 
         biosService.saveBio($scope.type, $scope.bio).then(function(response) {
           $scope.toggleEditMode();
