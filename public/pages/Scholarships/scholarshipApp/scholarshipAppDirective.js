@@ -88,9 +88,7 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
               scope.scholarship.prompt = angular.copy(scope.tempScholarship.prompt);
               scope.scholarship.numUploads = angular.copy(scope.tempScholarship.numUploads);
 
-              scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {
-                scope.toggleEditMode();
-              });
+              scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {});
             }
           };
 
@@ -107,25 +105,17 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
           };
 
           scope.submitScholarshipApp = function() {
-            if (scope.uploader.flow.files.length) {
+            if (scope.uploader.flow.files.length)
               scope.uploader.flow.upload();
-              console.log('Sent the upload');
-            } else
-              scholarshipsService.uploadApplication(scope.app).then(function(response) {
-                scope.toggleEditMode();
-              });
+            else
+              scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
+            scope.toggleShowApp();
           }
 
-          scope.onFileUploadSucces = function($message) {
-            var files = JSON.parse($message);
-            console.log(files);
-            for (let file of files) {
-              scope.app.submissionPaths.push(angular.copy('scholarship-apps/' + file.filename));
-            }
-            console.log(app);
-            scholarshipsService.uploadScholarshipApplication(scope.app).then(function(response) {
-              scope.toggleEditMode();
-            });
+          scope.onFileUploadSuccess = function($message) {
+            var file = JSON.parse($message);
+            scope.app.submissionPaths.push('uploads/' + file.filename);
+            scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
           }
         }
       }

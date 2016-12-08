@@ -1,6 +1,6 @@
 app.service('scholarshipsService', function($http) {
-  this.uploadScholarshipApplication = function(info) {
-    console.log('Upload!');
+  this.uploadScholarshipApplication = function(_id, app) {
+    return $http.post('/scholarship/' + _id + '/app', app)
   };
 
   this.saveScholarship = function(info) {
