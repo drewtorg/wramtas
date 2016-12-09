@@ -57,6 +57,7 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
             email: '',
             submissionPaths: []
           };
+          scope.showContact = new Array(scope.scholarship.submissions.length).fill(false);
 
           scope.isAdmin = function() {
             return authService.isAdmin();
@@ -110,6 +111,7 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
               scope.uploader.flow.upload();
             else
               scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
+            scope.showContact.push(false);
             scope.toggleShowApp();
           }
 
@@ -121,6 +123,10 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
 
           scope.getDownloadName = function(path) {
             return path.split('/')[1];
+          }
+
+          scope.showContactInfo = function(index) {
+            scope.showContact[index] = true;
           }
         }
       }
