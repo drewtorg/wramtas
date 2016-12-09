@@ -4,5 +4,6 @@
   </button>
   <div ng-repeat="post in posts">
     <blog-post post="post" on-delete="posts.splice($index, 1)" page="page"></blog-post>
+    <hr/>
   </div>
 </div>

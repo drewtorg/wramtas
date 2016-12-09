@@ -1,0 +1,9 @@
+<div>
+  <div ng-repeat="scholarship in scholarshipApps">
+    <scholarship-app scholarship="scholarship" on-delete="scholarshipApps.splice($index, 1)"></scholarship-app>
+    <hr/>
+  </div>
+  <button class="btn btn-primary margin-bottom" ng-if="isAdmin()" ng-click="addScholarshipApp()">
+    Add Scholarship <span class="glyphicon glyphicon-plus"></span>
+  </button>
+</div>
