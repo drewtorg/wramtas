@@ -219,3 +219,6 @@ launch.json
 
 # Environment variables file
 .env
+
+# Uploaded files
+public/uploads/*

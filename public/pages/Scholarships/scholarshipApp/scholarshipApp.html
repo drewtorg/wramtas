@@ -19,6 +19,16 @@
       <textarea ui-tinymce="tinymceOptions" ng-model="tempScholarship.prompt"></textarea>
     </div>
   </div>
+  <div ng-if="isAdmin()">
+    <div ng-repeat="submission in scholarship.submissions">
+      <div class="scholarship-box">
+        <h4>Application #{{$index + 1}}</h4>
+        <div ng-repeat="path in submission.submissionPaths">
+          <p>File: <a target="_self" download="{{getDownloadName(path)}}" ng-href="/{{path}}">{{path}}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
   <div ng-if="!isAdmin()">
     <div ng-if="!showApp">
       <button class="btn btn-primary" ng-click="toggleShowApp()">Apply Now</button>
@@ -27,10 +37,11 @@
       <form class="form-group" ng-submit="submitScholarshipApp()">
         <input type="text" class="form-control margin-top" ng-model="app.name" placeholder="Full Name" />
         <input type="text" class="form-control margin-top" ng-model="app.amtaId" placeholder="AMTA Number" />
+        <input type="text" class="form-control margin-top" ng-model="app.email" placeholder="Email Address" />
         <div class="margin-top" flow-init="{singleFile:false}" flow-name="uploader.flow" flow-file-success="onFileUploadSuccess($message)">
           <span class="btn btn-primary" flow-btn>Upload File
-          <input type="file" pull-right flow-btn/>
-        </span>
+            <input type="file" pull-right flow-btn/>
+          </span>
           <div class="scholarship-box" ng-show="$flow.files.length">
             <div ng-repeat="file in $flow.files">
               <span>{{file.name}}</span>

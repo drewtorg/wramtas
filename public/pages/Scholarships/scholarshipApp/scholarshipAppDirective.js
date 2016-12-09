@@ -54,6 +54,7 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
           scope.app = {
             name: '',
             amtaId: '',
+            email: '',
             submissionPaths: []
           };
 
@@ -116,6 +117,10 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
             var file = JSON.parse($message);
             scope.app.submissionPaths.push('uploads/' + file.filename);
             scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
+          }
+
+          scope.getDownloadName = function(path) {
+            return path.split('/')[1];
           }
         }
       }

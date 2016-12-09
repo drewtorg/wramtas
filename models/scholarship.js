@@ -9,6 +9,7 @@ var Scholarship = new Schema({
   submissions: [{
     name: String,
     amtaId: String,
+    email: String,
     submissionPaths: [String]
   }]
 });
