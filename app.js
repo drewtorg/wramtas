@@ -25,6 +25,7 @@ app.use(logger('dev'));
 
 // database setup
 var MONGODB_URI = process.env.MONGODB_URI;
+console.log('Attempting to connect with:' + process.env.MONGODB_URI);
 mongoose.connect(MONGODB_URI);
 
 // Passport does not directly manage your session, it only uses the session.
