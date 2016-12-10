@@ -10,9 +10,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var fs = require('fs');
-require('dotenv').config();
-
 var app = express();
+
+// Load env from .env file in development
+if (app.get('env') === 'development')
+  require('dotenv').config();
+
 
 // view engine setup
 app.set('json spaces', 2);
@@ -21,16 +24,12 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use(logger('dev'));
 
 // database setup
-var MONGO_URI = 'mongodb://localhost/wramtas';
-if (process.env.MONGO_URI)
-  MONGO_URI = process.env.MONGO_URI;
+var MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI);
 
 // Passport does not directly manage your session, it only uses the session.
 // So you configure session attributes (e.g. life of your session) via express
-var PASSPORT_SECRET = 'keyboard cat';
-if (process.env.PASSPORT_SECRET)
-  PASSPORT_SECRET = process.env.PASSPORT_SECRET
+var PASSPORT_SECRET = process.env.PASSPORT_SECRET
 
 var sessionOpts = {
   saveUninitialized: true, // saved new sessions
