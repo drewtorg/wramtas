@@ -100,9 +100,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var port = 3000;
-if (app.get('env') !== 'development')
-  port = 80;
+var port = process.env.PORT || 3000;
 var server = app.listen(port, function() {
   console.log('Ready on port %d', server.address().port);
 });
