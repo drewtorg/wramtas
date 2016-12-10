@@ -21,17 +21,24 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use(logger('dev'));
 
 // database setup
-mongoose.connect('mongodb://localhost/wramtas');
+var MONGO_URI = 'mongodb://localhost/wramtas';
+if (process.env.MONGO_URI)
+  MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(MONGO_URI);
 
 // Passport does not directly manage your session, it only uses the session.
 // So you configure session attributes (e.g. life of your session) via express
+var PASSPORT_SECRET = 'keyboard cat';
+if (process.env.PASSPORT_SECRET)
+  PASSPORT_SECRET = process.env.PASSPORT_SECRET
+
 var sessionOpts = {
   saveUninitialized: true, // saved new sessions
   resave: false, // do not automatically write to the session store
   store: new MongoStore({
     mongooseConnection: mongoose.connection
   }),
-  secret: 'keyboard cat',
+  secret: PASSPORT_SECRET,
   cookie: {
     httpOnly: true,
     maxAge: 2419200000
@@ -42,7 +49,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(cookieParser('keyboard cat'));
+app.use(cookieParser(PASSPORT_SECRET));
 app.use(session(sessionOpts));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -94,7 +101,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var server = app.listen(3000, function() {
+var port = 3000;
+if (app.get('env') !== 'development')
+  port = 80;
+var server = app.listen(port, function() {
   console.log('Ready on port %d', server.address().port);
 });
 

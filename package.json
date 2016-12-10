@@ -2,9 +2,11 @@
   "name": "wramtas",
   "version": "0.0.0",
   "private": true,
+  "main": "app.js",
   "scripts": {
     "install": "cd public && npm install",
-    "start": "sudo service mongod start && sudo nodemon ./app.js"
+    "start": "node app.js",
+    "dev-start": "sudo service mongod start && sudo nodemon ./app.js"
   },
   "description": "wramtas",
   "author": {
