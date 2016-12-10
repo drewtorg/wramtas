@@ -10,6 +10,7 @@ app.directive('bio', function(biosService, authService) {
     controller: ['$scope', function($scope) {
       $scope.uploader = {};
       $scope.bio.inEditMode = angular.isDefined($scope.bio.inEditMode) ? $scope.bio.inEditMode : false;
+      $scope.tempBio = angular.copy($scope.bio);
 
       $scope.isAdmin = function() {
         return authService.isAdmin();
