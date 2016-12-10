@@ -1,13 +1,28 @@
 <div>
   <h2>General Election Information</h2>
-  <!-- TODO: Should be editable by an admin -->
-  <p>Lots of info on how the election works</p>
+  <div ng-show="!electionInfo.inEditMode && electionInfo.html" ng-bind-html="trustAsHtml(electionInfo.html)"></div>
+  <div ng-show="electionInfo.inEditMode">
+    <textarea ui-tinymce="tinymceOptions" ng-model="tempElectionInfo.html"></textarea>
+  </div>
+  <div ng-show="isAdmin()">
+    <button ng-hide="electionInfo.inEditMode" class="btn btn-primary" ng-click="editElectionInfo()">
+      Edit Election Information <span class="glyphicon glyphicon-edit"></span>
+    </button>
+    <div class="margin-top">
+      <button ng-show="electionInfo.inEditMode" class="btn btn-success" ng-click="saveElectionInfo()">
+        Save Changes <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
+      <button ng-show="electionInfo.inEditMode" class="btn btn-danger" ng-click="undoEdits()">
+        Undo Changes <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+  </div>
   <div ng-show="isAdmin()">
     <div ng-if="isElectionRunning">
       <hr/>
       <h3>Election Results</h3>
       <!-- One table per position -->
-      <div ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
+      <div ng-repeat="(id, candidateGroup) in candidates | groupBy: 'position'">
         <div ng-show="hasApprovedCandidates(candidateGroup)">
           <h3>{{positions[id]}}:</h3>
           <table class="table table-bordered table-striped">
