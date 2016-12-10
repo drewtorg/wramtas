@@ -1,7 +1,63 @@
-﻿app.controller('aboutController', function($scope) {
+﻿app.controller('aboutController', function($scope, $sce, authService, aboutPageService) {
+  $scope.pageInfo = {
+    descripton: '',
+    contactEmail: '',
+    boardImage: '',
+    inEditMode: false
+  };
+  $scope.tempPageInfo = {
+    descripton: '',
+    contactEmail: '',
+    boardImage: '',
+    inEditMode: false
+  };
+  $scope.uploader = {};
 
-  $scope.aboutMessage = 'The Western Region of the American Music Therapy Association for Students (WRAMTAS) is one of the regional student branches of the American Music Therapy Association (AMTA). The purpose of this student organization is the advancement of the purpose and objectives of AMTA within the framework of the students and interns of the western region. AMTA strives toward the progressive development of the therapeutic use of music in rehabilitation, special education, and community settings. WRAMTAS includes the states of Alaska, Arizona, California, Hawaii, Idaho, Nevada, Oregon, Utah, and Washington.';
-  $scope.contactEmail = 'amtas.wr@gmail.com';
-  $scope.years = '2015-2016';
-  $scope.image = 'wramtas_board.jpg';
+  aboutPageService.getAboutPage().then(function(res) {
+    if (res.data)
+      $scope.pageInfo = res.data;
+    else {
+      $scope.pageInfo.description = 'Description of the WRAMTAS organization goes here.'
+      $scope.pageInfo.contactEmail = 'default@gmail.com'
+    }
+  });
+
+  $scope.updateAboutPage = function() {
+    $scope.pageInfo = angular.copy($scope.tempPageInfo);
+    $scope.pageInfo.inEditMode = false;
+    if ($scope.uploader.flow.files.length)
+      $scope.uploader.flow.upload();
+    else
+      aboutPageService.updateAboutPage($scope.pageInfo).then(function(response) {
+        $scope.pageInfo.inEditMode = false;
+      });
+  }
+
+  $scope.editAboutPage = function() {
+    $scope.tempPageInfo = angular.copy($scope.pageInfo);
+    $scope.pageInfo.inEditMode = true;
+  }
+
+  $scope.undoEdits = function() {
+    $scope.tempElectionInfo = angular.copy($scope.electionInfo);
+    $scope.uploader.flow.cancel();
+    $scope.pageInfo.inEditMode = false;
+  }
+
+  $scope.trustAsHtml = function(html) {
+    return $sce.trustAsHtml(html);
+  }
+
+  $scope.isAdmin = function() {
+    return authService.isAdmin();
+  }
+
+  $scope.onFileUploadSuccess = function($message) {
+    var res = JSON.parse($message);
+    $scope.pageInfo.boardImage = angular.copy('uploads/' + res.filename);
+
+    aboutPageService.updateAboutPage($scope.pageInfo).then(function(response) {
+      $scope.pageInfo.inEditMode = false;
+    });
+  }
 });
