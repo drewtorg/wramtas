@@ -17,6 +17,22 @@
       </button>
     </div>
   </div>
+  <div ng-show="!isAdmin() && isElectionOver">
+    <hr/>
+    <h3>Election Results</h3>
+    <p>You may still view the candidates and their applications on the <a href="candidates">Candidates</a> page.</p>
+    <!-- One row per position -->
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Position</th>
+        <th>Winner</th>
+      </tr>
+      <tr ng-repeat="(id, candidateGroup) in candidates | groupBy: 'position'">
+        <td>{{positions[id]}}</td>
+        <td>{{getElectionWinner(candidateGroup)}}</td>
+      </tr>
+    </table>
+  </div>
   <div ng-show="isAdmin()">
     <div ng-if="isElectionRunning">
       <hr/>

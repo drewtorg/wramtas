@@ -77,11 +77,13 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
     inEditMode: false,
     html: ''
   };
+  $scope.isElectionOver = false;
 
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates) {
       $scope.isElectionRunning = true;
+      $scope.isElectionOver = Date.now() > Date.parse(dates.votingEndDate);
       for (var prop in dates) {
         if ($scope.dates[prop])
           $scope.dates[prop].date = new Date(dates[prop]).getTime();
@@ -162,4 +164,14 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
   $scope.trustAsHtml = function(string) {
     return $sce.trustAsHtml(string);
   };
+
+  $scope.getElectionWinner = function(candidates) {
+    maxVotes = Math.max.apply(null, candidates.map(function(candidate) {
+      return candidate.votes;
+    }));
+    var winner = candidates.filter(function(candidate) {
+      return candidate.votes === maxVotes;
+    })[0];
+    return winner.name;
+  }
 });
