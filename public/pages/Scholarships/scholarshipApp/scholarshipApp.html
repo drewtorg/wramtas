@@ -1,5 +1,11 @@
 <div class="margin-bottom">
-  <div ng-if="isAdmin()">
+  <div class="margin-top">
+    <div ng-hide="scholarship.inEditMode" ng-bind-html="trustAsHtml(scholarship.prompt)"></div>
+    <div ng-show="scholarship.inEditMode">
+      <textarea ui-tinymce="tinymceOptions" ng-model="tempScholarship.prompt"></textarea>
+    </div>
+  </div>
+  <div class="margin-top" ng-if="isAdmin()">
     <button ng-hide="scholarship.inEditMode" class="btn btn-primary" ng-click="editScholarship()">
       Edit Scholarship <span class="glyphicon glyphicon-edit"></span>
     </button>
@@ -12,12 +18,6 @@
     <button ng-show="scholarship.inEditMode" class="btn btn-danger" ng-click="undoEdits()">
       Undo Changes <span class="glyphicon glyphicon-remove"></span>
     </button>
-  </div>
-  <div class="margin-top">
-    <div ng-hide="scholarship.inEditMode" ng-bind-html="trustAsHtml(scholarship.prompt)"></div>
-    <div ng-show="scholarship.inEditMode">
-      <textarea ui-tinymce="tinymceOptions" ng-model="tempScholarship.prompt"></textarea>
-    </div>
   </div>
   <div ng-if="isAdmin()">
     <div ng-repeat="submission in scholarship.submissions">
