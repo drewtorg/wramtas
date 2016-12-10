@@ -20,8 +20,10 @@ app.controller('candidatesController', function($scope, $filter, $sce, applicati
 
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
-    if (dates)
+    if (dates) {
       $scope.isElectionRunning = Date.parse(dates.nominationStartDate) < Date.now() && Date.now() < Date.parse(dates.votingEndDate);
+      $scope.isElectionOver = Date.now() > Date.parse(dates.votingEndDate);
+    }
   });
 
   $scope.isAdmin = function() {
