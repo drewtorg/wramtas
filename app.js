@@ -25,7 +25,6 @@ app.use(logger('dev'));
 
 // database setup
 var MONGODB_URI = process.env.MONGODB_URI;
-console.log('Attempting to connect with:' + process.env.MONGODB_URI);
 mongoose.connect(MONGODB_URI);
 
 // Passport does not directly manage your session, it only uses the session.
@@ -69,6 +68,23 @@ var Account = require('./models/account');
 passport.use(Account.createStrategy());
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
+
+// Setup admin account if not already set up
+Account.findOne({}, function(err, doc) {
+  if (!doc) {
+    console.log('Attempting to set up admin account');
+    Account.register(new Account({
+      username: process.env.ADMIN_USERNAME,
+      role: 'admin'
+    }), process.env.ADMIN_PASSWORD, function(err, account) {
+      if (err) {
+        console.log('Could not create admin account!');
+      } else {
+        console.log('Created admin account');
+      }
+    });
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
