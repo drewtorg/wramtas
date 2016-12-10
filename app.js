@@ -24,8 +24,8 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use(logger('dev'));
 
 // database setup
-var MONGO_URI = process.env.MONGO_URI;
-mongoose.connect(MONGO_URI);
+var MONGODB_URI = process.env.MONGODB_URI;
+mongoose.connect(MONGODB_URI);
 
 // Passport does not directly manage your session, it only uses the session.
 // So you configure session attributes (e.g. life of your session) via express
