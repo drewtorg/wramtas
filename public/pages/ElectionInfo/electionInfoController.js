@@ -1,4 +1,41 @@
-app.controller('electionInfoController', function($scope, $filter, authService, electionService, positionsService, applicationService) {
+app.controller('electionInfoController', function($scope, $sce, $filter, authService, electionService, positionsService, applicationService) {
+  $scope.tinymceOptions = {
+    selector: 'textarea',
+    theme: 'modern',
+    plugins: [
+      'advlist autolink link image imagetools lists charmap preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality template paste textcolor'
+    ],
+    height: 400,
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor',
+    imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+    style_formats_merge: true,
+    style_formats: [{
+      title: 'Images',
+      items: [{
+        title: 'Float Left',
+        selector: 'img',
+        styles: {
+          'float': 'left',
+          'margin': '0 10px 0 10px'
+        }
+      }, {
+        title: 'Float Right',
+        selector: 'img',
+        styles: {
+          'float': 'right',
+          'margin': '0 10px 0 10px'
+        }
+      }, {
+        title: 'Shadow Box',
+        selector: 'img',
+        styles: {
+          'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.2)'
+        }
+      }]
+    }]
+  };
   $scope.isElectionRunning = false;
   $scope.candidates = {};
   $scope.opened = {
@@ -32,6 +69,15 @@ app.controller('electionInfoController', function($scope, $filter, authService, 
     startingDay: 1
   };
   $scope.showModifiedMessage = false;
+  $scope.electionInfo = {
+    inEditMode: false,
+    html: ''
+  };
+  $scope.tempElectionInfo = {
+    inEditMode: false,
+    html: ''
+  };
+
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates) {
@@ -41,6 +87,13 @@ app.controller('electionInfoController', function($scope, $filter, authService, 
           $scope.dates[prop].date = new Date(dates[prop]).getTime();
       }
     }
+  });
+
+  electionService.getElectionInfo().then(function(res) {
+    if (res.data)
+      $scope.electionInfo.html = res.data.html;
+    else
+      $scope.electionInfo.html = 'Election Information goes here.';
   });
 
   applicationService.getApplications().then(function(response) {
@@ -89,4 +142,24 @@ app.controller('electionInfoController', function($scope, $filter, authService, 
   $scope.isAdmin = function() {
     return authService.isAdmin();
   }
+
+  $scope.editElectionInfo = function() {
+    $scope.tempElectionInfo = angular.copy($scope.electionInfo);
+    $scope.electionInfo.inEditMode = true;
+  }
+
+  $scope.saveElectionInfo = function() {
+    electionService.saveElectionInfo($scope.electionInfo);
+    $scope.electionInfo.html = angular.copy($scope.tempElectionInfo.html);
+    $scope.electionInfo.inEditMode = false;
+  }
+
+  $scope.undoEdits = function() {
+    $scope.tempElectionInfo.html = angular.copy($scope.electionInfo.html);
+    $scope.electionInfo.inEditMode = false;
+  }
+
+  $scope.trustAsHtml = function(string) {
+    return $sce.trustAsHtml(string);
+  };
 });

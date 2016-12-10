@@ -1,4 +1,12 @@
 app.service('electionService', function($http) {
+  this.getElectionInfo = function() {
+    return $http.get('/electionInfo');
+  };
+
+  this.saveElectionInfo = function(electionInfo) {
+    return $http.post('/electionInfo', electionInfo);
+  };
+
   this.getCurrentElection = function() {
     return $http.get('/election');
   };
