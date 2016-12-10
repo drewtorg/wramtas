@@ -1,12 +1,42 @@
 <div>
-  <p>{{aboutMessage}}</p>
-  <p>Contact us at: <a ng-href="mailto:{{contactEmail}}">{{contactEmail}}</a></p>
+  <div class="margin-top" ng-if="isAdmin()">
+    <button ng-show="!pageInfo.inEditMode" class="btn btn-primary" ng-click="editAboutPage()">
+      Edit Page <span class="glyphicon glyphicon-edit"></span>
+    </button>
+  </div>
+  <div class="margin-top" ng-if="isAdmin()">
+    <button ng-show="pageInfo.inEditMode" class="btn btn-success" ng-click="updateAboutPage()">
+      Save Page <span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
+    <button ng-show="pageInfo.inEditMode" class="btn btn-danger" ng-click="undoEdits()">
+      Undo Changes <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
+  <div ng-show="!pageInfo.inEditMode">
+    <div ng-bind-html="pageInfo.description"></div>
+    <p>Contact us at: <a ng-href="mailto:{{pageInfo.contactEmail}}">{{pageInfo.contactEmail}}</a></p>
+  </div>
+  <div class="margin-top" ng-show="pageInfo.inEditMode" flow-init flow-name="uploader.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-file-success="onFileUploadSuccess($message)">
+    <textarea class="form-control margin-bottom" ng-model="tempPageInfo.description" rows="7"></textarea>
+    <div class="form-inline">Contact us at: </span><input type="input" class="form-control" ng-model="tempPageInfo.contactEmail" placeholder="WRAMTAS Email" /></div>
+    <span class="btn btn-primary margin-top" ng-hide="$flow.files.length" flow-btn>Upload Image
+      <input type="file" class="pull-right" flow-btn/>
+    </span>
+    <span class="btn btn-info" ng-show="$flow.files.length" flow-btn>Change
+      <input type="file" class="pull-right" flow-btn/>
+    </span>
+    <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Remove</span>
+    <img class="img-responsive img-shadow bio-image inline margin-top" ng-show="$flow.files.length" flow-img="$flow.files[0]" />
+    <img class="img-responsive img-shadow bio-image inline margin-top" ng-hide="$flow.files.length" ng-src="{{tempPageInfo.boardImage}}" />
+  </div>
+  <div ng-if="!pageInfo.inEditMode">
+    <h3>Executive Board Members</h3>
+    <div ng-if="pageInfo.boardImage">
+      <img class="img-responsive img-shadow" ng-src="{{pageInfo.boardImage}}" />
+    </div>
+  </div>
+  <bio-list type="board"></bio-list>
+  <h3>University Representatives</h3>
+  <bio-list type="reps"></bio-list>
+  <br/>
 </div>
-<div>
-  <h3>Executive Board Members {{years}}</h3>
-  <img class="img-responsive img-shadow" ng-src="uploads/{{image}}" />
-</div>
-<bio-list type="board"></bio-list>
-<h3>University Representatives</h3>
-<bio-list type="reps"></bio-list>
-<br/>
