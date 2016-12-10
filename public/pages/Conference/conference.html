@@ -1,5 +1,19 @@
-<div>
-  <p>To register for conference go to <a href="http://wramta.org">wramta.org</a></p>
-  <img src="pages/Conference/WRAMTAConferenceInfo.png" class="info">
-  </img>
+<div class="margin-top margin-bottom">
+  <div ng-show="!conferenceInfo.inEditMode && conferenceInfo.html" ng-bind-html="trustAsHtml(conferenceInfo.html)"></div>
+  <div ng-show="conferenceInfo.inEditMode">
+    <textarea ui-tinymce="tinymceOptions" ng-model="tempConferenceInfo.html"></textarea>
+  </div>
+  <div ng-show="isAdmin()">
+    <button ng-hide="conferenceInfo.inEditMode" class="btn btn-primary" ng-click="editConferenceInfo()">
+      Edit Conference Information <span class="glyphicon glyphicon-edit"></span>
+    </button>
+    <div class="margin-top">
+      <button ng-show="conferenceInfo.inEditMode" class="btn btn-success" ng-click="saveConferenceInfo()">
+        Save Changes <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
+      <button ng-show="conferenceInfo.inEditMode" class="btn btn-danger" ng-click="undoEdits()">
+        Undo Changes <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+  </div>
 </div>
