@@ -1,7 +1,7 @@
 var express = require('express');
 var Application = require('../models/application');
-var apiKey = process.env.apiKey;
-var domain = process.env.domain;
+var apiKey = process.env.MAILGUN_API_KEY;
+var domain = process.env.MAILGUN_DOMAIN;
 var mailgun = require('mailgun-js')({
   apiKey: apiKey,
   domain: domain
