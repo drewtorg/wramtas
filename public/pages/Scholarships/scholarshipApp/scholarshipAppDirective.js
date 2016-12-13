@@ -1,4 +1,4 @@
-app.directive('scholarshipApp', function($sce, authService, scholarshipsService) {
+app.directive('scholarshipApp', function($sce, authService, filepickerService, scholarshipsService) {
   return {
     restrict: 'E',
     templateUrl: '/pages/Scholarships/scholarshipApp/scholarshipApp.html',
@@ -58,6 +58,8 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
             submissionPaths: []
           };
           scope.showContact = new Array(scope.scholarship.submissions.length).fill(false);
+          scope.files = [];
+          scope.showSavedMessage = false;
 
           scope.isAdmin = function() {
             return authService.isAdmin();
@@ -73,6 +75,11 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
 
           scope.toggleShowApp = function() {
             scope.showApp = !scope.showApp;
+            if (scope.showSavedMessage) scope.showSavedMessage = false;
+          };
+
+          scope.toggleShowSaved = function() {
+            scope.showSavedMessage = !scope.showSavedMessage;
           };
 
           scope.editScholarship = function() {
@@ -91,6 +98,7 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
               scope.scholarship.numUploads = angular.copy(scope.tempScholarship.numUploads);
 
               scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {});
+              scope.toggleEditMode();
             }
           };
 
@@ -107,27 +115,25 @@ app.directive('scholarshipApp', function($sce, authService, scholarshipsService)
           };
 
           scope.submitScholarshipApp = function() {
-            if (scope.uploader.flow.files.length)
-              scope.uploader.flow.upload();
-            else
-              scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
+            scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
-          }
-
-          scope.onFileUploadSuccess = function($message) {
-            var file = JSON.parse($message);
-            scope.app.submissionPaths.push('uploads/' + file.filename);
-            scholarshipsService.uploadScholarshipApplication(scope.scholarship._id, scope.app);
-          }
-
-          scope.getDownloadName = function(path) {
-            return path.split('/')[1];
+            scope.toggleShowSaved();
           }
 
           scope.showContactInfo = function(index) {
             scope.showContact[index] = true;
           }
+
+          scope.onSuccess = function(blob) {
+            scope.app.submissionPaths.push(blob.url);
+            scope.files.push(blob);
+          };
+
+          scope.removeFile = function(index) {
+            scope.files.splice(index, 1);
+            scope.app.submissionPaths.splice(index, 1);
+          };
         }
       }
     }
