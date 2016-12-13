@@ -98,6 +98,7 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
               scope.scholarship.numUploads = angular.copy(scope.tempScholarship.numUploads);
 
               scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {});
+              scope.toggleEditMode();
             }
           };
 
