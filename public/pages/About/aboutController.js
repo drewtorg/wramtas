@@ -11,7 +11,6 @@
     boardImage: '',
     inEditMode: false
   };
-  $scope.uploader = {};
 
   aboutPageService.getAboutPage().then(function(res) {
     if (res.data)
@@ -25,12 +24,9 @@
   $scope.updateAboutPage = function() {
     $scope.pageInfo = angular.copy($scope.tempPageInfo);
     $scope.pageInfo.inEditMode = false;
-    if ($scope.uploader.flow.files.length)
-      $scope.uploader.flow.upload();
-    else
-      aboutPageService.updateAboutPage($scope.pageInfo).then(function(response) {
-        $scope.pageInfo.inEditMode = false;
-      });
+    aboutPageService.updateAboutPage($scope.pageInfo).then(function(response) {
+      $scope.pageInfo.inEditMode = false;
+    });
   }
 
   $scope.editAboutPage = function() {
@@ -40,7 +36,6 @@
 
   $scope.undoEdits = function() {
     $scope.tempElectionInfo = angular.copy($scope.electionInfo);
-    $scope.uploader.flow.cancel();
     $scope.pageInfo.inEditMode = false;
   }
 
@@ -52,12 +47,7 @@
     return authService.isAdmin();
   }
 
-  $scope.onFileUploadSuccess = function($message) {
-    var res = JSON.parse($message);
-    $scope.pageInfo.boardImage = angular.copy('uploads/' + res.filename);
-
-    aboutPageService.updateAboutPage($scope.pageInfo).then(function(response) {
-      $scope.pageInfo.inEditMode = false;
-    });
+  $scope.onSuccess = function(blob) {
+    $scope.tempPageInfo.boardImage = blob.url;
   }
 });

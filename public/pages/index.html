@@ -24,6 +24,10 @@
   <script src="node_modules/tinymce/tinymce.min.js"></script>
   <script src="components/tinymce.js"></script>
 
+  <!-- File Uploader -->
+  <script src="components/filepicker.js"></script>
+  <script src="components/angular_filepicker.min.js"></script>
+
   <!-- Styles -->
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="stylesheets/style.css">
@@ -33,6 +37,7 @@
 
   <!--  Configs -->
   <script src="configs/flow.js"></script>
+  <script src="configs/filepicker.js"></script>
 
   <!-- Services -->
   <script src="pages/About/aboutPageService.js"></script>
@@ -117,7 +122,8 @@
           </div>
         </div>
         <div class="col-md-8" ng-view></div>
-        <div class="col-md-2"></div>
+        <div class="col-md-2">
+        </div>
       </div>
     </div>
   </div>
