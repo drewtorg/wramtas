@@ -48,7 +48,6 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
           };
         },
         post: function(scope, iElem, iAttrs) {
-          scope.uploader = {};
           scope.scholarship.inEditMode = angular.isDefined(scope.scholarship.inEditMode) ? scope.scholarship.inEditMode : false;
           scope.showApp = false;
           scope.app = {

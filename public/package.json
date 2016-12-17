@@ -17,7 +17,6 @@
     "angular-ui-bootstrap": "2.2.0",
     "bootstrap": "^3.3.6",
     "jquery": "1.11.1",
-    "ng-flow": "2.1.4",
     "tinymce": "4.3.10"
   }
 }
