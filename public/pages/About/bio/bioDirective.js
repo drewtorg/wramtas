@@ -1,4 +1,4 @@
-app.directive('bio', function(biosService, authService) {
+app.directive('bio', function(biosService, authService, uploadsService) {
   return {
     restrict: 'E',
     templateUrl: '/pages/About/bio/bio.html',
@@ -8,7 +8,6 @@ app.directive('bio', function(biosService, authService) {
       onDelete: '&',
     },
     controller: ['$scope', function($scope) {
-      $scope.uploader = {};
       $scope.bio.inEditMode = angular.isDefined($scope.bio.inEditMode) ? $scope.bio.inEditMode : false;
       $scope.tempBio = angular.copy($scope.bio);
 
@@ -57,6 +56,7 @@ app.directive('bio', function(biosService, authService) {
 
       $scope.onSuccess = function(blob) {
         $scope.tempBio.image = blob.url;
+        uploadsService.addUpload(blob);
       };
     }]
   }
