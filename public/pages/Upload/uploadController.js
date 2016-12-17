@@ -15,7 +15,8 @@ app.controller('uploadController', function($scope, $location, authService, uplo
     $scope.$apply();
   };
 
-  $scope.isImage = function(mimetype) {
-    return mimetype.contains('image');
+  $scope.getSource = function(file) {
+    if (file.mimetype.contains('image')) return file.url;
+    return 'no_preview.jpg';
   };
 });

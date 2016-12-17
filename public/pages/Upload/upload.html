@@ -3,10 +3,11 @@
     <input filepicker type="filepicker" data-fp-services="computer" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-primary" data-fp-button-text="Upload Media" />
     <div ng-repeat="file in files">
       <div>
-        <img class="upload-image upload-box" ng-if="isImage(file.mimetype)" ng-src="{{file.url}}"></img>
+        <img class="upload-image upload-box" ng-src="{{getSource(file)}}"></img>
         <p>Original Filename: {{file.filename}}</p>
         <p>Link: <a ng-href="{{file.url}}">{{file.url}}</a></p>
       </div>
+      <hr/>
     </div>
   </div>
 </div>
