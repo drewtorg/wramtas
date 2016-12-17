@@ -1,4 +1,4 @@
-﻿app.controller('mainController', function($scope, $location, $http, $cookies, authService) {
+﻿app.controller('mainController', function($scope, $location, $http, $cookies, authService, filepickerService) {
   $scope.tabs = [{
     href: '/about',
     title: 'About'
@@ -59,6 +59,10 @@
 
   $scope.logIn = function(form) {
     authService.logIn(form);
+    $scope.tabs.push({
+      href: '/upload',
+      title: 'Uploads'
+    });
   };
 
   $scope.register = function(form) {
@@ -71,6 +75,14 @@
 
   $scope.logout = function() {
     authService.logout();
+    $scope.tabs.pop();
+    if ($location.path() === '/upload') {
+      $location.path('/');
+    }
+  };
+
+  $scope.isAdmin = function() {
+    return authService.isAdmin();
   };
 
   $scope.getUsername = function() {
