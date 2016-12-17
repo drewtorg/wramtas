@@ -8,7 +8,7 @@ app.service('authService', function($http, $cookies) {
   };
 
   this.logIn = function(form) {
-    $http.post('/login', form).then(function(response) {
+    return $http.post('/login', form).then(function(response) {
       $cookies.put('session', angular.toJson(response.data));
     });
   };

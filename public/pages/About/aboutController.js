@@ -1,4 +1,4 @@
-﻿app.controller('aboutController', function($scope, $sce, authService, aboutPageService) {
+﻿app.controller('aboutController', function($scope, $sce, authService, aboutPageService, uploadsService) {
   $scope.pageInfo = {
     descripton: '',
     contactEmail: '',
@@ -49,5 +49,6 @@
 
   $scope.onSuccess = function(blob) {
     $scope.tempPageInfo.boardImage = blob.url;
+    uploadsService.addUpload(blob);
   }
 });

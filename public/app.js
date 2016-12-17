@@ -1,4 +1,4 @@
-﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'flow', 'ngCookies', 'angular-filepicker', 'angular.filter', 'angularSpinner', 'ui.bootstrap']);
+﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'ngCookies', 'angular-filepicker', 'angular.filter', 'angularSpinner', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
@@ -44,6 +44,10 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
     .when('/spotlight', {
       templateUrl: 'pages/Spotlight/spotlight.html',
       controller: 'spotlightController'
+    })
+    .when('/upload', {
+      templateUrl: 'pages/Upload/upload.html',
+      controller: 'uploadController'
     })
     .when('/vote', {
       templateUrl: 'pages/Vote/vote.html',
