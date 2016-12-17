@@ -45,6 +45,11 @@
   max-height: 300px;
 }
 
+.upload-image {
+  max-width: 300px;
+  max-height: 300px;
+}
+
 input[type="file"] {
   visibility: hidden;
   position: absolute;
@@ -91,6 +96,14 @@ input[type="file"] {
 }
 
 .ballot-box {
+  padding: 15px;
+  border: 1px solid #BABABA;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 15px 0px 15px 0px;
+}
+
+.upload-box {
   padding: 15px;
   border: 1px solid #BABABA;
   border-radius: 5px;
