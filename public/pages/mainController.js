@@ -58,10 +58,13 @@
   };
 
   $scope.logIn = function(form) {
-    authService.logIn(form);
-    $scope.tabs.push({
-      href: '/upload',
-      title: 'Uploads'
+    authService.logIn(form).then(function() {
+      if (authService.isAdmin()) {
+        $scope.tabs.push({
+          href: '/upload',
+          title: 'Uploads'
+        });
+      }
     });
   };
 
