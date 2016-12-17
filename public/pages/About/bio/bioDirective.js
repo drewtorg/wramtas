@@ -1,4 +1,4 @@
-app.directive('bio', function(biosService, authService) {
+app.directive('bio', function(biosService, authService, uploadsService) {
   return {
     restrict: 'E',
     templateUrl: '/pages/About/bio/bio.html',
@@ -56,6 +56,7 @@ app.directive('bio', function(biosService, authService) {
 
       $scope.onSuccess = function(blob) {
         $scope.tempBio.image = blob.url;
+        uploadsService.addUpload(blob);
       };
     }]
   }
