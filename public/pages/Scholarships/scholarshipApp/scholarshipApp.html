@@ -42,7 +42,7 @@
   <div ng-if="isAdmin()">
     <div ng-repeat="submission in scholarship.submissions">
       <div class="scholarship-box">
-        <h4>Application #{{$index + 1}} <button class="btn btn-primary" ng-click="showContactInfo($index)" ng-show="!showContact[$index]">Show Contact Information</button></h4>
+        <h4>Application #{{$index + 1}} <button class="btn btn-primary" ng-click="toggleContactInfo($index)"><span ng-show="!showContact[$index]">Show</span><span ng-show="showContact[$index]">Hide</span> Contact Information</button></h4>
         <div ng-show="showContact[$index]">
           <p>Applicant Name: {{submission.name}}</p>
           <p>Applicant Email: <a ng-href="mailto:{{submission.email}}">{{submission.email}}</a></p>

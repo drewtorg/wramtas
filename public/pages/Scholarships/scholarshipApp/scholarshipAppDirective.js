@@ -143,8 +143,8 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
             scope.toggleShowSaved();
           }
 
-          scope.showContactInfo = function(index) {
-            scope.showContact[index] = true;
+          scope.toggleContactInfo = function(index) {
+            scope.showContact[index] = !scope.showContact[index];
           }
 
           scope.onSuccess = function(blob) {
