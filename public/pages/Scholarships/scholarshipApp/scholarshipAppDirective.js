@@ -59,6 +59,23 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
           scope.showContact = new Array(scope.scholarship.submissions.length).fill(false);
           scope.files = [];
           scope.showSavedMessage = false;
+          scope.dates = {
+            openDate: {
+              date: Date.parse(scope.scholarship.openDate),
+              opened: false
+            },
+            closeDate: {
+              date: Date.parse(scope.scholarship.closeDate),
+              opened: false
+            }
+          };
+          scope.isScholarshipOpen = Date.now() > scope.dates.openDate.date && Date.now() < scope.dates.closeDate.date;
+          scope.format = 'MM/dd/yy h:mm a'
+          scope.dateOptions = {
+            maxDate: new Date(2025, 5, 22),
+            minDate: new Date(),
+            startingDay: 1
+          };
 
           scope.isAdmin = function() {
             return authService.isAdmin();
@@ -95,6 +112,9 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
             if (angular.isDefined(scope.tempScholarship)) {
               scope.scholarship.prompt = angular.copy(scope.tempScholarship.prompt);
               scope.scholarship.numUploads = angular.copy(scope.tempScholarship.numUploads);
+              scope.scholarship.openDate = angular.copy(scope.dates.openDate.date);
+              scope.scholarship.closeDate = angular.copy(scope.dates.closeDate.date);
+              scope.isScholarshipOpen = Date.now() > scope.dates.openDate.date && Date.now() < scope.dates.closeDate.date;
 
               scholarshipsService.saveScholarship(scope.scholarship).then(function(response) {});
               scope.toggleEditMode();
@@ -103,8 +123,11 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
 
           scope.undoEdits = function() {
             // this is the case when we are undoing after clicking edit
-            if (angular.isDefined(scope.tempScholarship))
+            if (angular.isDefined(scope.tempScholarship)) {
               scope.tempScholarship = angular.copy(scope.scholarship);
+              scope.dates.openDate.date = Date.parse(scope.scholarship.openDate);
+              scope.dates.closeDate.date = Date.parse(scope.scholarship.closeDate);
+            }
 
             // this is the case when we are undoing after clicking add
             if (!angular.isDefined(scope.tempScholarship) || scope.tempScholarship.prompt === '')
@@ -133,6 +156,10 @@ app.directive('scholarshipApp', function($sce, authService, filepickerService, s
             scope.files.splice(index, 1);
             scope.app.submissionPaths.splice(index, 1);
           };
+
+          scope.toggleOpened = function(date) {
+            date.opened = !date.opened;
+          }
         }
       }
     }

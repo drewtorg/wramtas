@@ -6,6 +6,14 @@ var Scholarship = new Schema({
     type: String,
     default: ''
   },
+  openDate: {
+    type: Date,
+    default: Date.now()
+  },
+  closeDate: {
+    type: Date,
+    default: Date.now()
+  },
   submissions: [{
     name: String,
     amtaId: String,

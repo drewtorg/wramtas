@@ -62,7 +62,7 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
       opened: false
     }
   };
-  $scope.format = 'MM/dd/yy H:mm a'
+  $scope.format = 'MM/dd/yy h:mm a'
   $scope.dateOptions = {
     maxDate: new Date(2025, 5, 22),
     minDate: new Date(),

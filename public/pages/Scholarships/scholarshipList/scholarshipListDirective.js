@@ -18,8 +18,6 @@ app.directive('scholarshipList', function($sce, authService, scholarshipsService
         };
         scholarshipsService.createScholarship().then(function(response) {
           newApp._id = response.data._id;
-          newApp.datePosted = response.data.datePosted;
-          newApp.dateModified = response.data.dateModified;
           $scope.scholarshipApps.push(newApp);
         });
       };

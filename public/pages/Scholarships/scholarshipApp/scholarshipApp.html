@@ -2,7 +2,27 @@
   <div class="margin-top">
     <div ng-hide="scholarship.inEditMode" ng-bind-html="trustAsHtml(scholarship.prompt)"></div>
     <div ng-show="scholarship.inEditMode">
+      <h3>Modify Scholarship Details</h3>
       <textarea ui-tinymce="tinymceOptions" ng-model="tempScholarship.prompt"></textarea>
+      <h3>Modify Scholarship Open/Close Dates</h3>
+      <form class="form-inline" ng-submit="modifyElection(dates)">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="control-label">Applications Open:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.openDate.date" is-open="dates.openDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.openDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Applications Close:</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dates.closeDate.date" is-open="dates.closeDate.opened" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(dates.closeDate)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
   <div class="margin-top" ng-if="isAdmin()">
@@ -35,7 +55,14 @@
   </div>
   <div ng-if="!isAdmin()">
     <div ng-if="!showApp">
-      <button class="btn btn-primary" ng-click="toggleShowApp()">Apply Now</button>
+      <div ng-if="isScholarshipOpen">
+        <button class="btn btn-primary" ng-click="toggleShowApp()">Apply Now</button>
+      </div>
+      <div ng-if="!isScholarshipOpen">
+        <div class="alert alert-info margin-top">
+          <span>This scholarship is not currently open for applications.</span>
+        </div>
+      </div>
     </div>
     <div class="alert alert-info margin-top" ng-show="showSavedMessage"><span>Thank you for applying for a WRAMTAS scholarship.  You will be notified if you have won shortly after applications close.</span></div>
     <div ng-if="showApp">
