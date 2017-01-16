@@ -46,7 +46,7 @@ router.post('/:_id', function(req, res) {
       from: 'WRAMTAS <nominations@' + domain + '>',
       to: req.body.email,
       subject: 'WRAMTAS Executive Board Application',
-      text: 'Dear ' + req.body.name + ', your application for ' + req.body.positionName + ' on the WRAMTAS Executive Board has been rejected for the following reason: "' + req.body.reason + '".  Click this link to address the issues with your application and re-submit it: http://wramtas.org/application?_id=' + req.body._id + '.  We apologize for the inconvenience and hope you will re-submit your application promptly.'
+      text: 'Dear ' + req.body.name + ', your application for ' + req.body.positionName + ' on the WRAMTAS Executive Board has been rejected for the following reason: "' + req.body.reason + '".  Click this link to address the issues with your application and re-submit it: http://www.wramtas.org/application?_id=' + req.body._id + '.  We apologize for the inconvenience and hope you will re-submit your application promptly.'
     };
 
     mailgun.messages().send(data, function(error, body) {});
