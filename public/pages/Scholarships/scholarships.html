@@ -3,7 +3,7 @@
   <div ng-show="scholarshipInfo.inEditMode">
     <textarea ui-tinymce="tinymceOptions" ng-model="tempScholarshipInfo.html"></textarea>
   </div>
-  <div ng-show="isAdmin()">
+  <div ng-show="isAdmin()" class="margin-bottom">
     <button ng-hide="scholarshipInfo.inEditMode" class="btn btn-primary" ng-click="editScholarshipInfo()">
       Edit Scholarship Information <span class="glyphicon glyphicon-edit"></span>
     </button>

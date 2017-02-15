@@ -14,7 +14,7 @@
   </div>
   <div ng-show="!pageInfo.inEditMode">
     <div ng-bind-html="pageInfo.description"></div>
-    <p>Contact us at: <a ng-href="mailto:{{pageInfo.contactEmail}}">{{pageInfo.contactEmail}}</a></p>
+    <p class="margin-top">Contact us at: <a ng-href="mailto:{{pageInfo.contactEmail}}">{{pageInfo.contactEmail}}</a></p>
   </div>
   <div class="margin-top" ng-show="pageInfo.inEditMode">
     <textarea class="form-control margin-bottom" ng-model="tempPageInfo.description" rows="7"></textarea>
