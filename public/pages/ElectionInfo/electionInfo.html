@@ -1,6 +1,6 @@
 <div>
   <h2>General Election Information</h2>
-  <div ng-show="!electionInfo.inEditMode && electionInfo.html" ng-bind-html="trustAsHtml(electionInfo.html)"></div>
+  <div ng-show="!electionInfo.inEditMode && electionInfo.html" ng-bind-html="trustAsHtml(electionInfo.html)" class="margin-bottom"></div>
   <div ng-show="electionInfo.inEditMode">
     <textarea ui-tinymce="tinymceOptions" ng-model="tempElectionInfo.html"></textarea>
   </div>
