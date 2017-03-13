@@ -91,4 +91,11 @@
   $scope.getUsername = function() {
     return angular.fromJson($cookies.get('session')).username;
   };
+
+  if (authService.isAdmin()) {
+    $scope.tabs.push({
+      href: '/upload',
+      title: 'Uploads'
+    });
+  }
 });
