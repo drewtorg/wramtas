@@ -2,7 +2,7 @@
   <div class="alert alert-info" ng-show="!isElectionRunning"><span>Voting for this year's election is not open at this time.  Please refer to the <a ng-href="/election-info">General Election Info</a> page for more information.</span></div>
   <div ng-show="isElectionRunning">
     <div ng-show="!showVotePanel && !spinning">
-      <p>Before you can begin voting, we ask that you fill in your name and AMTA number to ensure you are allowed to vote. If you do not have an AMTA number, you can become a member of AMTA at <a href="http://www.musictherapy.org/">musictherapy.org</a>.</p>
+      <p>Before you can begin voting, we ask that you fill in your name and AMTA number to ensure you are allowed to vote. That being said, your votes will still be recorded anonymously. If you do not have an AMTA number, you can become a member of AMTA at <a href="http://www.musictherapy.org/">musictherapy.org</a>.</p>
       <form class="form-inline" ng-submit="showSpinner()">
         <input class="form-control margin-bottom" type="text" placeholder="First Name" />
         <input class="form-control margin-bottom" type="text" placeholder="Last Name" />
