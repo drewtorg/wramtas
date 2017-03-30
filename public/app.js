@@ -33,6 +33,10 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/ElectionInfo/electionInfo.html',
       controller: 'electionInfoController'
     })
+    .when('/master-class', {
+      templateUrl: 'pages/MasterClass/masterClass.html',
+      controller: 'masterClassController'
+    })
     .when('/nominate', {
       templateUrl: 'pages/Nominate/nominate.html',
       controller: 'nominateController'

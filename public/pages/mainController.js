@@ -33,7 +33,10 @@
     }]
   }, {
     href: '/spotlight',
-    title: 'Spotlight'
+    title: 'Internship Spotlight'
+  }, {
+    href: '/master-class',
+    title: 'Master Class'
   }];
 
   $scope.form = {

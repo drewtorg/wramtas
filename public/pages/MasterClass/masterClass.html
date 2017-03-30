@@ -1,0 +1,32 @@
+<div>
+  <h2>Virtual Master Class</h2>
+  <div ng-show="!masterClass.inEditMode && masterClass.html" ng-bind-html="trustAsHtml(masterClass.html)" class="margin-bottom"></div>
+  <div ng-show="masterClass.inEditMode">
+    <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.html"></textarea>
+  </div>
+  <div ng-show="isAdmin()">
+    <button ng-hide="masterClass.inEditMode" class="btn btn-primary" ng-click="editMasterClass()">
+      Edit Master Class <span class="glyphicon glyphicon-edit"></span>
+    </button>
+    <div ng-show="masterClass.inEditMode" class="margin-top">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="control-label">Master Class Time:</label>
+          <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="masterClass.date" is-open="masterClass.opened" datepicker-options="dateOptions" close-text="Close" />
+            <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(masterClass)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+          </p>
+        </div>
+      </div>
+      <button class="btn btn-success" ng-click="saveMasterClass()">
+        Save Changes <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
+      <button class="btn btn-danger" ng-click="undoEdits()">
+        Undo Changes <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+  </div>
+  <div ng-show="!isAdmin() && isMasterClassPast">
+    <p>Master Class is past</p>
+  </div>
+</div>
