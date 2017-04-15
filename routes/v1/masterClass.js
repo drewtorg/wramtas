@@ -1,18 +1,18 @@
 var express = require('express');
-var AboutPage = require('../models/aboutPage');
+var MasterClass = require('../../models/masterClass');
 
 var router = express.Router();
 
-// GET the about information
+// GET the master class
 router.get('/', function(req, res) {
-  AboutPage.findOne({}, function(err, doc) {
+  MasterClass.findOne({}, function(err, doc) {
     res.json(doc);
   });
 });
 
-// POST upsert the about information
+// POST upsert the master class
 router.post('/', function(req, res) {
-  AboutPage.findOneAndUpdate({}, req.body, {
+  MasterClass.findOneAndUpdate({}, req.body, {
       upsert: true,
       new: true
     },

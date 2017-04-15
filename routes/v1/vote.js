@@ -1,5 +1,5 @@
 var express = require('express');
-var Application = require('../models/application');
+var Application = require('../../models/application');
 var router = express.Router();
 
 // PUT updates the vote count with a single ballot

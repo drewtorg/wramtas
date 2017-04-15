@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var ElectionInfo = require('../models/electionInfo');
+var ElectionInfo = require('../../models/electionInfo');
 
 // GET the single ElectionInfo
 router.get('/', function(req, res) {

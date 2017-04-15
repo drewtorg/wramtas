@@ -1,6 +1,6 @@
 var express = require('express');
 var passport = require('passport');
-var Account = require('../models/account');
+var Account = require('../../models/account');
 var router = express.Router();
 
 router.post('/', function(req, res, next) {

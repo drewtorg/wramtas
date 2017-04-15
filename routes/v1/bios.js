@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var bioSchema = require('../schemas/bio');
+var bioSchema = require('../../schemas/bio');
 
 var router = express.Router();
 

@@ -1,22 +1,22 @@
 app.service('applicationService', function($http) {
   this.submitApplication = function(application) {
     application.submitted = true;
-    return $http.put('/applications/' + application._id, application);
+    return $http.put('/api/v1/applications/' + application._id, application);
   };
 
   this.saveApplication = function(application) {
-    return $http.put('/applications/' + application._id, application);
+    return $http.put('/api/v1/applications/' + application._id, application);
   };
 
   this.getApplication = function(id) {
-    return $http.get('/applications/' + id);
+    return $http.get('/api/v1/applications/' + id);
   }
 
   this.getApplications = function() {
-    return $http.get('/applications');
+    return $http.get('/api/v1/applications');
   }
 
   this.postApplication = function(application) {
-    return $http.post('/applications/' + application._id, application);
+    return $http.post('/api/v1/applications/' + application._id, application);
   }
 });

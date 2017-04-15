@@ -1,14 +1,14 @@
 var express = require('express');
-var University = require('../models/university');
+var Position = require('../../models/position');
 
 var router = express.Router();
 
-/* GET all universities. */
+/* GET all positions. */
 router.get('/', function(req, res) {
-  University.find().find(function(err, universities) {
+  Position.find().find(function(err, positions) {
     if (err) res.status(200).end();
     else
-      res.json(universities);
+      res.json(positions);
   });
 });
 

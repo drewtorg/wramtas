@@ -53,11 +53,8 @@ app.use(session(sessionOpts));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var routePath = './routes/';
-fs.readdirSync(routePath).forEach(function(file) {
-  var name = file.split('.js')[0];
-  app.use('/' + name, require(routePath + name)); // eslint-disable-line global-require
-});
+app.use('/api/', require('./routes/api'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/pages/index.html'));

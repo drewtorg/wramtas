@@ -1,6 +1,6 @@
 var express = require('express');
-var Election = require('../models/election');
-var Application = require('../models/application');
+var Election = require('../../models/election');
+var Application = require('../../models/application');
 var router = express.Router();
 
 // GET the current election

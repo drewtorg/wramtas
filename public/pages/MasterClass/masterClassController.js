@@ -45,30 +45,42 @@ app.controller('masterClassController', function($scope, $sce, $filter, authServ
   };
   $scope.masterClass = {
     inEditMode: false,
-    html: '',
+    html: ''
+  };
+  $scope.openDate = {
     date: Date.now(),
     opened: false
-  };
+  }
+  $scope.closeDate = {
+    date: Date.now(),
+    opened: false
+  }
   $scope.tempMasterClass = {
     inEditMode: false,
     html: '',
     date: Date.now()
   };
+
   $scope.isMasterClassPast = function() {
-    return Date.now() > Date.parse($scope.masterClass.date);
+    return Date.now() > Date.parse($scope.closeDate.date);
+  };
+
+  $scope.isMasterClassPlanned = function() {
+    return Date.now() < Date.parse($scope.openDate.date);
   };
 
   masterClassService.getMasterClass().then(function(res) {
     if (res.data) {
       $scope.masterClass.html = res.data.html;
-      $scope.masterClass.date = res.data.date;
+      $scope.openDate.date = res.data.openDate;
+      $scope.closeDate.date = res.data.closeDate;
     } else {
-      $scope.masterClass.html = 'Master Class Information goes here.';
+      $scope.masterClass.html = 'No Master Class data could be found.';
     }
   });
 
-  $scope.toggleOpened = function(masterClass) {
-    masterClass.opened = !masterClass.opened;
+  $scope.toggleOpened = function(date) {
+    date.opened = !date.opened;
   }
 
   $scope.isAdmin = function() {

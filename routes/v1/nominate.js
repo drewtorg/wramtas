@@ -6,8 +6,8 @@ var mailgun = require('mailgun-js')({
 });
 var express = require('express');
 var router = express.Router();
-var Application = require('../models/application');
-var Election = require('../models/election');
+var Application = require('../../models/application');
+var Election = require('../../models/election');
 var dateFormat = require('dateformat');
 
 router.post('/', function(req, res) {

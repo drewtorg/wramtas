@@ -1,5 +1,5 @@
 var express = require('express');
-var Scholarship = require('../models/scholarship');
+var Scholarship = require('../../models/scholarship');
 var router = express.Router();
 
 // GET returns all scholarships

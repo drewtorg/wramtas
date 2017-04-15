@@ -4,6 +4,10 @@
     "node": true
   },
   "extends": "eslint:recommended",
+  "globals": {
+    "angular": true,
+    "app": true
+  },
   "rules": {
     "accessor-pairs": "error",
     "array-bracket-spacing": [

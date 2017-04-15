@@ -1,21 +1,21 @@
 app.service('scholarshipsService', function($http) {
   this.uploadScholarshipApplication = function(_id, app) {
-    return $http.post('/scholarship/' + _id + '/app', app)
+    return $http.post('/api/v1/scholarship/' + _id + '/app', app)
   };
 
   this.saveScholarship = function(info) {
-    return $http.put('/scholarship/' + info._id, info);
+    return $http.put('/api/v1/scholarship/' + info._id, info);
   };
 
   this.deleteScholarship = function(info) {
-    return $http.delete('/scholarship/' + info._id);
+    return $http.delete('/api/v1/scholarship/' + info._id);
   };
 
   this.createScholarship = function() {
-    return $http.post('/scholarship');
+    return $http.post('/api/v1/scholarship');
   };
 
   this.getScholarships = function() {
-    return $http.get('/scholarship');
+    return $http.get('/api/v1/scholarship');
   };
 });

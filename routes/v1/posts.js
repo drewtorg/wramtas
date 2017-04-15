@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var postSchema = require('../schemas/post');
+var postSchema = require('../../schemas/post');
 
 var router = express.Router();
 
