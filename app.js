@@ -56,6 +56,7 @@ app.use(passport.session());
 app.use('/api/', require('./routes/api'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/pages/index.html'));
 });
