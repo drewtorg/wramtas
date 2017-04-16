@@ -6,7 +6,7 @@ var router = express.Router();
 
 var getIdFromRequest = function(req) {
   return req.url.split('?')[0].replace('/', '');
-}
+};
 
 // GET all bios
 router.get('/', function(req, res) {

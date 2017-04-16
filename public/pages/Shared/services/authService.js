@@ -1,6 +1,7 @@
 app.service('authService', function($http, $cookies) {
   this.isAdmin = function() {
-    return this.isLoggedIn() && angular.fromJson($cookies.get('session')).role === 'admin';
+    return this.isLoggedIn() &&
+           angular.fromJson($cookies.get('session')).role === 'admin';
   };
 
   this.isLoggedIn = function() {

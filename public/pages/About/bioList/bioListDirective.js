@@ -25,5 +25,5 @@ app.directive('bioList', function(biosService, $cookies, authService) {
         });
       };
     }]
-  }
+  };
 });

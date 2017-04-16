@@ -5,5 +5,5 @@ app.service('uploadsService', function($http) {
 
   this.addUpload = function(file) {
     return $http.post('/api/v1/uploads', file);
-  }
+  };
 });

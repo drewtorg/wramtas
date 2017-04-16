@@ -1,4 +1,13 @@
-﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'ngCookies', 'angular-filepicker', 'angular.filter', 'angularSpinner', 'ui.bootstrap']);
+﻿var app = angular.module('wramtasApp', [
+   'ngRoute',
+   'ui.tinymce',
+   'ngSanitize',
+   'ngCookies',
+   'angular-filepicker',
+   'angular.filter',
+   'angularSpinner',
+   'ui.bootstrap'
+]);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider

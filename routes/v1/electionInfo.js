@@ -6,7 +6,7 @@ var ElectionInfo = require('../../models/electionInfo');
 router.get('/', function(req, res) {
   ElectionInfo.findOne({}, function(err, doc) {
     res.json(doc);
-  })
+  });
 });
 
 // POST upsert ElectionInfo

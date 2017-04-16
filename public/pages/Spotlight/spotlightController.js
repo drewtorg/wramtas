@@ -1,1 +1,1 @@
-app.controller('spotlightController', function($scope, postsService) {});
+app.controller('spotlightController');

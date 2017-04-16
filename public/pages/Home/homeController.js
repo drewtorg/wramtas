@@ -1,2 +1,2 @@
 ﻿
-app.controller('homeController', function($scope, postsService) {});
+app.controller('homeController');

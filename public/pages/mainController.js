@@ -1,4 +1,9 @@
-﻿app.controller('mainController', function($scope, $location, $http, $cookies, authService, filepickerService) {
+﻿app.controller('mainController', function(
+    $scope,
+    $location,
+    $http,
+    $cookies,
+    authService) {
   $scope.tabs = [{
     href: '/about',
     title: 'About'

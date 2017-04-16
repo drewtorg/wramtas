@@ -10,13 +10,13 @@ app.service('applicationService', function($http) {
 
   this.getApplication = function(id) {
     return $http.get('/api/v1/applications/' + id);
-  }
+  };
 
   this.getApplications = function() {
     return $http.get('/api/v1/applications');
-  }
+  };
 
   this.postApplication = function(application) {
     return $http.post('/api/v1/applications/' + application._id, application);
-  }
+  };
 });

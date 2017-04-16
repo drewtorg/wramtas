@@ -1,4 +1,8 @@
-app.directive('blogPost', function($sce, postsService, authService) {
+app.directive('blogPost', function(
+    $sce,
+    postsService,
+    authService,
+    TINY_MCE_OPTIONS) {
   return {
     restrict: 'E',
     templateUrl: 'pages/Shared/directives/blogPost/blogPost.html',
@@ -7,49 +11,15 @@ app.directive('blogPost', function($sce, postsService, authService) {
       page: '=',
       onDelete: '&',
     },
-    compile: function(tElem, tAttrs) {
+    compile: function() {
       return {
-        pre: function(scope, iElem, iAttrs) {
-          scope.tinymceOptions = {
-            selector: 'textarea',
-            theme: 'modern',
-            plugins: [
-              'advlist autolink link image imagetools lists charmap preview hr anchor pagebreak spellchecker',
-              'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-              'save table contextmenu directionality template paste textcolor'
-            ],
-            height: 400,
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor',
-            imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-            style_formats_merge: true,
-            style_formats: [{
-              title: 'Images',
-              items: [{
-                title: 'Float Left',
-                selector: 'img',
-                styles: {
-                  'float': 'left',
-                  'margin': '0 10px 0 10px'
-                }
-              }, {
-                title: 'Float Right',
-                selector: 'img',
-                styles: {
-                  'float': 'right',
-                  'margin': '0 10px 0 10px'
-                }
-              }, {
-                title: 'Shadow Box',
-                selector: 'img',
-                styles: {
-                  'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.2)'
-                }
-              }]
-            }]
-          };
+        pre: function(scope) {
+          scope.tinymceOptions = TINY_MCE_OPTIONS;
         },
-        post: function(scope, iElem, iAttrs) {
-          scope.post.inEditMode = angular.isDefined(scope.post.inEditMode) ? scope.post.inEditMode : false;
+        post: function(scope) {
+          scope.post.inEditMode = angular.isDefined(scope.post.inEditMode)
+                                                    ? scope.post.inEditMode
+                                                    : false;
 
           scope.isAdmin = function() {
             return authService.isAdmin();
@@ -65,7 +35,8 @@ app.directive('blogPost', function($sce, postsService, authService) {
               month: 'long',
               day: 'numeric'
             };
-            return new Date(uglyDateString).toLocaleDateString('en-US', options);
+            return new Date(uglyDateString)
+              .toLocaleDateString('en-US', options);
           };
 
           scope.showPostedDate = function() {
@@ -94,7 +65,8 @@ app.directive('blogPost', function($sce, postsService, authService) {
             if (angular.isDefined(scope.tempPost))
               scope.post.html = angular.copy(scope.tempPost.html);
 
-            postsService.savePost(scope.page, scope.post).then(function(response) {
+            postsService.savePost(scope.page, scope.post)
+              .then(function(response) {
               scope.post.datePosted = response.data.datePosted;
               scope.post.dateModified = response.data.dateModified;
               scope.toggleEditMode();
@@ -107,13 +79,15 @@ app.directive('blogPost', function($sce, postsService, authService) {
               scope.tempPost.html = angular.copy(scope.post.html);
 
             // this is the case when we are undoing after clicing add
-            if (!angular.isDefined(scope.tempPost) || scope.tempPost.html === '')
+            if (!angular.isDefined(scope.tempPost) ||
+                scope.tempPost.html === '') {
               scope.deletePost();
+            }
 
             scope.toggleEditMode();
           };
         }
-      }
+      };
     },
   };
 });
