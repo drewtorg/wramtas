@@ -1,4 +1,4 @@
-app.directive('scholarshipList', function(
+app.directive('wraScholarshipList', function(
     $sce,
     authService,
     scholarshipsService) {

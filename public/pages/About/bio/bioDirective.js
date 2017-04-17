@@ -1,4 +1,4 @@
-app.directive('bio', function(biosService, authService, uploadsService) {
+app.directive('wraBio', function(biosService, authService, uploadsService) {
   return {
     restrict: 'E',
     templateUrl: '/pages/About/bio/bio.html',

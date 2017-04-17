@@ -3,9 +3,11 @@ app.controller('electionInfoController', function(
     $sce,
     $filter,
     authService,
+    dateService,
     electionService,
     positionsService,
     applicationService,
+    DATE_OPTIONS,
     TINY_MCE_OPTIONS) {
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
   $scope.isElectionRunning = false;
@@ -34,12 +36,8 @@ app.controller('electionInfoController', function(
       opened: false
     }
   };
-  $scope.format = 'MM/dd/yy h:mm a';
-  $scope.dateOptions = {
-    maxDate: new Date(2025, 5, 22),
-    minDate: new Date(),
-    startingDay: 1
-  };
+  $scope.format = DATE_OPTIONS.format;
+  $scope.datepickerOptions = DATE_OPTIONS.datepickerOptions;
   $scope.showModifiedMessage = false;
   $scope.electionInfo = {
     inEditMode: false,
@@ -56,10 +54,7 @@ app.controller('electionInfoController', function(
     if (dates) {
       $scope.isElectionRunning = true;
       $scope.isElectionOver = Date.now() > Date.parse(dates.votingEndDate);
-      for (var prop in dates) {
-        if ($scope.dates[prop])
-          $scope.dates[prop].date = new Date(dates[prop]).getTime();
-      }
+      $scope.dates = dateService.toUIDateFormat(dates);
     }
   });
 
@@ -101,11 +96,12 @@ app.controller('electionInfoController', function(
 
   $scope.createElection = function(dates) {
     $scope.isElectionRunning = true;
-    electionService.createElection(dates);
+    electionService.createElection(dateService.toBackendDateFormat(dates));
   };
 
   $scope.modifyElection = function(dates) {
-    electionService.modifyElection(dates);
+    console.log(dates);
+    electionService.modifyElection(dateService.toBackendDateFormat(dates));
     $scope.showModifiedMessage = true;
   };
 

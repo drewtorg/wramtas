@@ -1,17 +1,40 @@
 <div>
-  <div class="alert alert-info margin-top" ng-show="!isElectionRunning"><span>Nominations for this year's election are not open at this time.  Please refer to the <a ng-href="/election-info">General Election Info</a> page for more information.</span></div>
+  <div class="alert alert-info margin-top"
+       ng-show="!isElectionRunning">
+    <span>
+      Nominations for this year's election are not open at this time.
+      Please refer to the <a ng-href="/election-info">General Election Info</a>
+      page for more information.
+    </span>
+  </div>
   <div ng-show="isElectionRunning">
     <h2>Nominations</h2>
     <div class="alert alert-info" ng-show="showNotice">{{notice}}</div>
     <p>
-      Remember, only members of the AMTA can hold positions on the Executive Board. Before nominating yourself or anyone else, confirm that they are a member of the AMTA.
+      Remember, only members of the AMTA can hold positions on the Executive
+      Board. Before nominating yourself or anyone else, confirm that they are a
+      member of the AMTA.
     </p>
     <form class="form-group" ng-submit="submitNomination(form)">
-      <input type="text" class="form-control margin-bottom" placeholder="Name of Nominee" ng-model="form.name" />
-      <select class="form-control margin-bottom" ng-model="form.university" ng-options="option.name for option in universities track by option.id"></select>
-      <select class="form-control margin-bottom" ng-model="form.position" ng-options="option.title for option in positions track by option.id"> </select>
-      <input type="text" class="form-control margin-bottom" placeholder="Email Address of Nominee" ng-model="form.email" />
-      <input type="submit" class="btn btn-primary" value="Nominate" />
+      <input type="text"
+             class="form-control margin-bottom"
+             placeholder="Name of Nominee"
+             ng-model="form.name" />
+      <select class="form-control margin-bottom"
+              ng-model="form.university"
+              ng-options="option.name for option in universities track by option.id">
+      </select>
+      <select class="form-control margin-bottom"
+              ng-model="form.position"
+              ng-options="option.title for option in positions track by option.id">
+      </select>
+      <input type="text"
+             class="form-control margin-bottom"
+             placeholder="Email Address of Nominee"
+             ng-model="form.email" />
+      <input type="submit"
+             class="btn btn-primary"
+             value="Nominate" />
     </form>
   </div>
 </div>

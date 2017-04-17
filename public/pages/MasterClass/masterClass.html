@@ -1,11 +1,17 @@
 <div>
   <h2>Virtual Master Class</h2>
-  <div ng-show="!masterClass.inEditMode && masterClass.html" ng-bind-html="trustAsHtml(masterClass.html)" class="margin-bottom"></div>
+  <div ng-show="!masterClass.inEditMode && masterClass.html"
+       ng-bind-html="trustAsHtml(masterClass.html)"
+       class="margin-bottom"></div>
   <div ng-show="masterClass.inEditMode">
-    <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.html"></textarea>
+    <textarea ui-tinymce="tinymceOptions" 
+              ng-model="tempMasterClass.html">
+    </textarea>
   </div>
   <div ng-show="isAdmin()">
-    <button ng-hide="masterClass.inEditMode" class="btn btn-primary" ng-click="editMasterClass()">
+    <button ng-hide="masterClass.inEditMode"
+            class="btn btn-primary"
+            ng-click="editMasterClass()">
       Edit Master Class <span class="glyphicon glyphicon-edit"></span>
     </button>
     <div ng-show="masterClass.inEditMode" class="margin-top">
@@ -13,15 +19,39 @@
         <div class="col-md-6">
           <label class="control-label">Master Class Start Time:</label>
           <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="openDate.date" is-open="openDate.opened" datepicker-options="dateOptions" close-text="Close" />
-            <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(openDate.date)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            <input type="text"
+                   class="form-control"
+                   uib-datepicker-popup="{{format}}"
+                   ng-model="tempMasterClass.dates.openDate.date"
+                   is-open="tempMasterClass.dates.openDate.opened"
+                   datepicker-options="datepickerOptions"
+                   close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button"
+                      class="btn btn-default"
+                      ng-click="toggleOpened(tempMasterClass.dates.openDate)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
           </p>
         </div>
         <div class="col-md-6">
           <label class="control-label">Master Class End Time:</label>
           <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="closeDate.date" is-open="closeDate.opened" datepicker-options="dateOptions" close-text="Close" />
-            <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpened(closeDate.date)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            <input type="text"
+                   class="form-control"
+                   uib-datepicker-popup="{{format}}"
+                   ng-model="tempMasterClass.dates.closeDate.date"
+                   is-open="tempMasterClass.dates.closeDate.opened"
+                   datepicker-options="datepickerOptions"
+                   close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button"
+                      class="btn btn-default"
+                      ng-click="toggleOpened(tempMasterClass.dates.closeDate)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
           </p>
         </div>
       </div>
@@ -34,6 +64,9 @@
     </div>
   </div>
   <div ng-show="!isAdmin() && isMasterClassPast">
-    <p>There is currently no Virtual Master Class. We will be giving more information about the next Virtual Master Class shortly.</p>
+    <p>
+      There is currently no Virtual Master Class. We will be giving more 
+      information about the next Virtual Master Class shortly.
+    </p>
   </div>
 </div>

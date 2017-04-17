@@ -3,13 +3,15 @@ var Schema = mongoose.Schema;
 
 var MasterClass = new Schema({
   html: String,
-  openDate: {
-    type: Date,
-    default: Date.now()
-  },
-  closeDate: {
-    type: Date,
-    default: Date.now()
+  dates: {
+    openDate: {
+      type: Date,
+      default: Date.now()
+    },
+    closeDate: {
+      type: Date,
+      default: Date.now()
+    }
   },
   survey: [{
     question: String,

@@ -12,12 +12,6 @@ router.get('/', function(req, res) {
 
 // POST create a new election
 router.post('/', function(req, res) {
-  var dates = req.body;
-  for (var prop in dates) {
-    if (Object.prototype.hasOwnProperty.call(dates, prop)) {
-      dates[prop] = dates[prop].date;
-    }
-  }
   var election = new Election(req.body);
   election.save(function(err) {
     if (!err) res.status(200).end();
@@ -26,12 +20,7 @@ router.post('/', function(req, res) {
 
 // PUT updates an existing election
 router.put('/', function(req, res) {
-  var dates = req.body;
-  for (var prop in dates) {
-    if (Object.prototype.hasOwnProperty.call(dates, prop)) {
-      dates[prop] = dates[prop].date;
-    }
-  }
+  console.log(req.body);
   Election.findOneAndUpdate({}, req.body, {
     new: true
   }, function(err, election) {

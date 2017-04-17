@@ -3,54 +3,44 @@ app.controller('masterClassController', function(
     $sce,
     $filter,
     authService,
+    dateService,
     masterClassService,
+    DATE_OPTIONS,
     TINY_MCE_OPTIONS) {
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
 
-  $scope.format = 'MM/dd/yy h:mm a';
-  $scope.dateOptions = {
-    maxDate: new Date(2025, 5, 22),
-    minDate: new Date(),
-    startingDay: 1
-  };
+  $scope.format = DATE_OPTIONS.format;
+  $scope.datepickerOptions = DATE_OPTIONS.datepickerOptions;
   $scope.masterClass = {
     inEditMode: false,
-    html: ''
-  };
-  $scope.openDate = {
-    date: Date.now(),
-    opened: false
-  };
-  $scope.closeDate = {
-    date: Date.now(),
-    opened: false
+    html: '',
+    dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
   $scope.tempMasterClass = {
     inEditMode: false,
     html: '',
-    date: Date.now()
+    dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
 
   $scope.isMasterClassPast = function() {
-    return Date.now() > Date.parse($scope.closeDate.date);
+    return Date.now() > Date.parse($scope.masterClass.dates.closeDate.date);
   };
 
   $scope.isMasterClassPlanned = function() {
-    return Date.now() < Date.parse($scope.openDate.date);
+    return Date.now() < Date.parse($scope.masterClass.dates.openDate.date);
   };
 
   masterClassService.getMasterClass().then(function(res) {
     if (res.data) {
       $scope.masterClass.html = res.data.html;
-      $scope.openDate.date = res.data.openDate;
-      $scope.closeDate.date = res.data.closeDate;
+      $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
     } else {
       $scope.masterClass.html = 'No Master Class data could be found.';
     }
   });
 
   $scope.toggleOpened = function(date) {
-    date.opened = !date.opened;
+    dateService.toggleOpened(date);
   };
 
   $scope.isAdmin = function() {
@@ -63,13 +53,15 @@ app.controller('masterClassController', function(
   };
 
   $scope.saveMasterClass = function() {
-    masterClassService.saveMasterClass($scope.masterClass);
-    $scope.masterClass.html = angular.copy($scope.tempMasterClass.html);
+    $scope.masterClass = angular.copy($scope.tempMasterClass);
+    var backendFormat = angular.copy($scope.masterClass);
+    backendFormat.dates = dateService.toBackendDateFormat(backendFormat.dates);
+    masterClassService.saveMasterClass(backendFormat);
     $scope.masterClass.inEditMode = false;
   };
 
   $scope.undoEdits = function() {
-    $scope.tempMasterClass.html = angular.copy($scope.masterClass.html);
+    $scope.tempMasterClass = angular.copy($scope.masterClass);
     $scope.masterClass.inEditMode = false;
   };
 

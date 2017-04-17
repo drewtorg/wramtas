@@ -1,4 +1,4 @@
-app.directive('scholarshipApp', function(
+app.directive('wraScholarshipApp', function(
     $sce,
     authService,
     filepickerService,

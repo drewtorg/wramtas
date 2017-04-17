@@ -1,4 +1,4 @@
-app.directive('bioList', function(biosService, $cookies, authService) {
+app.directive('wraBioList', function(biosService, $cookies, authService) {
   return {
     restrict: 'E',
     templateUrl: 'pages/About/bioList/bioList.html',

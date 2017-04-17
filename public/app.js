@@ -66,7 +66,9 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/Vote/vote.html',
       controller: 'voteController'
     })
-    .otherwise('/');
+    .otherwise({
+      redirectTo: '/'
+    });
 
   $locationProvider.html5Mode(true);
   app.controllerProvider = $controllerProvider;

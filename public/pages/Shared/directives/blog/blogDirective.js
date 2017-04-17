@@ -1,4 +1,4 @@
-app.directive('blog', function($sce, postsService, authService) {
+app.directive('wraBlog', function($sce, postsService, authService) {
   return {
     restrict: 'E',
     templateUrl: 'pages/Shared/directives/blog/blog.html',

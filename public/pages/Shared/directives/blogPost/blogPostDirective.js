@@ -1,4 +1,4 @@
-app.directive('blogPost', function(
+app.directive('wraBlogPost', function(
     $sce,
     postsService,
     authService,

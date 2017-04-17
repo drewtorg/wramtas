@@ -6,20 +6,30 @@
   <p ng-if="showPostedDate()">
     <i>Posted on {{getPrettyDate(post.datePosted)}}</i>
   </p>
-  <p ng-if="showModifiedDate()"><i>Last modified on {{getPrettyDate(post.dateModified)}}</i></p>
+  <p ng-if="showModifiedDate()">
+    <i>Last modified on {{getPrettyDate(post.dateModified)}}</i>
+  </p>
   <div ng-if="isAdmin()">
-    <button ng-hide="post.inEditMode" class="btn btn-primary" ng-click="editPost()">
+    <button ng-hide="post.inEditMode"
+            class="btn btn-primary"
+            ng-click="editPost()">
       Edit Post <span class="glyphicon glyphicon-edit"></span>
     </button>
-    <button ng-hide="post.inEditMode" class="btn btn-danger" ng-click="deletePost()">
+    <button ng-hide="post.inEditMode"
+            class="btn btn-danger"
+            ng-click="deletePost()">
       Delete Post <span class="glyphicon glyphicon-trash"></span>
     </button>
   </div>
   <div class="margin-top" ng-if="isAdmin()">
-    <button ng-show="post.inEditMode" class="btn btn-success" ng-click="savePost()">
+    <button ng-show="post.inEditMode"
+            class="btn btn-success"
+            ng-click="savePost()">
       Save Post <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
-    <button ng-show="post.inEditMode" class="btn btn-danger" ng-click="undoPost()">
+    <button ng-show="post.inEditMode"
+            class="btn btn-danger"
+            ng-click="undoPost()">
       Undo Changes <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>

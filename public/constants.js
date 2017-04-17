@@ -37,3 +37,12 @@ app.constant('TINY_MCE_OPTIONS', {
       }]
     }]
 });
+
+app.constant('DATE_OPTIONS', {
+  format: 'MM/dd/yy h:mm a',
+  datepickerOptions: {
+    maxDate: new Date(2025, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  }
+});
