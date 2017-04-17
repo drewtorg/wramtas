@@ -20,7 +20,6 @@ router.post('/', function(req, res) {
 
 // PUT updates an existing election
 router.put('/', function(req, res) {
-  console.log(req.body);
   Election.findOneAndUpdate({}, req.body, {
     new: true
   }, function(err, election) {

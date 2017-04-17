@@ -100,7 +100,6 @@ app.controller('electionInfoController', function(
   };
 
   $scope.modifyElection = function(dates) {
-    console.log(dates);
     electionService.modifyElection(dateService.toBackendDateFormat(dates));
     $scope.showModifiedMessage = true;
   };

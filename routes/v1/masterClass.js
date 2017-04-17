@@ -12,7 +12,6 @@ router.get('/', function(req, res) {
 
 // POST upsert the master class
 router.post('/', function(req, res) {
-  console.log(req.body);
   MasterClass.findOneAndUpdate({}, req.body, {
       upsert: true,
       new: true
