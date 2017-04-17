@@ -22,12 +22,21 @@ app.controller('masterClassController', function(
     dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
 
-  $scope.isMasterClassPast = function() {
-    return Date.now() > Date.parse($scope.masterClass.dates.closeDate.date);
+  $scope.masterClassOver = function() {
+    return Date.now() > $scope.masterClass.dates.closeDate.date;
   };
 
-  $scope.isMasterClassPlanned = function() {
-    return Date.now() < Date.parse($scope.masterClass.dates.openDate.date);
+  $scope.masterClassComing = function() {
+    return Date.now() < $scope.masterClass.dates.openDate.date;
+  };
+
+  $scope.masterClassInProgress = function() {
+    return Date.now() > $scope.masterClass.dates.openDate.date &&
+             !$scope.masterClassOver();
+  };
+
+  $scope.displayMasterClass = function() {
+    return $scope.master() && !$scope.isMasterClassPast();
   };
 
   masterClassService.getMasterClass().then(function(res) {
