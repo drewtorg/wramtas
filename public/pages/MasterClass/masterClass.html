@@ -1,9 +1,15 @@
 <div>
   <h2>Virtual Master Class</h2>
   <div ng-show="!masterClass.inEditMode">
-    <div ng-show="!masterClass.inEditMode && masterClassInProgress()"
-        ng-bind-html="trustAsHtml(masterClass.html)"
-        class="margin-bottom"></div>
+    <div ng-show="masterClassInProgress()">
+      <div ng-bind-html="trustAsHtml(masterClass.html)" class="margin-bottom">
+      </div>
+      <button ng-hide="isAdmin()"
+              class="btn btn-primary"
+              ng-click="openSurvey()">
+        Take Survey <span class="glyphicon glyphicon-edit"></span>
+      </button>
+    </div>
     <div ng-show="masterClassOver()">
       <p>
         There is currently no Virtual Master Class. We will be giving more 
@@ -18,16 +24,20 @@
     </div>
   </div>
   <div ng-show="masterClass.inEditMode">
-    <textarea ui-tinymce="tinymceOptions" 
-              ng-model="tempMasterClass.html">
+    <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.html">
     </textarea>
   </div>
   <div ng-show="isAdmin()">
-    <button ng-hide="masterClass.inEditMode"
-            class="btn btn-primary"
-            ng-click="editMasterClass()">
-      Edit Master Class <span class="glyphicon glyphicon-edit"></span>
-    </button>
+    <div ng-hide="masterClass.inEditMode">
+      <button class="btn btn-primary"
+              ng-click="editMasterClass()">
+        Edit Master Class <span class="glyphicon glyphicon-edit"></span>
+      </button>
+      <button class="btn btn-primary"
+              ng-click="editSurvey()">
+        Edit Survey <span class="glyphicon glyphicon-edit"></span>
+      </button>
+    </div>
     <div ng-show="masterClass.inEditMode" class="margin-top">
       <div class="row">
         <div class="col-md-6">

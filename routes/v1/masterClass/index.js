@@ -1,6 +1,5 @@
 var express = require('express');
-var MasterClass = require('../../models/masterClass');
-
+var MasterClass = require('../../../models/masterClass');
 var router = express.Router();
 
 // GET the master class
@@ -20,5 +19,7 @@ router.post('/', function(req, res) {
       return res.json(doc);
     });
 });
+
+router.use('/survey', require('./survey'));
 
 module.exports = router;

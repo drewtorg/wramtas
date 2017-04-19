@@ -2,15 +2,19 @@ app.controller('masterClassController', function(
     $scope,
     $sce,
     $filter,
+    $uibModal,
     authService,
     dateService,
     masterClassService,
     DATE_OPTIONS,
     TINY_MCE_OPTIONS) {
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
-
   $scope.format = DATE_OPTIONS.format;
   $scope.datepickerOptions = DATE_OPTIONS.datepickerOptions;
+  $scope.modalOptions = {
+    controller: 'SurveyController',
+    templateUrl: 'pages/MasterClass/survey/survey.html'
+  };
   $scope.masterClass = {
     inEditMode: false,
     html: '',
@@ -76,5 +80,27 @@ app.controller('masterClassController', function(
 
   $scope.trustAsHtml = function(string) {
     return $sce.trustAsHtml(string);
+  };
+
+  $scope.editSurvey = function() {
+    var modalInstance = $uibModal.open($scope.modalOptions);
+    modalInstance.result.then(function (result) {
+      console.log('Success!');
+      console.log(result);
+    }, function (reason) {
+      console.log('Failure...')
+      console.log(reason);
+    });
+  };
+
+  $scope.openSurvey = function() {
+    var modalInstance = $uibModal.open($scope.modalOptions);
+    modalInstance.result.then(function (result) {
+      console.log('Success!');
+      console.log(result);
+    }, function (reason) {
+      console.log('Failure...')
+      console.log(reason);
+    });
   };
 });

@@ -1,0 +1,20 @@
+<div class="modal-body">
+  <div ng-if=isAdmin()>
+    <button class="btn-primary" ng-click="addQuestion()">Add Question</button>
+    <button class="btn btn-success"
+            ng-click="$close(survey)">Save</button>
+    <button class="btn btn-danger"
+            ng-click="$dismiss('Canceled')">Cancel</button>
+  </div>
+  <div ng-if=!isAdmin()>
+    <p>
+      Thank you for participating in this survey.  We greatly appreciate any
+      and all feedback you can offer us so we can continue improving our Virtual
+      Master Classes
+    </p>
+    <button class="btn btn-success"
+            ng-click="$close(survey)">Submit</button>
+    <button class="btn btn-danger"
+            ng-click="$dismiss('Canceled')">Cancel</button>
+  </div>
+</div>
