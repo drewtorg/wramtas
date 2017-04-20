@@ -68,7 +68,7 @@
       <div ng-if="s.inputType === 'select'">
         <select class="form-control"
                 ng-model="responses[$index]"
-                ng-options="selected for selected in s.validOptions">
+                ng-options="s.validOptions.indexOf(selected) as selected for selected in s.validOptions">
         </select>
       </div>
     </div>

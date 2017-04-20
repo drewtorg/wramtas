@@ -14,7 +14,7 @@ app.controller('SurveyController', function(
         $scope.responses.push(
           Array(s.validOptions.length).fill(false));
       } else if (s.inputType === 'select') {
-        $scope.responses.push(s.validOptions[0]);
+        $scope.responses.push(0);
       } else
         $scope.responses.push('');
     });
@@ -33,9 +33,8 @@ app.controller('SurveyController', function(
   };
 
   $scope.saveSurvey = function() {
-    console.log($scope.responses);
-    // surveyService.saveSurvey($scope.survey);
-    // $scope.$close($scope.survey);
+    surveyService.saveSurveyResponses($scope.responses);
+    $scope.$close($scope.survey);
   };
 
   $scope.isAdmin = function() {

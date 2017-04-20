@@ -85,10 +85,11 @@ app.controller('masterClassController', function(
     modalInstance.result.then(function (result) {
       $scope.masterClass.survey = result;
       masterClassService.saveMasterClass($scope.masterClass);
-    }, function(){});
+    }, function() {}); // eslint-disable-line no-empty-function
   };
 
   $scope.openSurvey = function() {
-    $uibModal.open($scope.modalOptions).result.then(function(){}, function(){});
+    $uibModal.open($scope.modalOptions).result
+      .then(function() {}, function() {}); // eslint-disable-line no-empty-function
   };
 });
