@@ -16,10 +16,7 @@ router.post('/', function(req, res) {
       new: true
     },
     function(err, doc) {
-      if (err) {
-        console.log(err);
-        res.status(500).end();
-      }
+      if (err) res.status(500).end();
       return res.json(doc);
     });
 });

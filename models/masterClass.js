@@ -20,10 +20,11 @@ var MasterClass = new Schema({
     //  textarea: multi-line text input
     //  radio: radio buttons
     //  checkbox: checkboxes
-    //  dropdown: dropdown box
+    //  select: dropdown box
     inputType: String,
     validOptions: [String],
-    responses: [String]
+    responses: [String],
+    tallies: [Number]
   }]
 });
 

@@ -27,7 +27,7 @@
                ng-model="s.validOptions[$index]"/>
         </div>
         <button class="btn btn-primary"
-                ng-click="addResponse(s)">
+                ng-click="addOption(s)">
           Add Option
         </button>
       </div>
@@ -50,7 +50,7 @@
         <div ng-repeat="option in s.validOptions">
           <input type="radio"
                  name="{{s.question}}"
-                 value="{{option}}"
+                 value="{{$index}}"
                  ng-model="responses[$parent.$index]">
             {{option}}
           </input>

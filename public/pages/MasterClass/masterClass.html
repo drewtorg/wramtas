@@ -86,5 +86,28 @@
         Undo Changes <span class="glyphicon glyphicon-remove"></span>
       </button>
     </div>
+    <hr/>
+    <div ng-if="masterClass.survey">
+      <h2>Survey Results</h2>
+        <div ng-repeat="s in masterClass.survey">
+          <p>{{s.question}}</p>
+          <div ng-if="s.inputType === 'text' || s. inputType === 'textarea'">
+            <div ng-repeat="response in s.responses">
+              <p>{{response}}</p>
+            </div>
+          </div>
+          <div ng-if="s.inputType === 'radio' || s.inputType === 'select'">
+            <div ng-repeat="option in s.validOptions">
+              <p>{{option}} - {{s.tallies[$index]}}</p>
+            </div>
+          </div>
+          <div ng-if="s.inputType === 'checkbox'">
+            <div ng-repeat="option in s.validOptions">
+              <p>{{option}} - {{s.tallies[$index]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

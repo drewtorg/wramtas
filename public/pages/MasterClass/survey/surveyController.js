@@ -3,7 +3,6 @@ app.controller('SurveyController', function(
     authService,
     masterClassService,
     surveyService) {
-  $scope.hello = 'yo';
   $scope.survey = {};
   $scope.responses = [];
 
@@ -13,10 +12,11 @@ app.controller('SurveyController', function(
       if (s.inputType === 'checkbox') {
         $scope.responses.push(
           Array(s.validOptions.length).fill(false));
-      } else if (s.inputType === 'select') {
+      }
+      else if (s.inputType === 'select' || s.inputType === 'radio') {
         $scope.responses.push(0);
-      } else
-        $scope.responses.push('');
+      }
+      else $scope.responses.push('');
     });
   });
 
@@ -24,12 +24,15 @@ app.controller('SurveyController', function(
     $scope.survey.push({
       question: '',
       inputType: 'text',
-      validOptions: []
+      validOptions: [],
+      tallies: [],
+      responses: []
     });
   };
 
-  $scope.addResponse = function(question) {
+  $scope.addOption = function(question) {
     question.validOptions.push('');
+    question.tallies.push(0);
   };
 
   $scope.saveSurvey = function() {

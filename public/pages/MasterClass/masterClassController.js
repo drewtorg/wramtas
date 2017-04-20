@@ -6,6 +6,7 @@ app.controller('masterClassController', function(
     authService,
     dateService,
     masterClassService,
+    surveyService,
     DATE_OPTIONS,
     TINY_MCE_OPTIONS) {
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
@@ -47,7 +48,9 @@ app.controller('masterClassController', function(
     if (res.data) {
       $scope.masterClass.html = res.data.html;
       $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
-    } else {
+      $scope.masterClass.survey = res.data.survey;
+    }
+    else {
       $scope.masterClass.html = 'No Master Class data could be found.';
     }
   });
