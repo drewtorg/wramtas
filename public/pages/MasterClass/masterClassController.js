@@ -67,9 +67,7 @@ app.controller('masterClassController', function(
 
   $scope.saveMasterClass = function() {
     $scope.masterClass = angular.copy($scope.tempMasterClass);
-    var backendFormat = angular.copy($scope.masterClass);
-    backendFormat.dates = dateService.toBackendDateFormat(backendFormat.dates);
-    masterClassService.saveMasterClass(backendFormat);
+    masterClassService.saveMasterClass($scope.masterClass);
     $scope.masterClass.inEditMode = false;
   };
 
@@ -85,22 +83,12 @@ app.controller('masterClassController', function(
   $scope.editSurvey = function() {
     var modalInstance = $uibModal.open($scope.modalOptions);
     modalInstance.result.then(function (result) {
-      console.log('Success!');
-      console.log(result);
-    }, function (reason) {
-      console.log('Failure...')
-      console.log(reason);
-    });
+      $scope.masterClass.survey = result;
+      masterClassService.saveMasterClass($scope.masterClass);
+    }, function(){});
   };
 
   $scope.openSurvey = function() {
-    var modalInstance = $uibModal.open($scope.modalOptions);
-    modalInstance.result.then(function (result) {
-      console.log('Success!');
-      console.log(result);
-    }, function (reason) {
-      console.log('Failure...')
-      console.log(reason);
-    });
+    $uibModal.open($scope.modalOptions).result.then(function(){}, function(){});
   };
 });

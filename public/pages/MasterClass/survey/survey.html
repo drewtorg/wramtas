@@ -1,20 +1,85 @@
 <div class="modal-body">
   <div ng-if=isAdmin()>
-    <button class="btn-primary" ng-click="addQuestion()">Add Question</button>
+    <button class="btn btn-primary"
+            ng-click="addQuestion()">Add Question</button>
     <button class="btn btn-success"
             ng-click="$close(survey)">Save</button>
     <button class="btn btn-danger"
-            ng-click="$dismiss('Canceled')">Cancel</button>
+            ng-click="$dismiss('canceled')">Cancel</button>
   </div>
-  <div ng-if=!isAdmin()>
+  <div ng-if="isAdmin()">
+    <div ng-repeat="s in survey">
+      <input type="text"
+             class="form-control"
+             ng-model="s.question"
+             placeholder="Enter question here..."/>
+      <select class="form-control" ng-model="s.inputType">
+        <option value="text">Single-line Input</option>
+        <option value="textarea">Multi-line Input</option>
+        <option value="radio">Radio Buttons</option>
+        <option value="checkbox">Checkboxes</option>
+        <option value="select">Dropdown</option>
+      </select>
+      <div ng-if="allowCreateResponses(s.inputType)">
+        <div ng-repeat="response in s.validOptions track by $index">
+          <input type="text"
+               class="form-control"
+               ng-model="s.validOptions[$index]"/>
+        </div>
+        <button class="btn btn-primary"
+                ng-click="addResponse(s)">
+          Add Option
+        </button>
+      </div>
+    </div>
+  </div>
+  <div ng-if="!isAdmin()">
+    <div ng-repeat="s in survey">
+      <p>{{s.question}}</p>
+      <div ng-if="s.inputType === 'text'">
+        <input type="text"
+              class="form-control"
+              ng-model="responses[$index]"/>
+      </div>
+      <div ng-if="s.inputType === 'textarea'">
+        <textarea class="form-control"
+                  ng-model="responses[$index]">
+        </textarea>
+      </div>
+      <div ng-if="s.inputType === 'radio'">
+        <div ng-repeat="option in s.validOptions">
+          <input type="radio"
+                 name="{{s.question}}"
+                 value="{{option}}"
+                 ng-model="responses[$parent.$index]">
+            {{option}}
+          </input>
+        </div>
+      </div>
+      <div ng-if="s.inputType === 'checkbox'">
+        <div ng-repeat="option in s.validOptions">
+          <input type="checkbox"
+                 name="{{s.question}}"
+                 ng-model="responses[$parent.$index][$index]">
+            {{option}}
+          </input>
+        </div>
+      </div>
+      <div ng-if="s.inputType === 'select'">
+        <select class="form-control"
+                ng-model="responses[$index]"
+                ng-options="selected for selected in s.validOptions">
+        </select>
+      </div>
+    </div>
     <p>
       Thank you for participating in this survey.  We greatly appreciate any
       and all feedback you can offer us so we can continue improving our Virtual
       Master Classes
     </p>
     <button class="btn btn-success"
-            ng-click="$close(survey)">Submit</button>
+            ng-click="saveSurvey()">Submit</button>
     <button class="btn btn-danger"
-            ng-click="$dismiss('Canceled')">Cancel</button>
+            ng-click="$dismiss('canceled')">Cancel</button>
   </div>
 </div>

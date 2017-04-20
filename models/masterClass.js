@@ -16,13 +16,13 @@ var MasterClass = new Schema({
   survey: [{
     question: String,
     // potential inputTypes:
-    //  single-line text input
-    //  multi-line text input
-    //  radio buttons
-    //  checkboxes
-    //  dropdown
+    //  text: single-line text input
+    //  textarea: multi-line text input
+    //  radio: radio buttons
+    //  checkbox: checkboxes
+    //  dropdown: dropdown box
     inputType: String,
-    validResponses: [String],
+    validOptions: [String],
     responses: [String]
   }]
 });
