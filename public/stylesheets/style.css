@@ -138,5 +138,18 @@ input[type="file"] {
 
 .survey-option {
   margin-top: 5px;
-  margin-left: 15px;
+  margin-left: 42px;
+}
+
+.survey-paragraph {
+  max-width: 100%;
+}
+
+.survey-input {
+  width: 90%;
+  display: inline-block;
+}
+
+.no-padding {
+  padding: 0px;
 }

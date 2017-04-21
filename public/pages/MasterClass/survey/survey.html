@@ -11,8 +11,9 @@
     <div class="survey-question" ng-repeat="s in survey">
       <div class="row">
         <div class="col-sm-7">
+          <span>#{{$index + 1}}.</span>
           <input type="text"
-                class="form-control"
+                class="form-control survey-input"
                 ng-model="s.question"
                 placeholder="Question"/>
         </div>
@@ -39,7 +40,7 @@
                    class="form-control"
                    ng-model="s.validOptions[$index]"/>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm-1 no-padding">
             <div class="delete-symbol">
               <span class="glyphicon glyphicon-remove"
                     ng-click="deleteOption(s, $index)"></span>
@@ -69,14 +70,14 @@
   </div>
   <div ng-if="!isAdmin() || isAdmin() && userMode">
     <div ng-repeat="s in survey">
-      <p>{{s.question}}</p>
+      <p>#{{$index + 1}}. {{s.question}}</p>
       <div ng-if="s.inputType === 'text'">
         <input type="text"
               class="form-control"
               ng-model="responses[$index]"/>
       </div>
       <div ng-if="s.inputType === 'textarea'">
-        <textarea class="form-control"
+        <textarea class="form-control survey-paragraph"
                   ng-model="responses[$index]">
         </textarea>
       </div>
@@ -105,17 +106,13 @@
                 ng-options="s.validOptions.indexOf(selected) as selected for selected in s.validOptions">
         </select>
       </div>
+      <hr/>
     </div>
-    <p>
-      Thank you for participating in this survey.  We greatly appreciate any
-      and all feedback you can offer us so we can continue improving our Virtual
-      Master Classes
-    </p>
-    <div ng-if="!isAdmin()">
-      <button class="btn btn-success"
-              ng-click="saveSurvey()">Submit</button>
-      <button class="btn btn-danger"
-              ng-click="$dismiss('canceled')">Cancel</button>
-    </div>
+    <button class="btn btn-success"
+            ng-click="saveSurvey()"
+            ng-disabled="isAdmin()">Submit</button>
+    <button class="btn btn-danger"
+            ng-click="$dismiss('canceled')"
+            ng-disabled="isAdmin()">Cancel</button>
   </div>
 </div>
