@@ -1,36 +1,63 @@
 <div class="modal-body">
-  <div ng-if=isAdmin()>
-    <button class="btn btn-primary"
-            ng-click="addQuestion()">Add Question</button>
-    <button class="btn btn-success"
-            ng-click="$close(survey)">Save</button>
-    <button class="btn btn-danger"
-            ng-click="$dismiss('canceled')">Cancel</button>
-  </div>
+  <h2>Master Class Survey</h2>
   <div ng-if="isAdmin()">
-    <div ng-repeat="s in survey">
-      <input type="text"
-             class="form-control"
-             ng-model="s.question"
-             placeholder="Enter question here..."/>
-      <select class="form-control" ng-model="s.inputType">
-        <option value="text">Single-line Input</option>
-        <option value="textarea">Multi-line Input</option>
-        <option value="radio">Radio Buttons</option>
-        <option value="checkbox">Checkboxes</option>
-        <option value="select">Dropdown</option>
-      </select>
-      <div ng-if="allowCreateResponses(s.inputType)">
-        <div ng-repeat="response in s.validOptions track by $index">
+    <div class="survey-question" ng-repeat="s in survey">
+      <div class="row">
+        <div class="col-sm-7">
           <input type="text"
-               class="form-control"
-               ng-model="s.validOptions[$index]"/>
+                class="form-control"
+                ng-model="s.question"
+                placeholder="Question"/>
         </div>
-        <button class="btn btn-primary"
+        <div class="col-sm-4">
+          <select class="form-control" ng-model="s.inputType">
+            <option value="text">Short Answer</option>
+            <option value="textarea">Paragraph</option>
+            <option value="radio">Multiple Choice</option>
+            <option value="checkbox">Checkboxes</option>
+            <option value="select">Dropdown</option>
+          </select>
+        </div>
+        <div class="col-sm-1">
+          <div class="delete-symbol">
+            <span class="glyphicon glyphicon-remove"
+                  ng-click="deleteQuestion($index)"></span>
+          </div>
+        </div>
+      </div>
+      <div ng-if="allowCreateResponses(s.inputType)">
+        <div class="row" ng-repeat="response in s.validOptions track by $index">
+          <div class="survey-option col-sm-6">
+            <input type="text"
+                   class="form-control"
+                   ng-model="s.validOptions[$index]"/>
+          </div>
+          <div class="col-sm-1">
+            <div class="delete-symbol">
+              <span class="glyphicon glyphicon-remove"
+                    ng-click="deleteQuestion($index)"></span>
+            </div>
+          </div>
+        </div>
+        <button class="survey-option btn btn-primary"
                 ng-click="addOption(s)">
           Add Option
         </button>
       </div>
+    </div>
+    <div class="margin-top">
+      <button class="btn btn-primary"
+              ng-click="addQuestion()">
+        Add Question <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <button class="btn btn-success"
+              ng-click="$close(survey)">
+        Save <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
+      <button class="btn btn-danger"
+              ng-click="$dismiss('canceled')">
+        Cancel <span class="glyphicon glyphicon-remove"></span>
+      </button>
     </div>
   </div>
   <div ng-if="!isAdmin()">
