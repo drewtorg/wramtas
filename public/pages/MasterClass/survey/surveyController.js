@@ -5,6 +5,7 @@ app.controller('SurveyController', function(
     surveyService) {
   $scope.survey = {};
   $scope.responses = [];
+  $scope.userMode = false;
 
   masterClassService.getMasterClass().then(function(res) {
     $scope.survey = res.data.survey;
@@ -30,10 +31,20 @@ app.controller('SurveyController', function(
     });
   };
 
+  $scope.deleteQuestion = function(index) {
+    $scope.survey.splice(index, 1);
+  };
+
   $scope.addOption = function(question) {
     question.validOptions.push('');
     question.tallies.push(0);
   };
+
+  $scope.deleteOption = function(question, index) {
+    question.validOptions.splice(index, 1);
+    question.tallies.splice(index, 1);
+   };
+
 
   $scope.saveSurvey = function() {
     surveyService.saveSurveyResponses($scope.responses);
@@ -46,5 +57,9 @@ app.controller('SurveyController', function(
 
   $scope.allowCreateResponses = function(type) {
     return type === 'radio' || type === 'checkbox' || type === 'select';
+  };
+
+  $scope.toggleUserMode = function() {
+    $scope.userMode = !$scope.userMode;
   };
 });

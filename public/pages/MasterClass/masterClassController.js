@@ -86,6 +86,7 @@ app.controller('masterClassController', function(
   $scope.editSurvey = function() {
     var modalInstance = $uibModal.open($scope.modalOptions);
     modalInstance.result.then(function (result) {
+      // TODO: remove all responses for questions that have been changed
       $scope.masterClass.survey = result;
       masterClassService.saveMasterClass($scope.masterClass);
     }, function() {}); // eslint-disable-line no-empty-function

@@ -1,6 +1,13 @@
 <div class="modal-body">
-  <h2>Master Class Survey</h2>
-  <div ng-if="isAdmin()">
+  <h2>Master Class Survey
+    <button ng-show="isAdmin()"
+            class="pull-right btn btn-primary"
+            ng-click="toggleUserMode()">
+      <span ng-if="!userMode">Show User View</span>
+      <span ng-if="userMode">Show Admin View</span>
+    </button>
+  </h2>
+  <div ng-if="isAdmin() && !userMode">
     <div class="survey-question" ng-repeat="s in survey">
       <div class="row">
         <div class="col-sm-7">
@@ -35,13 +42,13 @@
           <div class="col-sm-1">
             <div class="delete-symbol">
               <span class="glyphicon glyphicon-remove"
-                    ng-click="deleteQuestion($index)"></span>
+                    ng-click="deleteOption(s, $index)"></span>
             </div>
           </div>
         </div>
         <button class="survey-option btn btn-primary"
                 ng-click="addOption(s)">
-          Add Option
+          Add Option <span class="glyphicon glyphicon-plus">
         </button>
       </div>
     </div>
@@ -60,7 +67,7 @@
       </button>
     </div>
   </div>
-  <div ng-if="!isAdmin()">
+  <div ng-if="!isAdmin() || isAdmin() && userMode">
     <div ng-repeat="s in survey">
       <p>{{s.question}}</p>
       <div ng-if="s.inputType === 'text'">
@@ -104,9 +111,11 @@
       and all feedback you can offer us so we can continue improving our Virtual
       Master Classes
     </p>
-    <button class="btn btn-success"
-            ng-click="saveSurvey()">Submit</button>
-    <button class="btn btn-danger"
-            ng-click="$dismiss('canceled')">Cancel</button>
+    <div ng-if="!isAdmin()">
+      <button class="btn btn-success"
+              ng-click="saveSurvey()">Submit</button>
+      <button class="btn btn-danger"
+              ng-click="$dismiss('canceled')">Cancel</button>
+    </div>
   </div>
 </div>
