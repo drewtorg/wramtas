@@ -90,22 +90,32 @@
     <div ng-if="masterClass.survey">
       <h2>Survey Results</h2>
         <div ng-repeat="s in masterClass.survey">
-          <p>{{s.question}}</p>
-          <div ng-if="s.inputType === 'text' || s. inputType === 'textarea'">
-            <div ng-repeat="response in s.responses">
-              <p>{{response}}</p>
+          <h4>Question #{{$index + 1}}: {{s.question}}</h4>
+          <div class="survey-responses">
+            <div ng-if="s.inputType === 'text' || s. inputType === 'textarea'">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Responses</th>
+                </tr>
+                <tr ng-repeat="response in s.responses">
+                  <td>{{response}}</td>
+                </tr>
+              </table>
+            </div>
+            <div ng-if="s.inputType === 'radio' || s.inputType === 'select' || s.inputType === 'checkbox'">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Responses</th>
+                  <th>Results</th>
+                </tr>
+                <tr ng-repeat="option in s.validOptions">
+                  <td>{{option}}</td>
+                  <td>{{s.tallies[$index]}}</td>
+                </tr>
+              </table>
             </div>
           </div>
-          <div ng-if="s.inputType === 'radio' || s.inputType === 'select'">
-            <div ng-repeat="option in s.validOptions">
-              <p>{{option}} - {{s.tallies[$index]}}</p>
-            </div>
-          </div>
-          <div ng-if="s.inputType === 'checkbox'">
-            <div ng-repeat="option in s.validOptions">
-              <p>{{option}} - {{s.tallies[$index]}}</p>
-            </div>
-          </div>
+          <hr/>
         </div>
       </div>
     </div>
