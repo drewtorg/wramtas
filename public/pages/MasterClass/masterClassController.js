@@ -27,6 +27,21 @@ app.controller('masterClassController', function(
     dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
 
+  $scope.loadMasterClass = function() {
+    masterClassService.getMasterClass().then(function(res) {
+      if (res.data) {
+        $scope.masterClass.html = res.data.html;
+        $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
+        $scope.masterClass.survey = res.data.survey;
+      }
+      else {
+        $scope.masterClass.html = 'No Master Class data could be found.';
+      }
+    });
+  };
+
+  $scope.loadMasterClass();
+
   $scope.masterClassOver = function() {
     return Date.now() > $scope.masterClass.dates.closeDate.date;
   };
@@ -43,17 +58,6 @@ app.controller('masterClassController', function(
   $scope.displayMasterClass = function() {
     return $scope.master() && !$scope.isMasterClassPast();
   };
-
-  masterClassService.getMasterClass().then(function(res) {
-    if (res.data) {
-      $scope.masterClass.html = res.data.html;
-      $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
-      $scope.masterClass.survey = res.data.survey;
-    }
-    else {
-      $scope.masterClass.html = 'No Master Class data could be found.';
-    }
-  });
 
   $scope.toggleOpened = function(date) {
     dateService.toggleOpened(date);
@@ -86,7 +90,16 @@ app.controller('masterClassController', function(
   $scope.editSurvey = function() {
     var modalInstance = $uibModal.open($scope.modalOptions);
     modalInstance.result.then(function (result) {
-      // TODO: remove all responses for questions that have been changed
+      // remove all responses for questions that have been changed
+      for (var i = 0;
+           i < Math.min(result.length, $scope.masterClass.survey.length);
+           i += 1) {
+        if (result[i].question !== $scope.masterClass.survey[i].question ||
+              result[i].inputType !== $scope.masterClass.survey[i].inputType) {
+          result[i].responses = [];
+          result[i].tallies = Array(result[i].validOptions.length).fill(0);
+        }
+      }
       $scope.masterClass.survey = result;
       masterClassService.saveMasterClass($scope.masterClass);
     }, function() {}); // eslint-disable-line no-empty-function
@@ -94,6 +107,8 @@ app.controller('masterClassController', function(
 
   $scope.openSurvey = function() {
     $uibModal.open($scope.modalOptions).result
-      .then(function() {}, function() {}); // eslint-disable-line no-empty-function
+      .then(function() {
+        $scope.loadMasterClass();
+      }, function() {}); // eslint-disable-line no-empty-function
   };
 });
