@@ -1,12 +1,13 @@
 ﻿var app = angular.module('wramtasApp', [
    'ngRoute',
-   'ui.tinymce',
    'ngSanitize',
    'ngCookies',
    'angular-filepicker',
    'angular.filter',
    'angularSpinner',
-   'ui.bootstrap'
+   'ui.bootstrap',
+   'ui.tinymce',
+   'youtube-embed'
 ]);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {

@@ -14,23 +14,32 @@ app.controller('masterClassController', function(
   $scope.datepickerOptions = DATE_OPTIONS.datepickerOptions;
   $scope.modalOptions = {
     controller: 'SurveyController',
-    templateUrl: 'pages/MasterClass/survey/survey.html'
+    templateUrl: 'pages/MasterClass/survey/survey.html',
+    backdrop: 'static',
+    keyboard: false
   };
   $scope.masterClass = {
     inEditMode: false,
     html: '',
+    url: '',
     dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
   $scope.tempMasterClass = {
     inEditMode: false,
     html: '',
+    url: '',
     dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
+
+  $scope.$on('youtube.player.ended', function () {
+    $scope.openSurvey();
+  });
 
   $scope.loadMasterClass = function() {
     masterClassService.getMasterClass().then(function(res) {
       if (res.data) {
         $scope.masterClass.html = res.data.html;
+        $scope.masterClass.url = res.data.url;
         $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
         $scope.masterClass.survey = res.data.survey;
       }

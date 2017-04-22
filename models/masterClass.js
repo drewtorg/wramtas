@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var MasterClass = new Schema({
   html: String,
+  url: String,
   dates: {
     openDate: {
       type: Date,

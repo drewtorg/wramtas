@@ -4,6 +4,7 @@
     <div ng-show="masterClassInProgress()">
       <div ng-bind-html="trustAsHtml(masterClass.html)" class="margin-bottom">
       </div>
+      <youtube-video video-url="masterClass.url"></youtube-video>
       <button ng-hide="isAdmin()"
               class="btn btn-primary"
               ng-click="openSurvey()">
@@ -23,10 +24,6 @@
       </p>
     </div>
   </div>
-  <div ng-show="masterClass.inEditMode">
-    <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.html">
-    </textarea>
-  </div>
   <div ng-show="isAdmin()">
     <div ng-hide="masterClass.inEditMode">
       <button class="btn btn-primary"
@@ -39,9 +36,16 @@
       </button>
     </div>
     <div ng-show="masterClass.inEditMode" class="margin-top">
-      <div class="row">
+      <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.html">
+      </textarea>
+      <label class="control-label margin-top">YouTube Link</label>
+      <input type="text"
+             class="form-control"
+             ng-model="tempMasterClass.url"
+             placeholder="Youtube URL" />
+      <div class="row margin-top">
         <div class="col-md-6">
-          <label class="control-label">Master Class Start Time:</label>
+          <label class="control-label">Start Time:</label>
           <p class="input-group">
             <input type="text"
                    class="form-control"
@@ -60,7 +64,7 @@
           </p>
         </div>
         <div class="col-md-6">
-          <label class="control-label">Master Class End Time:</label>
+          <label class="control-label">End Time:</label>
           <p class="input-group">
             <input type="text"
                    class="form-control"
