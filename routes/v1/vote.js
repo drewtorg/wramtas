@@ -13,6 +13,11 @@ router.put('/', function(req, res) {
         found.votes += 1;
         Application.findByIdAndUpdate(found._id, found, {
           new: true
+        }, function(err) {
+          if (err) {
+            res.status(500).end();
+            return;
+          }
         });
       });
     }
