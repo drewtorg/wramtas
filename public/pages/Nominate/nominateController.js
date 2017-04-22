@@ -1,4 +1,9 @@
-﻿app.controller('nominateController', function($scope, electionService, nominateService, universitiesService, positionsService) {
+﻿app.controller('nominateController', function(
+    $scope,
+    electionService,
+    nominateService,
+    universitiesService,
+    positionsService) {
   $scope.form = {};
   $scope.universities = {};
   $scope.positions = {};
@@ -23,7 +28,9 @@
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates)
-      $scope.isElectionRunning = Date.parse(dates.nominationStartDate) < Date.now() && Date.now() < Date.parse(dates.nominationEndDate);
+      $scope.isElectionRunning =
+        Date.parse(dates.nominationStartDate) < Date.now() &&
+        Date.now() < Date.parse(dates.nominationEndDate);
   });
 
   $scope.submitNomination = function(form) {

@@ -1,13 +1,22 @@
 ﻿<div>
-  <div class="alert alert-info margin-top" ng-show="!isElectionRunning"><span>The election for this year either has not begun yet or is already over.  Please refer to the <a ng-href="/election-info">General Election Info</a> page for more information on the next election.</span></div>
+  <div class="alert alert-info margin-top" ng-show="!isElectionRunning">
+    <span>
+      The election for this year either has not begun yet or is already over.
+      Please refer to the <a ng-href="/election-info">General Election Info</a>
+      page for more information on the next election.
+    </span>
+  </div>
   <div ng-show="isElectionRunning || isElectionOver">
     <!-- Approved Candidates -->
     <h2>WRAMTAS Executive Board Candidates</h2>
-    <div class="alert alert-info" ng-hide="candidates">There are currently no candidates for the WRAMTAS Executive Board.</div>
+    <div class="alert alert-info" ng-hide="candidates">
+      There are currently no candidates for the WRAMTAS Executive Board.
+    </div>
     <div ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
       <div ng-show="hasApprovedCandidates(candidateGroup)">
         <h3>Running for {{positions[id]}}:</h3>
-        <div class="candidate-box" ng-repeat="candidate in candidateGroup | filter:approvedAndSubmitted">
+        <div class="candidate-box"
+             ng-repeat="candidate in candidateGroup | filter:approvedAndSubmitted">
           <h4 class="text-center">{{candidate.name}}</h4>
           <div ng-bind-html="trustAsHtml(candidate.bio)"></div>
         </div>
@@ -18,20 +27,33 @@
     <div ng-show="isAdmin()">
       <h2>Applications Pending Approval</h2>
       <div ng-show="!hasSubmittedCandidates(candidates)">
-        <div class="alert alert-info">There are no applications pending approval.</div>
+        <div class="alert alert-info">
+          There are no applications pending approval.
+        </div>
       </div>
       <div ng-repeat="(id, candidateGroup) in candidates | groupBy:'position'">
         <div ng-show="hasSubmittedCandidates(candidateGroup)">
           <h3>Applying for {{positions[id]}}:</h3>
-          <div class="candidate-box" ng-repeat="candidate in candidateGroup | filter:notApprovedAndSubmitted">
+          <div class="candidate-box"
+               ng-repeat="candidate in candidateGroup | filter:notApprovedAndSubmitted">
             <h4 class="text-center">{{candidate.name}}</h4>
             <div ng-bind-html="trustAsHtml(candidate.bio)"></div>
-            <button class="btn btn-success" ng-click="approveApplication(candidate)">Approve</button>
-            <button class="btn btn-danger" ng-click="toggleReject(candidate)">{{rejectButtonText(candidate)}}</button>
+            <button class="btn btn-success"
+                    ng-click="approveApplication(candidate)">
+              Approve
+            </button>
+            <button class="btn btn-danger"
+                    ng-click="toggleReject(candidate)">
+              {{rejectButtonText(candidate)}}
+            </button>
             <span class="form-inline" ng-show="showRejectReason(candidate)">
-        <input type="text" class="form-control rejection-box" placeholder="Reason for rejecting..." ng-model="candidate.reason" />
-        <button class="btn btn-danger" ng-click="rejectApplication(candidate)">Reject</button>
-        </span>
+              <input type="text"
+                    class="form-control rejection-box"
+                    placeholder="Reason for rejecting..."
+                    ng-model="candidate.reason" />
+              <button class="btn btn-danger"
+                      ng-click="rejectApplication(candidate)">Reject</button>
+            </span>
           </div>
         </div>
       </div>

@@ -1,36 +1,67 @@
 <div ng-hide="bio.inEditMode">
-  <img class="img-responsive img-shadow pull-left margin-right bio-image" ng-src="{{bio.image}}" />
+  <img class="img-responsive img-shadow pull-left margin-right bio-image"
+       ng-src="{{bio.image}}" />
   <div>
     <h3>{{bio.name}} - {{bio.title}}</h3>
     <p>{{bio.about}}</p>
-    <p ng-if="bio.email !== ''">Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a></p>
+    <p ng-if="bio.email !== ''">
+      Contact: <a ng-href="mailto:{{bio.email}}">{{bio.email}}</a>
+    </p>
   </div>
 </div>
 <div ng-if="isAdmin()" ng-show="bio.inEditMode">
   <label for="name">Name:</label>
-  <input type="text" class="form-control" ng-model="tempBio.name" id="name" />
+  <input type="text"
+         class="form-control"
+         ng-model="tempBio.name"
+         id="name" />
   <label for="position">Board Position/University:</label>
-  <input type="text" class="form-control" ng-model="tempBio.title" id="position" />
+  <input type="text"
+         class="form-control"
+         ng-model="tempBio.title"
+         id="position" />
   <label for="email">Email Address:</label>
-  <input type="text" class="form-control" ng-model="tempBio.email" id="email" />
+  <input type="text"
+         class="form-control"
+         ng-model="tempBio.email"
+         id="email" />
   <label for="about">About:</label>
-  <textarea class="form-control" ng-model="tempBio.about" rows="7" id="about"></textarea>
-  <input filepicker type="filepicker" data-fp-services="computer" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-primary margin-top" data-fp-button-text="Upload Image" />
-  <img class="img-responsive img-shadow bio-image inline margin-top" ng-show="tempBio.image" ng-src="{{tempBio.image}}" />
+  <textarea class="form-control"
+            ng-model="tempBio.about"
+            rows="7"
+            id="about">
+  </textarea>
+  <input filepicker 
+         type="filepicker"
+         data-fp-services="computer"
+         on-success="onSuccess(event.fpfile)"
+         data-fp-button-class="btn btn-primary margin-top"
+         data-fp-button-text="Upload Image" />
+  <img class="img-responsive img-shadow bio-image inline margin-top"
+       ng-show="tempBio.image"
+       ng-src="{{tempBio.image}}" />
 </div>
 <div ng-if="isAdmin()">
-  <button ng-hide="bio.inEditMode" class="btn btn-primary" ng-click="editBio()">
+  <button ng-hide="bio.inEditMode"
+          class="btn btn-primary"
+          ng-click="editBio()">
     Edit Bio <span class="glyphicon glyphicon-edit"></span>
   </button>
-  <button ng-hide="bio.inEditMode" class="btn btn-danger" ng-click="deleteBio()">
+  <button ng-hide="bio.inEditMode"
+          class="btn btn-danger"
+          ng-click="deleteBio()">
     Delete Bio <span class="glyphicon glyphicon-trash"></span>
   </button>
 </div>
 <div class="margin-top" ng-if="isAdmin()">
-  <button ng-show="bio.inEditMode" class="btn btn-success" ng-click="saveBio()">
+  <button ng-show="bio.inEditMode"
+          class="btn btn-success"
+          ng-click="saveBio()">
     Save Bio <span class="glyphicon glyphicon-floppy-disk"></span>
   </button>
-  <button ng-show="bio.inEditMode" class="btn btn-danger" ng-click="undoBio()">
+  <button ng-show="bio.inEditMode"
+          class="btn btn-danger"
+          ng-click="undoBio()">
     Undo Changes <span class="glyphicon glyphicon-remove"></span>
   </button>
 </div>

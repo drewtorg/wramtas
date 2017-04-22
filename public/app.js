@@ -1,4 +1,14 @@
-﻿var app = angular.module('wramtasApp', ['ngRoute', 'ui.tinymce', 'ngSanitize', 'ngCookies', 'angular-filepicker', 'angular.filter', 'angularSpinner', 'ui.bootstrap']);
+﻿var app = angular.module('wramtasApp', [
+   'ngRoute',
+   'ngSanitize',
+   'ngCookies',
+   'angular-filepicker',
+   'angular.filter',
+   'angularSpinner',
+   'ui.bootstrap',
+   'ui.tinymce',
+   'youtube-embed'
+]);
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
@@ -33,6 +43,10 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/ElectionInfo/electionInfo.html',
       controller: 'electionInfoController'
     })
+    .when('/master-class', {
+      templateUrl: 'pages/MasterClass/masterClass.html',
+      controller: 'masterClassController'
+    })
     .when('/nominate', {
       templateUrl: 'pages/Nominate/nominate.html',
       controller: 'nominateController'
@@ -53,7 +67,9 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/Vote/vote.html',
       controller: 'voteController'
     })
-    .otherwise('/');
+    .otherwise({
+      redirectTo: '/'
+    });
 
   $locationProvider.html5Mode(true);
   app.controllerProvider = $controllerProvider;

@@ -4,35 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <title>WRAMTAS</title>
-  <script src="node_modules/angular/angular.min.js"></script>
-  <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
-  <script src="node_modules/angular-route/angular-route.min.js"></script>
-  <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="node_modules/angular-filter/dist/angular-filter.min.js"></script>
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/angular/angular.min.js"></script>
+  <script src="/angular-cookies/angular-cookies.min.js"></script>
+  <script src="/angular-route/angular-route.min.js"></script>
+  <script src="/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="/angular-filter/dist/angular-filter.min.js"></script>
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <!-- Angular UI Bootstrap -->
-  <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script src="/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
   <!-- Angular Spinner -->
-  <script src="node_modules/spin.js/spin.min.js"></script>
-  <script src="node_modules/angular-spinner/angular-spinner.min.js"></script>
+  <script src="/spin.js/spin.min.js"></script>
+  <script src="/angular-spinner/angular-spinner.min.js"></script>
 
   <!-- Text Editor -->
-  <script src="node_modules/tinymce/tinymce.min.js"></script>
-  <script src="components/tinymce.js"></script>
+  <script src="/tinymce/tinymce.min.js"></script>
+  <script src="/angular-ui-tinymce/dist/tinymce.min.js"></script>
 
   <!-- File Uploader -->
   <script src="components/filepicker.js"></script>
   <script src="components/angular_filepicker.min.js"></script>
 
+  <!-- Youtube API -->
+  <script src="https://youtube.com/iframe_api"></script>
+  <script src="/angular-youtube-embed/dist/angular-youtube-embed.min.js"></script>
+
   <!-- Styles -->
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="stylesheets/style.css">
 
   <!-- App file -->
   <script src="app.js"></script>
+
+  <!-- Constants -->
+  <script src="constants.js"></script>
 
   <!--  Configs -->
   <script src="configs/filepicker.js"></script>
@@ -41,11 +48,14 @@
   <script src="pages/About/aboutPageService.js"></script>
   <script src="pages/About/biosService.js"></script>
   <script src="pages/Conference/conferencePageService.js"></script>
+  <script src="pages/MasterClass/masterClassService.js"></script>
+  <script src="pages/MasterClass/survey/surveyService.js"></script>
   <script src="pages/Nominate/nominateService.js"></script>
   <script src="pages/Scholarships/scholarshipsService.js"></script>
   <script src="pages/Scholarships/scholarshipPageService.js"></script>
   <script src="pages/Shared/services/applicationService.js"></script>
   <script src="pages/Shared/services/authService.js"></script>
+  <script src="pages/Shared/services/dateService.js"></script>
   <script src="pages/Shared/services/postsService.js"></script>
   <script src="pages/Shared/services/electionService.js"></script>
   <script src="pages/Shared/services/positionsService.js"></script>
@@ -63,6 +73,8 @@
   <script src="pages/Donate/donateController.js"></script>
   <script src="pages/ElectionInfo/electionInfoController.js"></script>
   <script src="pages/Home/homeController.js"></script>
+  <script src="pages/MasterClass/masterClassController.js"></script>
+  <script src="pages/MasterClass/survey/surveyController.js"></script>
   <script src="pages/Nominate/nominateController.js"></script>
   <script src="pages/Scholarships/scholarshipsController.js"></script>
   <script src="pages/Spotlight/spotlightController.js"></script>
@@ -91,9 +103,17 @@
         <a class="navbar-brand" href="/">WRAMTAS</a>
         <ul class="nav navbar-nav">
           <!-- TODO: fix this isDropdown nonsense -->
-          <li ng-repeat="tab in tabs" ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
+          <li ng-repeat="tab in tabs"
+              ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
             <a ng-if="!isDropdown(tab)" ng-href="{{tab.href}}">{{tab.title}}</a>
-            <a ng-if="isDropdown(tab)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{tab.title}}<span class="caret"></span></a>
+            <a ng-if="isDropdown(tab)"
+               class="dropdown-toggle"
+               data-toggle="dropdown"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">
+              {{tab.title}}<span class="caret"></span>
+            </a>
             <ul ng-if="isDropdown(tab)" class="dropdown-menu">
               <li ng-repeat="subtab in tab.subtabs">
                 <a ng-href="{{subtab.href}}">{{subtab.title}}</a>
@@ -106,14 +126,22 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <!-- TODO: consider making this a directive -->
+          <!-- TODO: move this into the navbar -->
           <form ng-if="!isLoggedIn()" ng-submit="logIn(form)">
             <div class="form-group login-box">
-              <input type="text" class="form-control" placeholder="Username" ng-model="form.username" />
+              <input type="text"
+                     class="form-control"
+                     placeholder="Username"
+                     ng-model="form.username" />
               <br/>
-              <input type="password" class="form-control" placeholder="Password" ng-model="form.password" />
+              <input type="password"
+                     class="form-control"
+                     placeholder="Password"
+                     ng-model="form.password" />
               <br/>
-              <input type="submit" class="btn btn-primary" value="Log in" />
+              <input type="submit"
+                     class="btn btn-primary"
+                     value="Log in" />
               <!--<a class="pointer" ng-click="register(form)">Register</a>-->
             </div>
           </form>
@@ -128,6 +156,7 @@
       </div>
     </div>
   </div>
+  <br/>
+  <br/>
 </body>
-
 </html>

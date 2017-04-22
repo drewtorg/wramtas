@@ -1,17 +1,17 @@
 app.service('biosService', function($http) {
   this.getBios = function(type) {
-    return $http.get('/bios?type=' + type);
+    return $http.get('/api/v1/bios?type=' + type);
   };
 
   this.createBio = function(type) {
-    return $http.post('/bios?type=' + type);
+    return $http.post('/api/v1/bios?type=' + type);
   };
 
   this.saveBio = function(type, bio) {
-    return $http.put('/bios/' + bio._id + '?type=' + type, bio);
+    return $http.put('/api/v1/bios/' + bio._id + '?type=' + type, bio);
   };
 
   this.deleteBio = function(type, bio) {
-    return $http.delete('/bios/' + bio._id + '?type=' + type);
+    return $http.delete('/api/v1/bios/' + bio._id + '?type=' + type);
   };
 });

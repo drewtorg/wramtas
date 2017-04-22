@@ -1,26 +1,50 @@
 <div>
   <div class="margin-top" ng-if="isAdmin()">
-    <button ng-show="!pageInfo.inEditMode" class="btn btn-primary" ng-click="editAboutPage()">
+    <button ng-show="!pageInfo.inEditMode" 
+            class="btn btn-primary"
+            ng-click="editAboutPage()">
       Edit Page <span class="glyphicon glyphicon-edit"></span>
     </button>
   </div>
   <div class="margin-top" ng-if="isAdmin()">
-    <button ng-show="pageInfo.inEditMode" class="btn btn-success" ng-click="updateAboutPage()">
+    <button ng-show="pageInfo.inEditMode"
+            class="btn btn-success"
+            ng-click="updateAboutPage()">
       Save Page <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
-    <button ng-show="pageInfo.inEditMode" class="btn btn-danger" ng-click="undoEdits()">
+    <button ng-show="pageInfo.inEditMode"
+            class="btn btn-danger"
+            ng-click="undoEdits()">
       Undo Changes <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
   <div ng-show="!pageInfo.inEditMode">
     <div ng-bind-html="pageInfo.description"></div>
-    <p class="margin-top">Contact us at: <a ng-href="mailto:{{pageInfo.contactEmail}}">{{pageInfo.contactEmail}}</a></p>
+    <p class="margin-top">
+      Contact us at: <a ng-href="mailto:{{pageInfo.contactEmail}}">{{pageInfo.contactEmail}}</a>
+    </p>
   </div>
   <div class="margin-top" ng-show="pageInfo.inEditMode">
-    <textarea class="form-control margin-bottom" ng-model="tempPageInfo.description" rows="7"></textarea>
-    <div class="form-inline">Contact us at: </span><input type="input" class="form-control" ng-model="tempPageInfo.contactEmail" placeholder="WRAMTAS Email" /></div>
-    <input filepicker type="filepicker" data-fp-services="computer" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-primary" data-fp-button-text="Upload Image" />
-    <img class="img-responsive img-shadow bio-image inline margin-top" ng-show="tempPageInfo.boardImage" ng-src="{{tempPageInfo.boardImage}}" />
+    <textarea class="form-control margin-bottom"
+              ng-model="tempPageInfo.description"
+              rows="7">
+    </textarea>
+    <div class="form-inline">
+      <span>Contact us at: </span>
+      <input type="input"
+             class="form-control"
+             ng-model="tempPageInfo.contactEmail"
+             placeholder="WRAMTAS Email" />
+    </div>
+    <input filepicker
+           type="filepicker"
+           data-fp-services="computer"
+           on-success="onSuccess(event.fpfile)"
+           data-fp-button-class="btn btn-primary"
+           data-fp-button-text="Upload Image" />
+    <img class="img-responsive img-shadow bio-image inline margin-top"
+         ng-show="tempPageInfo.boardImage"
+         ng-src="{{tempPageInfo.boardImage}}" />
   </div>
   <div ng-if="!pageInfo.inEditMode">
     <h3>Executive Board Members</h3>
@@ -28,8 +52,8 @@
       <img class="img-responsive img-shadow" ng-src="{{pageInfo.boardImage}}" />
     </div>
   </div>
-  <bio-list type="board"></bio-list>
+  <wra-bio-list type="board"></wra-bio-list>
   <h3>University Representatives</h3>
-  <bio-list type="reps"></bio-list>
+  <wra-bio-list type="reps"></wra-bio-list>
   <br/>
 </div>

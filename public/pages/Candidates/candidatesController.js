@@ -1,4 +1,11 @@
-app.controller('candidatesController', function($scope, $filter, $sce, applicationService, authService, electionService, positionsService) {
+app.controller('candidatesController', function(
+    $scope,
+    $filter,
+    $sce,
+    applicationService,
+    authService,
+    electionService,
+    positionsService) {
   $scope.candidates = {};
   $scope.buttonText = {};
   $scope.isElectionRunning = false;
@@ -21,7 +28,9 @@ app.controller('candidatesController', function($scope, $filter, $sce, applicati
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates) {
-      $scope.isElectionRunning = Date.parse(dates.nominationStartDate) < Date.now() && Date.now() < Date.parse(dates.votingEndDate);
+      $scope.isElectionRunning =
+        Date.parse(dates.nominationStartDate) < Date.now() &&
+        Date.now() < Date.parse(dates.votingEndDate);
       $scope.isElectionOver = Date.now() > Date.parse(dates.votingEndDate);
     }
   });
@@ -59,22 +68,22 @@ app.controller('candidatesController', function($scope, $filter, $sce, applicati
   $scope.approveApplication = function(candidate) {
     candidate.approved = true;
     applicationService.postApplication(candidate);
-  }
+  };
 
   $scope.toggleReject = function(candidate) {
     if ($scope.buttonText[candidate._id] === 'Reject')
       $scope.buttonText[candidate._id] = 'Cancel';
     else
       $scope.buttonText[candidate._id] = 'Reject';
-  }
+  };
 
   $scope.showRejectReason = function(candidate) {
     return $scope.buttonText[candidate._id] === 'Cancel';
-  }
+  };
 
   $scope.rejectButtonText = function(candidate) {
     return $scope.buttonText[candidate._id];
-  }
+  };
 
   $scope.rejectApplication = function(candidate) {
     candidate.submitted = false;
@@ -82,5 +91,5 @@ app.controller('candidatesController', function($scope, $filter, $sce, applicati
     candidate.positionName = $scope.positions[candidate.position];
     $scope.toggleReject(candidate);
     applicationService.postApplication(candidate);
-  }
+  };
 });

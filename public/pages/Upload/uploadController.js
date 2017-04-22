@@ -1,4 +1,8 @@
-app.controller('uploadController', function($scope, $location, authService, uploadsService) {
+app.controller('uploadController', function(
+    $scope,
+    $location,
+    authService,
+    uploadsService) {
   if (!authService.isAdmin()) {
     $location.path('/');
   }

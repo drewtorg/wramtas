@@ -10,7 +10,7 @@
   }, {
     text: 'The Western Region Chapter of the American Music Therapy Association',
     link: 'http://www.wramta.org/'
-  }, ];
+  }];
 
 
   $scope.otherResources = [{
@@ -25,9 +25,9 @@
   }, {
     text: 'Voices: A World Forum for Music Therapy',
     link: 'https://voices.no/index.php/voices'
-  }, ];
+  }];
 
   universitiesService.getUniversities().then(function(response) {
     $scope.universities = response.data;
-  })
+  });
 });

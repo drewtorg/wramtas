@@ -1,5 +1,5 @@
 var express = require('express');
-var Upload = require('../models/upload');
+var Upload = require('../../models/upload');
 
 var router = express.Router();
 
