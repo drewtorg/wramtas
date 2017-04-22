@@ -1,15 +1,16 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var postSchema = require('../schemas/post');
+var postSchema = require('../../schemas/post');
 
 var router = express.Router();
 
 var getIdFromRequest = function(req) {
   return req.url.split('?')[0].replace('/', '');
-}
+};
 
 // GET all posts
-// sort must happen on the server side in order to not mess with the $index and filtering nonsense
+// sort must happen on the server side in order to
+// not mess with the $index and filtering nonsense
 // alternative would be to do a total refresh on delete
 router.get('/', function(req, res) {
   var Post = mongoose.model(req.query.page + '_post', postSchema);

@@ -1,41 +1,15 @@
-app.controller('electionInfoController', function($scope, $sce, $filter, authService, electionService, positionsService, applicationService) {
-  $scope.tinymceOptions = {
-    selector: 'textarea',
-    theme: 'modern',
-    plugins: [
-      'advlist autolink link image imagetools lists charmap preview hr anchor pagebreak spellchecker',
-      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-      'save table contextmenu directionality template paste textcolor'
-    ],
-    height: 400,
-    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor',
-    imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-    style_formats_merge: true,
-    style_formats: [{
-      title: 'Images',
-      items: [{
-        title: 'Float Left',
-        selector: 'img',
-        styles: {
-          'float': 'left',
-          'margin': '0 10px 0 10px'
-        }
-      }, {
-        title: 'Float Right',
-        selector: 'img',
-        styles: {
-          'float': 'right',
-          'margin': '0 10px 0 10px'
-        }
-      }, {
-        title: 'Shadow Box',
-        selector: 'img',
-        styles: {
-          'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.2)'
-        }
-      }]
-    }]
-  };
+app.controller('electionInfoController', function(
+    $scope,
+    $sce,
+    $filter,
+    authService,
+    dateService,
+    electionService,
+    positionsService,
+    applicationService,
+    DATE_OPTIONS,
+    TINY_MCE_OPTIONS) {
+  $scope.tinymceOptions = TINY_MCE_OPTIONS;
   $scope.isElectionRunning = false;
   $scope.candidates = {};
   $scope.opened = {
@@ -43,7 +17,7 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
     nominationEndDate: false,
     votingStartDate: false,
     votingEndDate: false
-  }
+  };
   $scope.dates = {
     nominationStartDate: {
       date: Date.now(),
@@ -62,12 +36,8 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
       opened: false
     }
   };
-  $scope.format = 'MM/dd/yy h:mm a'
-  $scope.dateOptions = {
-    maxDate: new Date(2025, 5, 22),
-    minDate: new Date(),
-    startingDay: 1
-  };
+  $scope.format = DATE_OPTIONS.format;
+  $scope.datepickerOptions = DATE_OPTIONS.datepickerOptions;
   $scope.showModifiedMessage = false;
   $scope.electionInfo = {
     inEditMode: false,
@@ -84,10 +54,7 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
     if (dates) {
       $scope.isElectionRunning = true;
       $scope.isElectionOver = Date.now() > Date.parse(dates.votingEndDate);
-      for (var prop in dates) {
-        if ($scope.dates[prop])
-          $scope.dates[prop].date = new Date(dates[prop]).getTime();
-      }
+      $scope.dates = dateService.toUIDateFormat(dates);
     }
   });
 
@@ -99,7 +66,8 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
   });
 
   applicationService.getApplications().then(function(response) {
-    $scope.candidates = $filter('filter')(response.data, $scope.approvedAndSubmitted);
+    $scope.candidates =
+      $filter('filter')(response.data, $scope.approvedAndSubmitted);
   });
 
   positionsService.getPositions().then(function(response) {
@@ -124,54 +92,54 @@ app.controller('electionInfoController', function($scope, $sce, $filter, authSer
 
   $scope.toggleOpened = function(date) {
     date.opened = !date.opened;
-  }
+  };
 
   $scope.createElection = function(dates) {
     $scope.isElectionRunning = true;
-    electionService.createElection(dates);
-  }
+    electionService.createElection(dateService.toBackendDateFormat(dates));
+  };
 
   $scope.modifyElection = function(dates) {
-    electionService.modifyElection(dates);
+    electionService.modifyElection(dateService.toBackendDateFormat(dates));
     $scope.showModifiedMessage = true;
-  }
+  };
 
   $scope.deleteElection = function() {
     $scope.isElectionRunning = false;
     electionService.deleteElection();
-  }
+  };
 
   $scope.isAdmin = function() {
     return authService.isAdmin();
-  }
+  };
 
   $scope.editElectionInfo = function() {
     $scope.tempElectionInfo = angular.copy($scope.electionInfo);
     $scope.electionInfo.inEditMode = true;
-  }
+  };
 
   $scope.saveElectionInfo = function() {
     electionService.saveElectionInfo($scope.electionInfo);
     $scope.electionInfo.html = angular.copy($scope.tempElectionInfo.html);
     $scope.electionInfo.inEditMode = false;
-  }
+  };
 
   $scope.undoEdits = function() {
     $scope.tempElectionInfo.html = angular.copy($scope.electionInfo.html);
     $scope.electionInfo.inEditMode = false;
-  }
+  };
 
   $scope.trustAsHtml = function(string) {
     return $sce.trustAsHtml(string);
   };
 
   $scope.getElectionWinner = function(candidates) {
-    maxVotes = Math.max.apply(null, candidates.map(function(candidate) {
+    var maxVotes = Math.max.apply(null, candidates.map(function(candidate) {
       return candidate.votes;
     }));
     var winner = candidates.filter(function(candidate) {
       return candidate.votes === maxVotes;
     })[0];
     return winner.name;
-  }
+  };
 });

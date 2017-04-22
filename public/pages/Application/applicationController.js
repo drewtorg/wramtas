@@ -1,51 +1,28 @@
-app.controller('applicationController', function($scope, $routeParams, $anchorScroll, applicationService, universitiesService, positionsService) {
+app.controller('applicationController', function(
+    $scope,
+    $routeParams,
+    $anchorScroll,
+    $filter,
+    applicationService,
+    electionService,
+    universitiesService,
+    positionsService,
+    TINY_MCE_OPTIONS) {
   $scope.form = {};
   $scope.universities = {};
   $scope.positions = {};
   $scope.showNotice = false;
-  $scope.submitNotice = 'Thank for for submitting your application! The WRAMTAS Executive Board will review all applications on March 13th, 2017 to make sure it contains accurate and appropriate information. Come back to wramtas.org/applications after that date to see all the accepted applications.';
   $scope.saveNotice = 'You have saved your application, but it is not yet submitted.  When you are ready, submit your application for final review by hitting the "Submit Application" button.';
   $scope.submittedNotice = 'Your application has already been submitted.  You will be notified if your application needs to be modified and re-submitted.';
   $scope.errorNotice = 'Your application could not be found.  Please check that you have used the correct link.  If this doesn\'t work, nominate yourself and try the new application sent to you.';
+  electionService.getCurrentElection().then(function(response) {
+    $scope.submitNotice = 'Thank for for submitting your application! The WRAMTAS Executive Board will review all applications on ' +
+      $filter('date')(response.data.nominationEndDate, 'longDate') + ' to make sure it contains accurate and appropriate information. Come back to www.wramtas.org/candidates after that date to see all the accepted applications.';
+  });
   $scope.application = {};
   $scope.showApplication = false;
-  $scope.tinymceOptions = {
-    selector: 'textarea',
-    theme: 'modern',
-    plugins: [
-      'advlist autolink link image imagetools lists charmap preview hr anchor pagebreak spellchecker',
-      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-      'save table contextmenu directionality template paste textcolor'
-    ],
-    height: 400,
-    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor',
-    imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-    style_formats_merge: true,
-    style_formats: [{
-      title: 'Images',
-      items: [{
-        title: 'Float Left',
-        selector: 'img',
-        styles: {
-          'float': 'left',
-          'margin': '0 10px 0 10px'
-        }
-      }, {
-        title: 'Float Right',
-        selector: 'img',
-        styles: {
-          'float': 'right',
-          'margin': '0 10px 0 10px'
-        }
-      }, {
-        title: 'Shadow Box',
-        selector: 'img',
-        styles: {
-          'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.2)'
-        }
-      }]
-    }]
-  };
+  $scope.tinymceOptions = TINY_MCE_OPTIONS;
+
   applicationService.getApplication($routeParams._id).then(function(response) {
     if (!response.data)
       $scope.popupNotice($scope.errorNotice);

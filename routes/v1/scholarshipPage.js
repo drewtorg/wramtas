@@ -1,5 +1,5 @@
 var express = require('express');
-var ScholarshipPage = require('../models/scholarshipPage');
+var ScholarshipPage = require('../../models/scholarshipPage');
 
 var router = express.Router();
 

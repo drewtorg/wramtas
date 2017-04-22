@@ -1,17 +1,18 @@
 var express = require('express');
-var router = express.Router();
-var ElectionInfo = require('../models/electionInfo');
+var AboutPage = require('../../models/aboutPage');
 
-// GET the single ElectionInfo
+var router = express.Router();
+
+// GET the about information
 router.get('/', function(req, res) {
-  ElectionInfo.findOne({}, function(err, doc) {
+  AboutPage.findOne({}, function(err, doc) {
     res.json(doc);
-  })
+  });
 });
 
-// POST upsert ElectionInfo
+// POST upsert the about information
 router.post('/', function(req, res) {
-  ElectionInfo.findOneAndUpdate({}, req.body, {
+  AboutPage.findOneAndUpdate({}, req.body, {
       upsert: true,
       new: true
     },

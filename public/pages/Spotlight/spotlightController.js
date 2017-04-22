@@ -1,1 +1,2 @@
-app.controller('spotlightController', function($scope, postsService) {});
+/* eslint no-empty-function: "off" */
+app.controller('spotlightController', function() {});

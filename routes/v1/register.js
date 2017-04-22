@@ -1,9 +1,9 @@
 var express = require('express');
-var passport = require('passport');
-var Account = require('../models/account');
+// var passport = require('passport');
+// var Account = require('../../models/account');
 var router = express.Router();
 
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
   // Leave out until register new users is desired
   // Account.register(new Account({
   //   username: req.body.username

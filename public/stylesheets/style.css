@@ -116,5 +116,40 @@ input[type="file"] {
 }
 
 .wrap {
-  white-space: pre-wrap
+  white-space: pre-wrap;
+}
+
+.modal-body {
+  margin: 5px 5px 5px 5px;
+}
+
+.survey-responses {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.delete-symbol {
+  margin-top: 10px;
+}
+
+.survey-question {
+  margin-top: 5px;
+}
+
+.survey-option {
+  margin-top: 5px;
+  margin-left: 42px;
+}
+
+.survey-paragraph {
+  max-width: 100%;
+}
+
+.survey-input {
+  width: 90%;
+  display: inline-block;
+}
+
+.no-padding {
+  padding: 0px;
 }

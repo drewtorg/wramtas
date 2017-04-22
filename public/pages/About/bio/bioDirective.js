@@ -1,4 +1,4 @@
-app.directive('bio', function(biosService, authService, uploadsService) {
+app.directive('wraBio', function(biosService, authService, uploadsService) {
   return {
     restrict: 'E',
     templateUrl: '/pages/About/bio/bio.html',
@@ -8,7 +8,10 @@ app.directive('bio', function(biosService, authService, uploadsService) {
       onDelete: '&',
     },
     controller: ['$scope', function($scope) {
-      $scope.bio.inEditMode = angular.isDefined($scope.bio.inEditMode) ? $scope.bio.inEditMode : false;
+      $scope.bio.inEditMode =
+        angular.isDefined($scope.bio.inEditMode)
+          ? $scope.bio.inEditMode
+          : false;
       $scope.tempBio = angular.copy($scope.bio);
 
       $scope.isAdmin = function() {
@@ -36,7 +39,7 @@ app.directive('bio', function(biosService, authService, uploadsService) {
           $scope.bio.title = angular.copy($scope.tempBio.title);
           $scope.bio.email = angular.copy($scope.tempBio.email);
           $scope.bio.image = angular.copy($scope.tempBio.image);
-          biosService.saveBio($scope.type, $scope.bio).then(function(response) {
+          biosService.saveBio($scope.type, $scope.bio).then(function() {
             $scope.toggleEditMode();
           });
         }
@@ -59,5 +62,5 @@ app.directive('bio', function(biosService, authService, uploadsService) {
         uploadsService.addUpload(blob);
       };
     }]
-  }
+  };
 });

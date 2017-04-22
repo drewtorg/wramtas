@@ -1,5 +1,5 @@
 var express = require('express');
-var Scholarship = require('../models/scholarship');
+var Scholarship = require('../../models/scholarship');
 var router = express.Router();
 
 // GET returns all scholarships
@@ -40,8 +40,8 @@ router.put('/:_id', function(req, res) {
 
 // DELETE the scholarship with the given id
 router.delete('/:_id', function(req, res) {
-  Scholarship.findByIdAndRemove(req.params._id, function(err, doc) {
-    res.status(200).end();
+  Scholarship.findByIdAndRemove(req.params._id, function(err) {
+    if (!err) res.status(200).end();
   });
 });
 
