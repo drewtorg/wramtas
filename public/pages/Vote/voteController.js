@@ -1,4 +1,12 @@
-app.controller('voteController', function($scope, $filter, $interval, applicationService, electionService, positionsService, usSpinnerService, voteService) {
+app.controller('voteController', function(
+    $scope,
+    $filter,
+    $interval,
+    applicationService,
+    electionService,
+    positionsService,
+    usSpinnerService,
+    voteService) {
   $scope.spinning = false;
   $scope.showVotePanel = false;
   $scope.hasVoted = false;
@@ -12,16 +20,19 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
     radius: 20,
     width: 8,
     length: 16
-  }
+  };
 
   electionService.getCurrentElection().then(function(election) {
     var dates = election.data;
     if (dates)
-      $scope.isElectionRunning = Date.parse(dates.votingStartDate) < Date.now() && Date.now() < Date.parse(dates.votingEndDate);
+      $scope.isElectionRunning =
+        Date.parse(dates.votingStartDate) < Date.now() &&
+        Date.now() < Date.parse(dates.votingEndDate);
   });
 
   applicationService.getApplications().then(function(response) {
-    $scope.candidates = $filter('filter')(response.data, $scope.approvedAndSubmitted);
+    $scope.candidates =
+      $filter('filter')(response.data, $scope.approvedAndSubmitted);
   });
 
   $scope.hasApprovedCandidates = function(candidateGroup) {
@@ -55,10 +66,10 @@ app.controller('voteController', function($scope, $filter, $interval, applicatio
       $scope.showVotePanel = true;
       usSpinnerService.stop('spinner');
     }, 3000, 0, 1);
-  }
+  };
 
   $scope.castVote = function(ballot) {
     $scope.hasVoted = true;
     voteService.sendBallot(ballot);
-  }
+  };
 });

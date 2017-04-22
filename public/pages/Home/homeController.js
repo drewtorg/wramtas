@@ -1,2 +1,2 @@
-﻿
-app.controller('homeController', function($scope, postsService) {});
+﻿/* eslint no-empty-function: "off" */
+app.controller('homeController', function() {});

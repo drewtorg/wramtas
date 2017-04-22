@@ -1,18 +1,18 @@
 var express = require('express');
-var AboutPage = require('../models/aboutPage');
+var ConferencePage = require('../../models/conferencePage');
 
 var router = express.Router();
 
-// GET the about information
+// GET the conference information
 router.get('/', function(req, res) {
-  AboutPage.findOne({}, function(err, doc) {
+  ConferencePage.findOne({}, function(err, doc) {
     res.json(doc);
   });
 });
 
-// POST upsert the about information
+// POST upsert the conference information
 router.post('/', function(req, res) {
-  AboutPage.findOneAndUpdate({}, req.body, {
+  ConferencePage.findOneAndUpdate({}, req.body, {
       upsert: true,
       new: true
     },

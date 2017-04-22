@@ -1,4 +1,7 @@
-app.directive('scholarshipList', function($sce, authService, scholarshipsService) {
+app.directive('wraScholarshipList', function(
+    $sce,
+    authService,
+    scholarshipsService) {
   return {
     restrict: 'E',
     templateUrl: 'pages/Scholarships/scholarshipList/scholarshipList.html',

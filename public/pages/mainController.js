@@ -1,4 +1,9 @@
-﻿app.controller('mainController', function($scope, $location, $http, $cookies, authService, filepickerService) {
+﻿app.controller('mainController', function(
+    $scope,
+    $location,
+    $http,
+    $cookies,
+    authService) {
   $scope.tabs = [{
     href: '/about',
     title: 'About'
@@ -33,7 +38,10 @@
     }]
   }, {
     href: '/spotlight',
-    title: 'Spotlight'
+    title: 'Internship Spotlight'
+  }, {
+    href: '/master-class',
+    title: 'Master Class'
   }];
 
   $scope.form = {
