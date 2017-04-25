@@ -1,27 +1,27 @@
-app.directive('wraScholarshipList', function(
+app.directive('wraSubmissionList', function(
     $sce,
     authService,
-    scholarshipsService) {
+    submissionsService) {
   return {
     restrict: 'E',
-    templateUrl: 'pages/Scholarships/scholarshipList/scholarshipList.html',
+    templateUrl: 'pages/Submissions/submissionList/submissionList.html',
     controller: ['$scope', function($scope) {
-      scholarshipsService.getScholarships().then(function(response) {
-        $scope.scholarshipApps = response.data;
+      submissionsService.getSubmissions().then(function(response) {
+        $scope.submissionApps = response.data;
       });
 
       $scope.isAdmin = function() {
         return authService.isAdmin();
       };
 
-      $scope.addScholarshipApp = function() {
+      $scope.addSubmissionApp = function() {
         var newApp = {
           prompt: '',
           inEditMode: true,
         };
-        scholarshipsService.createScholarship().then(function(response) {
+        submissionsService.createSubmission().then(function(response) {
           newApp._id = response.data._id;
-          $scope.scholarshipApps.push(newApp);
+          $scope.submissionApps.push(newApp);
         });
       };
     }]

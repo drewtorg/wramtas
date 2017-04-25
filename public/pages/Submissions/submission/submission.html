@@ -1,14 +1,14 @@
 <div class="margin-bottom">
   <div class="margin-top">
-    <div ng-hide="scholarship.inEditMode"
-         ng-bind-html="trustAsHtml(scholarship.prompt)">
+    <div ng-hide="submission.inEditMode"
+         ng-bind-html="trustAsHtml(submission.prompt)">
     </div>
-    <div ng-show="scholarship.inEditMode">
-      <h3>Modify Scholarship Details</h3>
+    <div ng-show="submission.inEditMode">
+      <h3>Modify Submission Details</h3>
       <textarea ui-tinymce="tinymceOptions"
-                ng-model="tempScholarship.prompt">
+                ng-model="tempSubmission.prompt">
       </textarea>
-      <h3>Modify Scholarship Open/Close Dates</h3>
+      <h3>Modify Submission Open/Close Dates</h3>
       <form class="form-inline" ng-submit="modifyElection(dates)">
         <div class="row">
           <div class="form-group col-md-6">
@@ -54,30 +54,30 @@
     </div>
   </div>
   <div class="margin-top" ng-if="isAdmin()">
-    <button ng-hide="scholarship.inEditMode"
+    <button ng-hide="submission.inEditMode"
             class="btn btn-primary"
-            ng-click="editScholarship()">
-      Edit Scholarship <span class="glyphicon glyphicon-edit"></span>
+            ng-click="editSubmission()">
+      Edit Submission <span class="glyphicon glyphicon-edit"></span>
     </button>
-    <button ng-hide="scholarship.inEditMode"
+    <button ng-hide="submission.inEditMode"
             class="btn btn-danger"
-            ng-click="deleteScholarship()">
-      Delete Scholarship <span class="glyphicon glyphicon-trash"></span>
+            ng-click="deleteSubmission()">
+      Delete Submission <span class="glyphicon glyphicon-trash"></span>
     </button>
-    <button ng-show="scholarship.inEditMode"
+    <button ng-show="submission.inEditMode"
             class="btn btn-success"
-            ng-click="saveScholarship()">
-      Save Scholarship <span class="glyphicon glyphicon-floppy-disk"></span>
+            ng-click="saveSubmission()">
+      Save Submission <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
-    <button ng-show="scholarship.inEditMode"
+    <button ng-show="submission.inEditMode"
             class="btn btn-danger"
             ng-click="undoEdits()">
       Undo Changes <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
   <div ng-if="isAdmin()">
-    <div ng-repeat="submission in scholarship.submissions">
-      <div class="scholarship-box">
+    <div ng-repeat="submission in submission.submissions">
+      <div class="submission-box">
         <h4>Application #{{$index + 1}}
           <button class="btn btn-primary"
                   ng-click="toggleContactInfo($index)">
@@ -103,28 +103,28 @@
   </div>
   <div ng-if="!isAdmin()">
     <div ng-if="!showApp">
-      <div ng-if="isScholarshipOpen">
+      <div ng-if="isSubmissionOpen">
         <button class="btn btn-primary"
                 ng-click="toggleShowApp()">
           Apply Now
         </button>
       </div>
-      <div ng-if="!isScholarshipOpen">
+      <div ng-if="!isSubmissionOpen">
         <div class="alert alert-info margin-top">
-          <span>This scholarship is not currently open for applications.</span>
+          <span>This submission is not currently open for applications.</span>
         </div>
       </div>
     </div>
     <div class="alert alert-info margin-top"
          ng-show="showSavedMessage">
       <span>
-        Thank you for applying for a WRAMTAS scholarship.  You will be notified
+        Thank you for applying for a WRAMTAS submission.  You will be notified
         if you have won shortly after applications close.
         </span>
       </div>
     <div ng-if="showApp">
-      <form class="form-group scholarship-box"
-            ng-submit="submitScholarshipApp()">
+      <form class="form-group submission-box"
+            ng-submit="submitSubmissionApp()">
         <h3>Your Application</h3>
         <input type="text"
                class="form-control margin-top"

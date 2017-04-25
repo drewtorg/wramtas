@@ -1,43 +1,43 @@
-app.controller('scholarshipsController', function(
+app.controller('submissionsController', function(
     $scope,
     $sce,
     authService,
-    scholarshipPageService,
+    submissionPageService,
     TINY_MCE_OPTIONS) {
   $scope.message = '';
-  $scope.scholarship = {};
+  $scope.submission = {};
 
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
-  $scope.scholarshipInfo = {
+  $scope.submissionInfo = {
     inEditMode: false,
     html: ''
   };
-  $scope.tempScholarshipInfo = {
+  $scope.tempSubmissionInfo = {
     inEditMode: false,
     html: ''
   };
 
-  scholarshipPageService.getScholarshipPage().then(function(res) {
+  submissionPageService.getSubmissionPage().then(function(res) {
     if (res.data)
-      $scope.scholarshipInfo.html = res.data.html;
+      $scope.submissionInfo.html = res.data.html;
     else
-      $scope.scholarshipInfo.html = 'Scholarship Information goes here.';
+      $scope.submissionInfo.html = 'Submission Information goes here.';
   });
 
-  $scope.editScholarshipInfo = function() {
-    $scope.tempScholarshipInfo = angular.copy($scope.scholarshipInfo);
-    $scope.scholarshipInfo.inEditMode = true;
+  $scope.editSubmissionInfo = function() {
+    $scope.tempSubmissionInfo = angular.copy($scope.submissionInfo);
+    $scope.submissionInfo.inEditMode = true;
   };
 
-  $scope.saveScholarshipInfo = function() {
-    scholarshipPageService.updateScholarshipPage($scope.scholarshipInfo);
-    $scope.scholarshipInfo.html = angular.copy($scope.tempScholarshipInfo.html);
-    $scope.scholarshipInfo.inEditMode = false;
+  $scope.saveSubmissionInfo = function() {
+    submissionPageService.updateSubmissionPage($scope.submissionInfo);
+    $scope.submissionInfo.html = angular.copy($scope.tempSubmissionInfo.html);
+    $scope.submissionInfo.inEditMode = false;
   };
 
   $scope.undoEdits = function() {
-    $scope.tempScholarshipInfo.html = angular.copy($scope.scholarshipInfo.html);
-    $scope.scholarshipInfo.inEditMode = false;
+    $scope.tempSubmissionInfo.html = angular.copy($scope.submissionInfo.html);
+    $scope.submissionInfo.inEditMode = false;
   };
 
   $scope.trustAsHtml = function(string) {

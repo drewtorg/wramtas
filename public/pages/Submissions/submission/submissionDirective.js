@@ -1,14 +1,14 @@
-app.directive('wraScholarshipApp', function(
+app.directive('wraSubmissionApp', function(
     $sce,
     authService,
     filepickerService,
-    scholarshipsService,
+    submissionsService,
     TINY_MCE_OPTIONS) {
   return {
     restrict: 'E',
-    templateUrl: '/pages/Scholarships/scholarshipApp/scholarshipApp.html',
+    templateUrl: '/pages/Submissions/submissionApp/submissionApp.html',
     scope: {
-      scholarship: '=',
+      submission: '=',
       onDelete: '&'
     },
     compile: function() {
@@ -17,9 +17,9 @@ app.directive('wraScholarshipApp', function(
           scope.tinymceOptions = TINY_MCE_OPTIONS;
         },
         post: function(scope) {
-          scope.scholarship.inEditMode =
-            angular.isDefined(scope.scholarship.inEditMode)
-              ? scope.scholarship.inEditMode
+          scope.submission.inEditMode =
+            angular.isDefined(scope.submission.inEditMode)
+              ? scope.submission.inEditMode
               : false;
           scope.showApp = false;
           scope.app = {
@@ -29,20 +29,20 @@ app.directive('wraScholarshipApp', function(
             submissionPaths: []
           };
           scope.showContact =
-            new Array(scope.scholarship.submissions.length).fill(false);
+            new Array(scope.submission.submissions.length).fill(false);
           scope.files = [];
           scope.showSavedMessage = false;
           scope.dates = {
             openDate: {
-              date: Date.parse(scope.scholarship.openDate),
+              date: Date.parse(scope.submission.openDate),
               opened: false
             },
             closeDate: {
-              date: Date.parse(scope.scholarship.closeDate),
+              date: Date.parse(scope.submission.closeDate),
               opened: false
             }
           };
-          scope.isScholarshipOpen =
+          scope.isSubmissionOpen =
             Date.now() > scope.dates.openDate.date &&
             Date.now() < scope.dates.closeDate.date;
           scope.format = 'MM/dd/yy h:mm a';
@@ -61,7 +61,7 @@ app.directive('wraScholarshipApp', function(
           };
 
           scope.toggleEditMode = function() {
-            scope.scholarship.inEditMode = !scope.scholarship.inEditMode;
+            scope.submission.inEditMode = !scope.submission.inEditMode;
           };
 
           scope.toggleShowApp = function() {
@@ -73,57 +73,57 @@ app.directive('wraScholarshipApp', function(
             scope.showSavedMessage = !scope.showSavedMessage;
           };
 
-          scope.editScholarship = function() {
+          scope.editSubmission = function() {
             scope.toggleEditMode();
-            scope.tempScholarship = angular.copy(scope.scholarship);
+            scope.tempSubmission = angular.copy(scope.submission);
           };
 
-          scope.deleteScholarship = function() {
+          scope.deleteSubmission = function() {
             scope.onDelete();
-            scholarshipsService.deleteScholarship(scope.scholarship);
+            submissionsService.deleteSubmission(scope.submission);
           };
 
-          scope.saveScholarship = function() {
-            if (angular.isDefined(scope.tempScholarship)) {
-              scope.scholarship.prompt =
-                angular.copy(scope.tempScholarship.prompt);
-              scope.scholarship.numUploads =
-                angular.copy(scope.tempScholarship.numUploads);
-              scope.scholarship.openDate =
+          scope.saveSubmission = function() {
+            if (angular.isDefined(scope.tempSubmission)) {
+              scope.submission.prompt =
+                angular.copy(scope.tempSubmission.prompt);
+              scope.submission.numUploads =
+                angular.copy(scope.tempSubmission.numUploads);
+              scope.submission.openDate =
                 angular.copy(scope.dates.openDate.date);
-              scope.scholarship.closeDate =
+              scope.submission.closeDate =
                 angular.copy(scope.dates.closeDate.date);
-              scope.isScholarshipOpen =
+              scope.isSubmissionOpen =
                 Date.now() > scope.dates.openDate.date &&
                 Date.now() < scope.dates.closeDate.date;
 
-              scholarshipsService.saveScholarship(scope.scholarship);
+              submissionsService.saveSubmission(scope.submission);
               scope.toggleEditMode();
             }
           };
 
           scope.undoEdits = function() {
             // this is the case when we are undoing after clicking edit
-            if (angular.isDefined(scope.tempScholarship)) {
-              scope.tempScholarship =
-                angular.copy(scope.scholarship);
+            if (angular.isDefined(scope.tempSubmission)) {
+              scope.tempSubmission =
+                angular.copy(scope.submission);
               scope.dates.openDate.date =
-                Date.parse(scope.scholarship.openDate);
+                Date.parse(scope.submission.openDate);
               scope.dates.closeDate.date =
-                Date.parse(scope.scholarship.closeDate);
+                Date.parse(scope.submission.closeDate);
             }
 
             // this is the case when we are undoing after clicking add
-            if (!angular.isDefined(scope.tempScholarship) ||
-                scope.tempScholarship.prompt === '')
-              scope.deleteScholarship();
+            if (!angular.isDefined(scope.tempSubmission) ||
+                scope.tempSubmission.prompt === '')
+              scope.deleteSubmission();
 
             scope.toggleEditMode();
           };
 
-          scope.submitScholarshipApp = function() {
-            scholarshipsService
-              .uploadScholarshipApplication(scope.scholarship._id, scope.app);
+          scope.submitSubmissionApp = function() {
+            submissionsService
+              .uploadSubmissionApplication(scope.submission._id, scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
             scope.toggleShowSaved();
