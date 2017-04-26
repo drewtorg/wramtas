@@ -2,6 +2,7 @@ app.controller('submissionsController', function(
     $scope,
     $sce,
     authService,
+    dateService,
     submissionPageService,
     TINY_MCE_OPTIONS) {
   $scope.message = '';
@@ -10,18 +11,21 @@ app.controller('submissionsController', function(
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
   $scope.submissionInfo = {
     inEditMode: false,
-    html: ''
+    description: ''
   };
   $scope.tempSubmissionInfo = {
     inEditMode: false,
-    html: ''
+    description: ''
   };
 
   submissionPageService.getSubmissionPage().then(function(res) {
-    if (res.data)
-      $scope.submissionInfo.html = res.data.html;
+    if (res.data) {
+      $scope.submissionInfo = res.data;
+      // need to format the dates
+      $scope.submissionInfo.dates = dateService.toUIDateFormat(res.data);
+    }
     else
-      $scope.submissionInfo.html = 'Submission Information goes here.';
+      $scope.submissionInfo.description = 'Submission Information goes here.';
   });
 
   $scope.editSubmissionInfo = function() {
@@ -30,13 +34,15 @@ app.controller('submissionsController', function(
   };
 
   $scope.saveSubmissionInfo = function() {
-    submissionPageService.updateSubmissionPage($scope.submissionInfo);
-    $scope.submissionInfo.html = angular.copy($scope.tempSubmissionInfo.html);
+    // need to format the dates
+    submissionPageService.updateSubmissionPage(
+      dateService.toBackendDateFormat($scope.submissionInfo));
+    $scope.submissionInfo = angular.copy($scope.tempSubmissionInfo);
     $scope.submissionInfo.inEditMode = false;
   };
 
   $scope.undoEdits = function() {
-    $scope.tempSubmissionInfo.html = angular.copy($scope.submissionInfo.html);
+    $scope.tempSubmissionInfo = angular.copy($scope.submissionInfo);
     $scope.submissionInfo.inEditMode = false;
   };
 
