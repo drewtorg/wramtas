@@ -11,17 +11,19 @@ app.controller('submissionsController', function(
   $scope.tinymceOptions = TINY_MCE_OPTIONS;
   $scope.submissionInfo = {
     inEditMode: false,
-    description: ''
+    description: '',
+    prompts: []
   };
   $scope.tempSubmissionInfo = {
     inEditMode: false,
-    description: ''
+    description: '',
+    prompts: []
   };
 
   submissionsService.getSubmissionInfo().then(function(res) {
     // TODO: remove this once submissions become dynamic
     $scope.submissionInfo.type = 'Student Presentation';
-    if (res.data.description) {
+    if (res.data && res.data.description) {
       $scope.submissionInfo = res.data;
       $scope.submissionInfo.prompts.forEach(function(prompt) {
         prompt.dates = dateService.toUIDateFormat(prompt.dates);

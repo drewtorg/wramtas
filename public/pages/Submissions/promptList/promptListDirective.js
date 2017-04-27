@@ -17,9 +17,10 @@ app.directive('wraSubmissionPromptList', function(
 
       $scope.addPrompt = function() {
         submissionsService.createPrompt().then(function(response) {
-          response.data.dates = dateService.toUIDateFormat(response.data.dates);
-          response.data.inEditMode = true;
-          $scope.prompts.push(angular.copy(response.data));
+          var prompt = angular.copy(response.data);
+          prompt.dates = dateService.toUIDateFormat(prompt.dates);
+          prompt.inEditMode = true;
+          $scope.prompts.push(angular.copy(prompt));
         });
       };
     }]
