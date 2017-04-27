@@ -1,7 +1,4 @@
 app.service('submissionsService', function($http) {
-  this.uploadSubmissionApplication = function(_id, app) {
-    return $http.post('/api/v1/submission/' + _id + '/application', app);
-  };
 
   this.saveSubmissionInfo = function(info) {
     return $http.put('/api/v1/submission/', info);
@@ -29,5 +26,9 @@ app.service('submissionsService', function($http) {
 
   this.deletePrompt = function(prompt) {
     return $http.delete('/api/v1/submission/prompt/' + prompt._id);
+  };
+
+  this.saveApplication = function(_id, app) {
+    return $http.post('/api/v1/submission/prompt/' + _id + '/application', app);
   };
 });

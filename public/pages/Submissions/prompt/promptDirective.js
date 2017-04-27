@@ -96,7 +96,7 @@ app.directive('wraSubmissionPrompt', function(
           };
 
           scope.submitApplication = function() {
-            submissionsService.uploadApplication(scope.prompt._id, scope.app);
+            submissionsService.saveApplication(scope.prompt._id, scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
             scope.toggleShowSaved();

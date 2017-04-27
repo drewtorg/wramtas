@@ -102,14 +102,20 @@ router.delete('/prompt/:_id', function(req, res) {
 
 // POST add a new application
 router.post('/prompt/:_id/application', function(req, res) {
-  Submission.findOneAndUpdate({'prompt._id': req.params._id}, {
-    $push: {
-      'prompts.$.applications': req.body
-    }
-  }, function(err, doc) {
-    var apps = doc.prompts.id(req.params._id).applications;
-    res.json(apps[apps.length - 1]);
-  });
+  Submission.findOneAndUpdate(
+    {'prompts._id': req.params._id},
+    {
+      $push: {
+        'prompts.$.applications': req.body
+      }
+    },
+    {
+      new: true
+    },
+    function(err, doc) {
+      var apps = doc.prompts.id(req.params._id).applications;
+      res.json(apps[apps.length - 1]);
+    });
 });
 
 module.exports = router;
