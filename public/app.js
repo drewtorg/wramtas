@@ -51,6 +51,10 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/Nominate/nominate.html',
       controller: 'nominateController'
     })
+    .when('/presentations', {
+      templateUrl: 'pages/Submissions/submissions.html',
+      controller: 'submissionsController'
+    })
     .when('/scholarships', {
       templateUrl: 'pages/Scholarships/scholarships.html',
       controller: 'scholarshipsController'

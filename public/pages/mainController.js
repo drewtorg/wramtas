@@ -19,6 +19,9 @@
     }, {
       href: '/scholarships',
       title: 'Conference Scholarships'
+    }, {
+      href: '/presentations',
+      title: 'Presentation Proposals'
     }]
   }, {
     href: '/elections',

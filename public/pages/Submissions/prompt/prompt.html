@@ -1,14 +1,14 @@
 <div class="margin-bottom">
   <div class="margin-top">
-    <div ng-hide="scholarship.inEditMode"
-         ng-bind-html="trustAsHtml(scholarship.prompt)">
+    <div ng-hide="prompt.inEditMode"
+         ng-bind-html="trustAsHtml(prompt.description)">
     </div>
-    <div ng-show="scholarship.inEditMode">
-      <h3>Modify Scholarship Details</h3>
+    <div ng-show="prompt.inEditMode">
+      <h3>Modify Prompt Details</h3>
       <textarea ui-tinymce="tinymceOptions"
-                ng-model="tempScholarship.prompt">
+                ng-model="tempPrompt.description">
       </textarea>
-      <h3>Modify Scholarship Open/Close Dates</h3>
+      <h3>Modify Prompt Open/Close Dates</h3>
       <form class="form-inline">
         <div class="row">
           <div class="form-group col-md-6">
@@ -17,14 +17,14 @@
               <input type="text"
                      class="form-control"
                      uib-datepicker-popup="{{format}}"
-                     ng-model="dates.openDate.date"
-                     is-open="dates.openDate.opened"
+                     ng-model="tempPrompt.dates.openDate.date"
+                     is-open="tempPrompt.dates.openDate.opened"
                      datepicker-options="dateOptions"
                      close-text="Close" />
               <span class="input-group-btn">
                 <button type="button"
                         class="btn btn-default"
-                        ng-click="toggleOpened(dates.openDate)">
+                        ng-click="toggleOpened(tempPrompt.dates.openDate)">
                   <i class="glyphicon glyphicon-calendar"></i>
                 </button>
               </span>
@@ -36,14 +36,14 @@
               <input type="text"
                      class="form-control"
                      uib-datepicker-popup="{{format}}"
-                     ng-model="dates.closeDate.date"
-                     is-open="dates.closeDate.opened"
+                     ng-model="tempPrompt.dates.closeDate.date"
+                     is-open="tempPrompt.dates.closeDate.opened"
                      datepicker-options="dateOptions"
                      close-text="Close" />
               <span class="input-group-btn">
                 <button type="button"
                         class="btn btn-default"
-                        ng-click="toggleOpened(dates.closeDate)">
+                        ng-click="toggleOpened(tempPrompt.dates.closeDate)">
                   <i class="glyphicon glyphicon-calendar"></i>
                 </button>
               </span>
@@ -54,30 +54,30 @@
     </div>
   </div>
   <div class="margin-top" ng-if="isAdmin()">
-    <button ng-hide="scholarship.inEditMode"
+    <button ng-hide="prompt.inEditMode"
             class="btn btn-primary"
-            ng-click="editScholarship()">
-      Edit Scholarship <span class="glyphicon glyphicon-edit"></span>
+            ng-click="editPrompt()">
+      Edit Prompt <span class="glyphicon glyphicon-edit"></span>
     </button>
-    <button ng-hide="scholarship.inEditMode"
+    <button ng-hide="prompt.inEditMode"
             class="btn btn-danger"
-            ng-click="deleteScholarship()">
-      Delete Scholarship <span class="glyphicon glyphicon-trash"></span>
+            ng-click="deletePrompt()">
+      Delete Prompt <span class="glyphicon glyphicon-trash"></span>
     </button>
-    <button ng-show="scholarship.inEditMode"
+    <button ng-show="prompt.inEditMode"
             class="btn btn-success"
-            ng-click="saveScholarship()">
-      Save Scholarship <span class="glyphicon glyphicon-floppy-disk"></span>
+            ng-click="savePrompt()">
+      Save Prompt <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
-    <button ng-show="scholarship.inEditMode"
+    <button ng-show="prompt.inEditMode"
             class="btn btn-danger"
             ng-click="undoEdits()">
       Undo Changes <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
   <div ng-if="isAdmin()">
-    <div ng-repeat="submission in scholarship.submissions">
-      <div class="scholarship-box">
+    <div ng-repeat="application in prompt.applications">
+      <div class="submission-box">
         <h4>Application #{{$index + 1}}
           <button class="btn btn-primary"
                   ng-click="toggleContactInfo($index)">
@@ -86,12 +86,12 @@
           </button>
         </h4>
         <div ng-show="showContact[$index]">
-          <p>Applicant Name: {{submission.name}}</p>
+          <p>Applicant Name: {{application.name}}</p>
           <p>Applicant Email: 
-            <a ng-href="mailto:{{submission.email}}">{{submission.email}}</a>
+            <a ng-href="mailto:{{application.email}}">{{application.email}}</a>
           </p>
         </div>
-        <div ng-repeat="path in submission.submissionPaths">
+        <div ng-repeat="path in application.uploadPaths">
           <p>File {{$index + 1}}: 
             <a target="_self" download="{{path}}" ng-href="{{path}}">
               {{path}}
@@ -103,28 +103,28 @@
   </div>
   <div ng-if="!isAdmin()">
     <div ng-if="!showApp">
-      <div ng-if="isScholarshipOpen">
+      <div ng-if="isPromptOpen()">
         <button class="btn btn-primary"
                 ng-click="toggleShowApp()">
           Apply Now
         </button>
       </div>
-      <div ng-if="!isScholarshipOpen">
+      <div ng-if="!isPromptOpen()">
         <div class="alert alert-info margin-top">
-          <span>This scholarship is not currently open for applications.</span>
+          <span>This {{type}} is not currently open for applications.</span>
         </div>
       </div>
     </div>
     <div class="alert alert-info margin-top"
          ng-show="showSavedMessage">
       <span>
-        Thank you for applying for a WRAMTAS scholarship.  You will be notified
-        if you have won shortly after applications close.
-        </span>
-      </div>
+        Thank you for applying for a WRAMTAS {{type}}.  You will be notified
+        shortly after applications close if you have been selected.
+      </span>
+    </div>
     <div ng-if="showApp">
-      <form class="form-group scholarship-box"
-            ng-submit="submitScholarshipApp()">
+      <form class="form-group submission-box"
+            ng-submit="submitApplication()">
         <h3>Your Application</h3>
         <input type="text"
                class="form-control margin-top"
