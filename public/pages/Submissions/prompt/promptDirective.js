@@ -25,7 +25,6 @@ app.directive('wraSubmissionPrompt', function(
               ? scope.prompt.inEditMode
               : false;
           scope.tempPrompt = angular.copy(scope.prompt);
-          console.log(scope.tempPrompt);
           scope.showApp = false;
           scope.app = {
             name: '',

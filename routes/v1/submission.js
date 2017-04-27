@@ -74,16 +74,16 @@ router.post('/prompt', function(req, res) {
 // PUT update an existing prompt on the student proposal page
 router.put('/prompt/:_id', function(req, res) {
   Submission.findOneAndUpdate(
-    {'prompts._id': req.params.id},
+    {'prompts._id': req.params._id},
     {
       $set: {
         'prompts.$.description': req.body.description,
         'prompts.$.dates.openDate': req.body.dates.openDate,
-        'prompts.$.closeDate': req.body.closeDate
+        'prompts.$.dates.closeDate': req.body.dates.closeDate
       }
     },
     function(err, doc) {
-      res.json(doc);
+      res.json(doc.prompts.id(req.params._id));
     });
   }
 );
