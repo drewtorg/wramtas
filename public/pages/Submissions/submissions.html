@@ -1,17 +1,18 @@
 <div class="margin-top">
-  <div ng-show="!submissionInfo.inEditMode && submissionInfo.html"
-       ng-bind-html="trustAsHtml(submissionInfo.html)">
+  <div ng-show="!submissionInfo.inEditMode && submissionInfo.description"
+       ng-bind-html="trustAsHtml(submissionInfo.description)">
   </div>
   <div ng-show="submissionInfo.inEditMode">
     <textarea ui-tinymce="tinymceOptions"
-              ng-model="tempSubmissionInfo.html">
+              ng-model="tempSubmissionInfo.description">
     </textarea>
   </div>
   <div ng-show="isAdmin()" class="margin-bottom">
     <button ng-hide="submissionInfo.inEditMode"
             class="btn btn-primary"
             ng-click="editSubmissionInfo()">
-      Edit Submission Information <span class="glyphicon glyphicon-edit"></span>
+      Edit {{submissionInfo.type}} Information
+      <span class="glyphicon glyphicon-edit"></span>
     </button>
     <div class="margin-top">
       <button ng-show="submissionInfo.inEditMode"
@@ -26,5 +27,7 @@
       </button>
     </div>
   </div>
-  <wra-submission-list></wra-submission-list>
+  <wra-submission-prompt-list type="{{submissionInfo.type}}"
+                              prompts="submissionInfo.prompts">
+  </wra-submission-prompt-list>
 </div>

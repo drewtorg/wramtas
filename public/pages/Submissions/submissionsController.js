@@ -3,7 +3,7 @@ app.controller('submissionsController', function(
     $sce,
     authService,
     dateService,
-    submissionPageService,
+    submissionsService,
     TINY_MCE_OPTIONS) {
   $scope.message = '';
   $scope.submission = {};
@@ -18,14 +18,19 @@ app.controller('submissionsController', function(
     description: ''
   };
 
-  submissionPageService.getSubmissionPage().then(function(res) {
-    if (res.data) {
+  submissionsService.getSubmissionInfo().then(function(res) {
+    // TODO: remove this once submissions become dynamic
+    $scope.submissionInfo.type = 'Student Presentation';
+    if (res.data.description) {
       $scope.submissionInfo = res.data;
-      // need to format the dates
-      $scope.submissionInfo.dates = dateService.toUIDateFormat(res.data);
+      $scope.submissionInfo.prompts.forEach(function(prompt) {
+        prompt.dates = dateService.toUIDateFormat(prompt.dates);
+      });
     }
-    else
-      $scope.submissionInfo.description = 'Submission Information goes here.';
+    else {
+      $scope.submissionInfo.description =
+        $scope.submissionInfo.type + ' Information goes here.';
+    }
   });
 
   $scope.editSubmissionInfo = function() {
@@ -34,10 +39,8 @@ app.controller('submissionsController', function(
   };
 
   $scope.saveSubmissionInfo = function() {
-    // need to format the dates
-    submissionPageService.updateSubmissionPage(
-      dateService.toBackendDateFormat($scope.submissionInfo));
     $scope.submissionInfo = angular.copy($scope.tempSubmissionInfo);
+    submissionsService.saveSubmissionInfo($scope.submissionInfo);
     $scope.submissionInfo.inEditMode = false;
   };
 

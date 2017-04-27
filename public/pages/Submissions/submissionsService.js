@@ -3,8 +3,8 @@ app.service('submissionsService', function($http) {
     return $http.post('/api/v1/submission/' + _id + '/application', app);
   };
 
-  this.saveSubmission = function(info) {
-    return $http.put('/api/v1/submission/' + info._id, info);
+  this.saveSubmissionInfo = function(info) {
+    return $http.put('/api/v1/submission/', info);
   };
 
   this.deleteSubmission = function(info) {
@@ -15,7 +15,19 @@ app.service('submissionsService', function($http) {
     return $http.post('/api/v1/submission');
   };
 
-  this.getSubmissions = function() {
+  this.getSubmissionInfo = function() {
     return $http.get('/api/v1/submission');
+  };
+
+  this.createPrompt = function() {
+    return $http.post('/api/v1/submission/prompt');
+  };
+
+  this.savePrompt = function(prompt) {
+    return $http.put('/api/v1/submission/prompt/' + prompt._id, prompt);
+  };
+
+  this.deletePrompt = function(prompt) {
+    return $http.delete('/api/v1/submission/prompt/' + prompt._id);
   };
 });
