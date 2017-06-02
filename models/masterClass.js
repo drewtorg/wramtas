@@ -27,7 +27,8 @@ var MasterClass = new Schema({
     validOptions: [String],
     responses: [String],
     tallies: [Number]
-  }]
+  }],
+  ipAddresses: [String]
 });
 
 module.exports = mongoose.model('MasterClass', MasterClass);

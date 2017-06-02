@@ -8,4 +8,12 @@ app.service('masterClassService', function($http, dateService) {
     backendFormat.dates = dateService.toBackendDateFormat(backendFormat.dates);
     return $http.post('/api/v1/master-class', backendFormat);
   };
+
+  this.updateIpAddressList = function() {
+    return $http.post('/api/v1/master-class/count');
+  };
+
+  this.clearIpAddressList = function() {
+    return $http.post('/api/v1/master-class/count/clear');
+  };
 });

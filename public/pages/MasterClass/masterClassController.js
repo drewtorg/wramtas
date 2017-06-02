@@ -37,6 +37,10 @@ app.controller('masterClassController', function(
     $scope.openSurvey();
   });
 
+  $scope.$on('youtube.player.playing', function () {
+    masterClassService.updateIpAddressList();
+  });
+
   $scope.loadMasterClass = function() {
     masterClassService.getMasterClass().then(function(res) {
       if (res.data) {
@@ -45,6 +49,7 @@ app.controller('masterClassController', function(
         $scope.masterClass.url = res.data.url;
         $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
         $scope.masterClass.survey = res.data.survey;
+        $scope.masterClass.ipAddresses = res.data.ipAddresses;
       }
       else {
         $scope.masterClass.html = 'No Master Class data could be found.';
@@ -123,5 +128,10 @@ app.controller('masterClassController', function(
       .then(function() {
         $scope.loadMasterClass();
       }, function() {}); // eslint-disable-line no-empty-function
+  };
+
+  $scope.clearVideoCount = function() {
+    masterClassService.clearIpAddressList();
+    $scope.masterClass.ipAddresses = [];
   };
 });
