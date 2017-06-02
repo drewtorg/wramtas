@@ -21,12 +21,14 @@ app.controller('masterClassController', function(
   $scope.masterClass = {
     inEditMode: false,
     html: '',
+    preHtml: '',
     url: '',
     dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
   $scope.tempMasterClass = {
     inEditMode: false,
     html: '',
+    preHtml: '',
     url: '',
     dates: dateService.newUIDates(['openDate', 'closeDate'])
   };
@@ -39,12 +41,14 @@ app.controller('masterClassController', function(
     masterClassService.getMasterClass().then(function(res) {
       if (res.data) {
         $scope.masterClass.html = res.data.html;
+        $scope.masterClass.preHtml = res.data.preHtml;
         $scope.masterClass.url = res.data.url;
         $scope.masterClass.dates = dateService.toUIDateFormat(res.data.dates);
         $scope.masterClass.survey = res.data.survey;
       }
       else {
         $scope.masterClass.html = 'No Master Class data could be found.';
+        $scope.masterClass.preHtml = 'No Master Class data could be found.';
       }
     });
   };

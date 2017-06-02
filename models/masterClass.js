@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MasterClass = new Schema({
+  preHtml: String,
   html: String,
   url: String,
   dates: {

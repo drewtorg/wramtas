@@ -1,6 +1,11 @@
 <div>
   <h2>Virtual Master Class</h2>
   <div ng-show="!masterClass.inEditMode">
+    <div ng-show="masterClassComing()">
+      <div ng-bind-html="trustAsHtml(masterClass.preHtml)"
+            class="margin-bottom">
+      </div>
+    </div>
     <div ng-show="masterClassInProgress()">
       <div ng-bind-html="trustAsHtml(masterClass.html)" class="margin-bottom">
       </div>
@@ -17,12 +22,6 @@
         information about the next Virtual Master Class shortly.
       </p>
     </div>
-    <div ng-show="masterClassComing()">
-      <p>
-        The next Virtual Master Class is coming soon.  Come back on
-        {{ masterClass.dates.openDate.date | date : 'fullDate' }} to participate.
-      </p>
-    </div>
   </div>
   <div ng-show="isAdmin()">
     <div ng-hide="masterClass.inEditMode">
@@ -36,6 +35,11 @@
       </button>
     </div>
     <div ng-show="masterClass.inEditMode" class="margin-top">
+      <label>Message before Master Class</label>
+      <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.preHtml">
+      </textarea>
+      <br/>
+      <label>Message during Master Class</label>
       <textarea ui-tinymce="tinymceOptions" ng-model="tempMasterClass.html">
       </textarea>
       <label class="control-label margin-top">YouTube Link</label>
