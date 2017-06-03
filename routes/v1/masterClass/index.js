@@ -22,5 +22,6 @@ router.post('/', function(req, res) {
 });
 
 router.use('/survey', require('./survey'));
+router.use('/count', require('./count'));
 
 module.exports = router;

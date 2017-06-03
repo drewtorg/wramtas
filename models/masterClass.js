@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MasterClass = new Schema({
+  preHtml: String,
   html: String,
   url: String,
   dates: {
@@ -26,7 +27,8 @@ var MasterClass = new Schema({
     validOptions: [String],
     responses: [String],
     tallies: [Number]
-  }]
+  }],
+  ipAddresses: [String]
 });
 
 module.exports = mongoose.model('MasterClass', MasterClass);
