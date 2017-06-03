@@ -8,6 +8,8 @@ app.controller('uploadController', function(
   }
 
   $scope.files = [];
+  $scope.currentPage = 1;
+  $scope.itemsPerPage = 5;
 
   uploadsService.getUploads().then(function(res) {
     $scope.files = res.data;
