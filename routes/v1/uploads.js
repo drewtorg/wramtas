@@ -12,7 +12,7 @@ router.post('/', function(req, res) {
 
 router.get('/', function(req, res) {
   Upload.find({}, function(err, doc) {
-    res.json(doc);
+    res.json(doc.reverse());
   });
 });
 
