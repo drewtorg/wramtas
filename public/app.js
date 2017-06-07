@@ -5,6 +5,7 @@
    'angular-filepicker',
    'angular.filter',
    'angularSpinner',
+   'PDFViewer',
    'ui.bootstrap',
    'ui.tinymce',
    'youtube-embed'
