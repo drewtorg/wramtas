@@ -6,10 +6,10 @@ app.constant('TINY_MCE_OPTIONS', {
     plugins: [
       'advlist autolink link image imagetools lists charmap preview hr anchor pagebreak spellchecker',
       'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-      'save table contextmenu directionality template paste textcolor'
+      'save table contextmenu directionality template paste textcolor upload'
     ],
     height: 400,
-    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor | upload',
     imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
     style_formats_merge: true,
     style_formats: [{
