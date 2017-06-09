@@ -25,4 +25,8 @@ app.controller('uploadController', function(
     if (file.mimetype.contains('image')) return file.url;
     return 'no_preview.jpg';
   };
+
+  // PDF testing
+  $scope.pdfUrl = 'https://cdn.filestackcontent.com/LMuVVzEdQNGuH2MTwGUj';
+
 });
