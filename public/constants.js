@@ -9,7 +9,7 @@ app.constant('TINY_MCE_OPTIONS', {
       'save table contextmenu directionality template paste textcolor upload'
     ],
     height: 400,
-    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullpage | forecolor | upload',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link upload fullpage | forecolor',
     imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
     style_formats_merge: true,
     style_formats: [{
