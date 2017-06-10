@@ -6,6 +6,9 @@ app.directive('wraBlog', function($sce, postsService, authService) {
       page: '@'
     },
     controller: ['$scope', function($scope) {
+      $scope.currentPage = 1;
+      $scope.itemsPerPage = 5;
+
       postsService.getPosts($scope.page).then(function(response) {
         $scope.posts = response.data;
       });
@@ -17,6 +20,7 @@ app.directive('wraBlog', function($sce, postsService, authService) {
       $scope.addBlogPost = function() {
         var newPost = {
           html: '',
+          pdfUrl: '',
           inEditMode: true,
         };
         postsService.createPost($scope.page).then(function(response) {
