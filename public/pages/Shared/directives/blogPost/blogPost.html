@@ -1,7 +1,28 @@
 <div>
-  <div ng-hide="post.inEditMode" ng-bind-html="trustAsHtml(post.html)"></div>
+  <div ng-hide="post.inEditMode">
+    <div ng-bind-html="trustAsHtml(post.html)"></div>
+    <div ng-if="post.pdfUrl">
+      <wra-pdf pdf-url="{{post.pdfUrl}}"></wra-pdf>
+    </div>
+  </div>
   <div class="margin-top" ng-show="post.inEditMode">
     <textarea ui-tinymce="tinymceOptions" ng-model="tempPost.html"></textarea>
+    <div class="row margin-top margin-bottom">
+      <div class="col-sm-6">
+        <input type="text"
+              class="form-control"
+              ng-model="tempPost.pdfUrl"
+              placeholder="PDF Url"/>
+      </div>
+      <div class="col-sm-6">
+        <input filepicker 
+               type="filepicker"
+               data-fp-services="computer"
+               on-success="attachPdf(event.fpfile)"
+               data-fp-button-class="btn btn-primary"
+               data-fp-button-text="Attach PDF" />
+      </div>
+    </div>
   </div>
   <p ng-if="showPostedDate()">
     <i>Posted on {{getPrettyDate(post.datePosted)}}</i>

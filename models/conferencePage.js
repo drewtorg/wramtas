@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ConferencePage = new Schema({
-  html: String
+  html: String,
+  pdfUrl: String
 });
 
 module.exports = mongoose.model('ConferencePage', ConferencePage);

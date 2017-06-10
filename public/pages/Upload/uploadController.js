@@ -16,7 +16,7 @@ app.controller('uploadController', function(
   });
 
   $scope.onSuccess = function(blob) {
-    $scope.files.push(blob);
+    $scope.files.unshift(blob);
     uploadsService.addUpload(blob);
     $scope.$apply();
   };
@@ -24,5 +24,13 @@ app.controller('uploadController', function(
   $scope.getSource = function(file) {
     if (file.mimetype.contains('image')) return file.url;
     return 'no_preview.jpg';
+  };
+
+  $scope.isImage = function(file) {
+    return file.mimetype.contains('image');
+  };
+
+  $scope.isPdf = function(file) {
+    return file.mimetype.contains('pdf');
   };
 });

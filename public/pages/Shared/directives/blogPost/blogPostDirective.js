@@ -62,29 +62,37 @@ app.directive('wraBlogPost', function(
           };
 
           scope.savePost = function() {
-            if (angular.isDefined(scope.tempPost))
+            if (angular.isDefined(scope.tempPost)) {
               scope.post.html = angular.copy(scope.tempPost.html);
+              scope.post.pdfUrl = angular.copy(scope.tempPost.pdfUrl);
+            }
 
             postsService.savePost(scope.page, scope.post)
               .then(function(response) {
-              scope.post.datePosted = response.data.datePosted;
-              scope.post.dateModified = response.data.dateModified;
-              scope.toggleEditMode();
-            });
+                scope.post.datePosted = response.data.datePosted;
+                scope.post.dateModified = response.data.dateModified;
+                scope.toggleEditMode();
+              });
           };
 
           scope.undoPost = function() {
             // this is the case when we are undoing after clicking edit
-            if (angular.isDefined(scope.tempPost))
+            if (angular.isDefined(scope.tempPost)) {
               scope.tempPost.html = angular.copy(scope.post.html);
+              scope.tempPost.pdfUrl = angular.copy(scope.post.pdfUrl);
+            }
 
-            // this is the case when we are undoing after clicing add
+            // this is the case when we are undoing after clicking add
             if (!angular.isDefined(scope.tempPost) ||
                 scope.tempPost.html === '') {
               scope.deletePost();
             }
 
             scope.toggleEditMode();
+          };
+
+          scope.attachPdf = function(file) {
+            scope.tempPost.pdfUrl = file.url;
           };
         }
       };
