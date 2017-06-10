@@ -4,11 +4,17 @@
           ng-click="addBlogPost()">
     Add Post <span class="glyphicon glyphicon-plus"></span>
   </button>
-  <div ng-repeat="post in posts">
+  <div ng-repeat="post in posts.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
     <wra-blog-post post="post"
                on-delete="posts.splice($index, 1)"
                page="page">
     </wra-blog-post>
     <hr/>
   </div>
+  <ul uib-pagination
+      boundary-links="true"
+      total-items="posts.length"
+      items-per-page="itemsPerPage"
+      ng-model="currentPage">
+  </ul>
 </div>
