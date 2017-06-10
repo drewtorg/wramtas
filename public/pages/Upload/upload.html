@@ -6,11 +6,17 @@
            data-fp-button-class="btn btn-primary"
            data-fp-button-text="Upload Media" />
     <div ng-repeat="file in files.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-      <div>
-        <img class="upload-image upload-box" ng-src="{{getSource(file)}}"></img>
-        <p>Original Filename: {{file.filename}}</p>
-        <p>Link: <a ng-href="{{file.url}}">{{file.url}}</a></p>
+      <div ng-if="isImage(file)">
+        <img class="upload-image upload-box" ng-src="{{file.url}}"></img>
       </div>
+      <div ng-if="isPdf(file)">
+        <wra-pdf class="margin-top" pdf-url="{{file.url}}"></img>
+      </div>
+      <div ng-if="!isImage(file) && !isPdf(file)">
+        <img class="upload-image upload-box" src="no_preview.jpg"></img>
+      </div>
+      <p>Original Filename: {{file.filename}}</p>
+      <p>Link: <a ng-href="{{file.url}}">{{file.url}}</a></p>
       <hr/>
     </div>
     <ul uib-pagination
