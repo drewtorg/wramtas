@@ -17,6 +17,7 @@ app.directive('wraBlog', function($sce, postsService, authService) {
       $scope.addBlogPost = function() {
         var newPost = {
           html: '',
+          pdfUrl: '',
           inEditMode: true,
         };
         postsService.createPost($scope.page).then(function(response) {

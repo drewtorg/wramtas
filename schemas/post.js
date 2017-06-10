@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 // create a dynamic schema
 var postSchema = new Schema({
   html: String,
+  pdfUrl: String,
   datePosted: Date,
   dateModified: Date
 });
