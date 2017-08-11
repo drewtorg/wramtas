@@ -40,9 +40,14 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
     .when('/donate', {
       templateUrl: 'pages/Donate/donate.html',
       controller: 'donateController'
-    }).when('/election-info', {
+    })
+    .when('/election-info', {
       templateUrl: 'pages/ElectionInfo/electionInfo.html',
       controller: 'electionInfoController'
+    })
+    .when('/grant', {
+      templateUrl: 'pages/Grant/grant.html',
+      controller: 'grantController'
     })
     .when('/master-class', {
       templateUrl: 'pages/MasterClass/masterClass.html',
@@ -53,8 +58,8 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       controller: 'nominateController'
     })
     .when('/presentations', {
-      templateUrl: 'pages/Submissions/submissions.html',
-      controller: 'submissionsController'
+      templateUrl: 'pages/Presentations/presentations.html',
+      controller: 'presentationsController'
     })
     .when('/scholarships', {
       templateUrl: 'pages/Scholarships/scholarships.html',

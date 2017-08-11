@@ -3,49 +3,9 @@
     $location,
     $http,
     $cookies,
-    authService) {
-  $scope.tabs = [{
-    href: '/about',
-    title: 'About'
-  }, {
-    href: '/affiliates',
-    title: 'Affiliates'
-  }, {
-    href: '/conference',
-    title: 'Conferences',
-    subtabs: [{
-      href: '/conference',
-      title: 'Regional and National Info'
-    }, {
-      href: '/scholarships',
-      title: 'Conference Scholarships'
-    }, {
-      href: '/presentations',
-      title: 'Presentation Proposals'
-    }]
-  }, {
-    href: '/elections',
-    title: 'Elections',
-    subtabs: [{
-      href: '/election-info',
-      title: 'General Election Information'
-    }, {
-      href: '/nominate',
-      title: 'Nominate WRAMTAS Members'
-    }, {
-      href: '/candidates',
-      title: 'View Candidates'
-    }, {
-      href: '/vote',
-      title: 'Vote for WRAMTAS Board'
-    }]
-  }, {
-    href: '/spotlight',
-    title: 'Internship Spotlight'
-  }, {
-    href: '/master-class',
-    title: 'Master Class'
-  }];
+    authService,
+    TABS) {
+  $scope.tabs = TABS;
 
   $scope.form = {
     username: '',

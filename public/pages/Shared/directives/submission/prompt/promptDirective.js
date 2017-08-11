@@ -8,7 +8,7 @@ app.directive('wraSubmissionPrompt', function(
     TINY_MCE_OPTIONS) {
   return {
     restrict: 'E',
-    templateUrl: '/pages/Submissions/prompt/prompt.html',
+    templateUrl: '/pages/Shared/directives/submission/prompt/prompt.html',
     scope: {
       prompt: '=',
       type: '@',

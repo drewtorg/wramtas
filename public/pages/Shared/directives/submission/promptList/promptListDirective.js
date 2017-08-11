@@ -5,7 +5,7 @@ app.directive('wraSubmissionPromptList', function(
     submissionsService) {
   return {
     restrict: 'E',
-    templateUrl: 'pages/Submissions/promptList/promptList.html',
+    templateUrl: 'pages/Shared/directives/submission/promptList/promptList.html',
     scope: {
       type: '@',
       prompts: '='
