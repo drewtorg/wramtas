@@ -26,8 +26,7 @@ app.directive('wraSubmission', function(
         prompts: []
       };
 
-      submissionsService.getSubmissionInfo().then(function(res) {
-        $scope.submissionInfo.type = $scope.type;
+      submissionsService.getSubmissionInfo($scope.type).then(function(res) {
         if (res.data && res.data.description) {
           $scope.submissionInfo = res.data;
           $scope.submissionInfo.prompts.forEach(function(prompt) {

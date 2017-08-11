@@ -67,7 +67,7 @@ app.directive('wraSubmissionPrompt', function(
 
           scope.deletePrompt = function() {
             scope.onDelete();
-            submissionsService.deletePrompt(scope.prompt);
+            submissionsService.deletePrompt(scope.type, scope.prompt);
           };
 
           scope.savePrompt = function() {
@@ -76,7 +76,7 @@ app.directive('wraSubmissionPrompt', function(
               // format dates for backend
               var prompt = angular.copy(scope.prompt);
               prompt.dates = dateService.toBackendDateFormat(prompt.dates);
-              submissionsService.savePrompt(prompt);
+              submissionsService.savePrompt(scope.type, prompt);
               scope.toggleEditMode();
             }
           };
@@ -90,13 +90,13 @@ app.directive('wraSubmissionPrompt', function(
             // this is the case when we are undoing after clicking add
             if (!angular.isDefined(scope.tempPrompt) ||
                 scope.tempPrompt.description === '')
-              scope.deletePrompt(scope.prompt);
+              scope.deletePrompt(scope.type, scope.prompt);
 
             scope.toggleEditMode();
           };
 
           scope.submitApplication = function() {
-            submissionsService.saveApplication(scope.prompt._id, scope.app);
+            submissionsService.saveApplication(scope.type, scope.prompt._id, scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
             scope.toggleShowSaved();
