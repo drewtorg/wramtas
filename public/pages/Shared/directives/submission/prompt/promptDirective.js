@@ -11,7 +11,7 @@ app.directive('wraSubmissionPrompt', function(
     templateUrl: '/pages/Shared/directives/submission/prompt/prompt.html',
     scope: {
       prompt: '=',
-      type: '@',
+      page: '@',
       onDelete: '&'
     },
     compile: function() {
@@ -67,7 +67,7 @@ app.directive('wraSubmissionPrompt', function(
 
           scope.deletePrompt = function() {
             scope.onDelete();
-            submissionsService.deletePrompt(scope.type, scope.prompt);
+            submissionsService.deletePrompt(scope.page, scope.prompt);
           };
 
           scope.savePrompt = function() {
@@ -76,7 +76,7 @@ app.directive('wraSubmissionPrompt', function(
               // format dates for backend
               var prompt = angular.copy(scope.prompt);
               prompt.dates = dateService.toBackendDateFormat(prompt.dates);
-              submissionsService.savePrompt(scope.type, prompt);
+              submissionsService.savePrompt(scope.page, prompt);
               scope.toggleEditMode();
             }
           };
@@ -90,13 +90,13 @@ app.directive('wraSubmissionPrompt', function(
             // this is the case when we are undoing after clicking add
             if (!angular.isDefined(scope.tempPrompt) ||
                 scope.tempPrompt.description === '')
-              scope.deletePrompt(scope.type, scope.prompt);
+              scope.deletePrompt(scope.page, scope.prompt);
 
             scope.toggleEditMode();
           };
 
           scope.submitApplication = function() {
-            submissionsService.saveApplication(scope.type, scope.prompt._id, scope.app);
+            submissionsService.saveApplication(scope.page, scope.prompt._id, scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
             scope.toggleShowSaved();

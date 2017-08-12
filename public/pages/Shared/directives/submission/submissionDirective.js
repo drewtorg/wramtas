@@ -8,7 +8,7 @@ app.directive('wraSubmission', function(
     restrict: 'E',
     templateUrl: 'pages/Shared/directives/submission/submission.html',
     scope: {
-      type: '@'
+      page: '@'
     },
     controller: ['$scope', function($scope) {
       $scope.message = '';
@@ -26,7 +26,7 @@ app.directive('wraSubmission', function(
         prompts: []
       };
 
-      submissionsService.getSubmissionInfo($scope.type).then(function(res) {
+      submissionsService.getSubmissionInfo($scope.page).then(function(res) {
         if (res.data && res.data.description) {
           $scope.submissionInfo = res.data;
           $scope.submissionInfo.prompts.forEach(function(prompt) {
@@ -35,7 +35,7 @@ app.directive('wraSubmission', function(
         }
         else {
           $scope.submissionInfo.description =
-            $scope.submissionInfo.type + ' Information goes here.';
+            $scope.submissionInfo.page + ' Information goes here.';
         }
       });
 

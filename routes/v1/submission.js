@@ -3,9 +3,9 @@ var Submission = require('../../models/submission');
 var router = express.Router();
 
 // GET returns one submission page
-router.get('/:type', function(req, res) {
+router.get('/:page', function(req, res) {
   Submission.findOne({
-    type: req.params.type
+    page: req.params.page
   },
   function(err, doc) {
     res.json(doc);
@@ -37,10 +37,10 @@ router.delete('/:_id', function(req, res) {
 });
 
 // PUT upserts the submission page
-router.put('/:type', function(req, res) {
+router.put('/:page', function(req, res) {
   Submission.findOneAndUpdate(
     {
-      type: req.params.type
+      page: req.params.page
     },
     {
       $set: {
@@ -58,10 +58,10 @@ router.put('/:type', function(req, res) {
 );
 
 // POST a new prompt to the student proposal page
-router.post('/:type/prompt', function(req, res) {
+router.post('/:page/prompt', function(req, res) {
   Submission.findOneAndUpdate(
     {
-      type: req.params.type
+      page: req.params.page
     },
     {
       $push: {
@@ -78,10 +78,10 @@ router.post('/:type/prompt', function(req, res) {
 );
 
 // PUT update an existing prompt on the student proposal page
-router.put('/:type/prompt/:_id', function(req, res) {
+router.put('/:page/prompt/:_id', function(req, res) {
   Submission.findOneAndUpdate(
     {
-      type: req.params.type,
+      page: req.params.page,
       'prompts._id': req.params._id
     },
     {
@@ -98,10 +98,10 @@ router.put('/:type/prompt/:_id', function(req, res) {
 );
 
 // DELETE an existing prompt from the student proposal page
-router.delete('/:type/prompt/:_id', function(req, res) {
+router.delete('/:page/prompt/:_id', function(req, res) {
   Submission.findOne(
     {
-      type: req.params.type,
+      page: req.params.page,
       'prompts._id': req.params._id
     },
     function(err, doc) {
@@ -113,10 +113,10 @@ router.delete('/:type/prompt/:_id', function(req, res) {
 );
 
 // POST add a new application
-router.post('/:type/prompt/:_id/application', function(req, res) {
+router.post('/:page/prompt/:_id/application', function(req, res) {
   Submission.findOneAndUpdate(
     {
-      type: req.params.type,
+      page: req.params.page,
       'prompts._id': req.params._id
     },
     {
