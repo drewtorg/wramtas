@@ -95,6 +95,14 @@ input[type="file"] {
   margin: 15px 0px 15px 0px;
 }
 
+.submission-box {
+  padding: 15px;
+  border: 1px solid #BABABA;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 15px 0px 15px 0px;
+}
+
 .ballot-box {
   padding: 15px;
   border: 1px solid #BABABA;
@@ -158,3 +166,34 @@ input[type="file"] {
 .rotate90 {-webkit-transform: rotate(90deg); transform: rotate(90deg); }
 .rotate180 {-webkit-transform: rotate(180deg); transform: rotate(180deg); }
 .rotate270 {-webkit-transform: rotate(270deg); transform: rotate(270deg); }
+
+.dynamic-responses {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.delete-symbol {
+  margin-top: 10px;
+}
+
+.dynamic-question {
+  margin-top: 5px;
+}
+
+.dynamic-option {
+  margin-top: 5px;
+  margin-left: 42px;
+}
+
+.dynamic-paragraph {
+  max-width: 100%;
+}
+
+.dynamic-input {
+  width: 90%;
+  display: inline-block;
+}
+
+.app-check-value {
+  margin-left: 20px;
+}

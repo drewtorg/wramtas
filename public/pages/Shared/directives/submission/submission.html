@@ -11,7 +11,7 @@
     <button ng-hide="submissionInfo.inEditMode"
             class="btn btn-primary"
             ng-click="editSubmissionInfo()">
-      Edit {{submissionInfo.type}} Information
+      Edit {{submissionInfo.page}} Information
       <span class="glyphicon glyphicon-edit"></span>
     </button>
     <div class="margin-top">
@@ -27,7 +27,7 @@
       </button>
     </div>
   </div>
-  <wra-submission-prompt-list type="{{submissionInfo.type}}"
+  <wra-submission-prompt-list page="{{submissionInfo.page}}"
                               prompts="submissionInfo.prompts">
   </wra-submission-prompt-list>
 </div>

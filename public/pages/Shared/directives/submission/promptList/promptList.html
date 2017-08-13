@@ -1,7 +1,7 @@
 <div>
   <div ng-repeat="prompt in prompts">
     <wra-submission-prompt prompt="prompt"
-                           type="{{type}}"
+                           page="{{page}}"
                            on-delete="prompts.splice($index, 1)">
     </wra-submission-prompt>
     <hr/>
@@ -9,6 +9,6 @@
   <button class="btn btn-primary margin-bottom"
           ng-if="isAdmin()"
           ng-click="addPrompt()">
-    Add {{type}} Prompt <span class="glyphicon glyphicon-plus"></span>
+    Add {{page}} Prompt <span class="glyphicon glyphicon-plus"></span>
   </button>
 </div>
