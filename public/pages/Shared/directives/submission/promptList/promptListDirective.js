@@ -5,9 +5,9 @@ app.directive('wraSubmissionPromptList', function(
     submissionsService) {
   return {
     restrict: 'E',
-    templateUrl: 'pages/Submissions/promptList/promptList.html',
+    templateUrl: 'pages/Shared/directives/submission/promptList/promptList.html',
     scope: {
-      type: '@',
+      page: '@',
       prompts: '='
     },
     controller: ['$scope', function($scope) {
@@ -16,9 +16,10 @@ app.directive('wraSubmissionPromptList', function(
       };
 
       $scope.addPrompt = function() {
-        submissionsService.createPrompt().then(function(response) {
+        submissionsService.createPrompt($scope.page).then(function(response) {
           var prompt = angular.copy(response.data);
           prompt.dates = dateService.toUIDateFormat(prompt.dates);
+          prompt.fields = [];
           prompt.inEditMode = true;
           $scope.prompts.push(angular.copy(prompt));
         });
