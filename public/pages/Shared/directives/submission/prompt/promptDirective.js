@@ -8,10 +8,10 @@ app.directive('wraSubmissionPrompt', function(
     TINY_MCE_OPTIONS) {
   return {
     restrict: 'E',
-    templateUrl: '/pages/Submissions/prompt/prompt.html',
+    templateUrl: '/pages/Shared/directives/submission/prompt/prompt.html',
     scope: {
       prompt: '=',
-      type: '@',
+      page: '@',
       onDelete: '&'
     },
     compile: function() {
@@ -20,18 +20,33 @@ app.directive('wraSubmissionPrompt', function(
           scope.tinymceOptions = TINY_MCE_OPTIONS;
         },
         post: function(scope) {
+          scope.getDefaultApp = function() {
+            var app = {
+              uploadPaths: []
+            };
+
+            scope.prompt.fields.forEach(function(input) {
+              if (input.inputType === 'checkbox') {
+                app[input.label] = {};
+                input.validOptions.forEach(function(option) {
+                  app[input.label][option] = false;
+                });
+              }
+              else {
+                app[input.label] = '';
+              }
+            });
+
+            return app;
+          };
+
           scope.prompt.inEditMode =
             angular.isDefined(scope.prompt.inEditMode)
               ? scope.prompt.inEditMode
               : false;
           scope.tempPrompt = angular.copy(scope.prompt);
           scope.showApp = false;
-          scope.app = {
-            name: '',
-            amtaId: '',
-            email: '',
-            uploadPaths: []
-          };
+          scope.app = scope.getDefaultApp();
           scope.showContact =
             new Array(scope.prompt.applications.length).fill(false);
           scope.files = [];
@@ -67,7 +82,7 @@ app.directive('wraSubmissionPrompt', function(
 
           scope.deletePrompt = function() {
             scope.onDelete();
-            submissionsService.deletePrompt(scope.prompt);
+            submissionsService.deletePrompt(scope.page, scope.prompt);
           };
 
           scope.savePrompt = function() {
@@ -76,7 +91,8 @@ app.directive('wraSubmissionPrompt', function(
               // format dates for backend
               var prompt = angular.copy(scope.prompt);
               prompt.dates = dateService.toBackendDateFormat(prompt.dates);
-              submissionsService.savePrompt(prompt);
+              submissionsService.savePrompt(scope.page, prompt);
+              scope.app = scope.getDefaultApp();
               scope.toggleEditMode();
             }
           };
@@ -90,13 +106,15 @@ app.directive('wraSubmissionPrompt', function(
             // this is the case when we are undoing after clicking add
             if (!angular.isDefined(scope.tempPrompt) ||
                 scope.tempPrompt.description === '')
-              scope.deletePrompt(scope.prompt);
+              scope.deletePrompt(scope.page, scope.prompt);
 
             scope.toggleEditMode();
           };
 
           scope.submitApplication = function() {
-            submissionsService.saveApplication(scope.prompt._id, scope.app);
+            submissionsService.saveApplication(scope.page,
+                                               scope.prompt._id,
+                                               scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
             scope.toggleShowSaved();
@@ -124,6 +142,8 @@ app.directive('wraSubmissionPrompt', function(
             return Date.now() > scope.prompt.dates.openDate.date &&
                      Date.now() < scope.prompt.dates.closeDate.date;
           };
+
+          scope.isObject = angular.isObject;
         }
       };
     }

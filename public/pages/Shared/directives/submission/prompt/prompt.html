@@ -8,6 +8,8 @@
       <textarea ui-tinymce="tinymceOptions"
                 ng-model="tempPrompt.description">
       </textarea>
+      <h3>Modify Blinded Prompt Inputs</h3>
+      <wra-dynamic-form form="tempPrompt.fields"></wra-dynamic-form>
       <h3>Modify Prompt Open/Close Dates</h3>
       <form class="form-inline">
         <div class="row">
@@ -82,14 +84,27 @@
           <button class="btn btn-primary"
                   ng-click="toggleContactInfo($index)">
             <span ng-show="!showContact[$index]">Show</span>
-            <span ng-show="showContact[$index]">Hide</span> Contact Information
+            <span ng-show="showContact[$index]">Hide</span> Applicant
           </button>
         </h4>
         <div ng-show="showContact[$index]">
-          <p>Applicant Name: {{application.name}}</p>
-          <p>Applicant Email: 
-            <a ng-href="mailto:{{application.email}}">{{application.email}}</a>
-          </p>
+          <div ng-repeat="(label, value) in application">
+            <div ng-if="label !== 'uploadPaths'">
+              <div ng-if="!isObject(value)">
+                <p>{{label}}: {{value}}</p>
+              </div>
+              <div ng-if="isObject(value)">
+                <p>{{label}}:</p>
+                <div ng-repeat="(option, checked) in value">
+                  <p class="app-check-value">
+                    <span ng-if="checked"><i class="glyphicon glyphicon-check"></i></span>
+                    <span ng-if="!checked"><i class="glyphicon glyphicon-unchecked"></i></span>
+                    {{option}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div ng-repeat="path in application.uploadPaths">
           <p>File {{$index + 1}}: 
@@ -111,14 +126,14 @@
       </div>
       <div ng-if="!isPromptOpen()">
         <div class="alert alert-info margin-top">
-          <span>This {{type}} is not currently open for applications.</span>
+          <span>This {{page}} is not currently open for applications.</span>
         </div>
       </div>
     </div>
     <div class="alert alert-info margin-top"
          ng-show="showSavedMessage">
       <span>
-        Thank you for applying for a WRAMTAS {{type}}.  You will be notified
+        Thank you for applying for a WRAMTAS {{page}}.  You will be notified
         shortly after applications close if you have been selected.
       </span>
     </div>
@@ -126,18 +141,7 @@
       <form class="form-group submission-box"
             ng-submit="submitApplication()">
         <h3>Your Application</h3>
-        <input type="text"
-               class="form-control margin-top"
-               ng-model="app.name"
-               placeholder="Full Name" />
-        <input type="text"
-               class="form-control margin-top"
-               ng-model="app.amtaId"
-               placeholder="AMTA Number" />
-        <input type="text"
-               class="form-control margin-top"
-               ng-model="app.email"
-               placeholder="Email Address" />
+        <wra-dynamic-form form="prompt.fields" response="app"></wra-dynamic-form>
         <div class="margin-top">
           <input filepicker
                  type="filepicker"
