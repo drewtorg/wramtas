@@ -8,6 +8,8 @@
       <textarea ui-tinymce="tinymceOptions"
                 ng-model="tempPrompt.description">
       </textarea>
+      <h3>Modify Blinded Prompt Inputs</h3>
+      <wra-dynamic-form form="tempPrompt.fields"></wra-dynamic-form>
       <h3>Modify Prompt Open/Close Dates</h3>
       <form class="form-inline">
         <div class="row">
@@ -126,18 +128,7 @@
       <form class="form-group submission-box"
             ng-submit="submitApplication()">
         <h3>Your Application</h3>
-        <input type="text"
-               class="form-control margin-top"
-               ng-model="app.name"
-               placeholder="Full Name" />
-        <input type="text"
-               class="form-control margin-top"
-               ng-model="app.amtaId"
-               placeholder="AMTA Number" />
-        <input type="text"
-               class="form-control margin-top"
-               ng-model="app.email"
-               placeholder="Email Address" />
+        <wra-dynamic-form form="prompt.fields" response="app"></wra-dynamic-form>
         <div class="margin-top">
           <input filepicker
                  type="filepicker"

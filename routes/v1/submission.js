@@ -86,13 +86,12 @@ router.put('/:page/prompt/:_id', function(req, res) {
     },
     {
       $set: {
-        'prompts.$.description': req.body.description,
-        'prompts.$.dates.openDate': req.body.dates.openDate,
-        'prompts.$.dates.closeDate': req.body.dates.closeDate
+        'prompts.$': req.body
       }
     },
     function(err, doc) {
-      res.json(doc.prompts.id(req.params._id));
+      if (err) res.status(500).end();
+      else res.json(doc.prompts.id(req.params._id));
     });
   }
 );

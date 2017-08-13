@@ -31,6 +31,7 @@ app.directive('wraSubmission', function(
           $scope.submissionInfo = res.data;
           $scope.submissionInfo.prompts.forEach(function(prompt) {
             prompt.dates = dateService.toUIDateFormat(prompt.dates);
+            if (!prompt.fields) prompt.fields = [];
           });
         }
         else {

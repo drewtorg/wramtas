@@ -3,12 +3,17 @@ var Schema = mongoose.Schema;
 
 var Submission = new Schema({
   description: String,
-  type: String,
+  page: String,
   prompts: [{
     description: {
       type: String,
       default: ''
     },
+    fields: [{
+      label: String,
+      inputType: String,
+      validOptions: [String]
+    }],
     dates: {
       openDate: {
         type: Date,

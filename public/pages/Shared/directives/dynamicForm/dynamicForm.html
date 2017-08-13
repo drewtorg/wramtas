@@ -1,0 +1,99 @@
+<div>
+  <div ng-if="form && !response">
+    <div class="dynamic-question" ng-repeat="input in form">
+      <div class="row">
+        <div class="col-sm-7">
+          <input type="text"
+                 class="form-control dynamic-input"
+                 ng-model="input.label"
+                 placeholder="Input Label"/>
+        </div>
+        <div class="col-sm-4">
+          <select class="form-control" ng-model="input.inputType">
+            <option value="text">Short Answer</option>
+            <option value="textarea">Paragraph</option>
+            <option value="radio">Multiple Choice</option>
+            <option value="checkbox">Checkboxes</option>
+            <option value="select">Dropdown</option>
+          </select>
+        </div>
+        <div class="col-sm-1">
+          <div class="delete-symbol">
+            <span class="glyphicon glyphicon-remove"
+                  ng-click="deleteInput($index)"></span>
+          </div>
+        </div>
+      </div>
+      <div ng-if="allowAddOption(input.inputType)">
+        <div class="row" ng-repeat="option in input.validOptions track by $index">
+          <div class="dynamic-option col-sm-6">
+            <input type="text"
+                   class="form-control"
+                   ng-model="input.validOptions[$index]"/>
+          </div>
+          <div class="col-sm-1 no-padding">
+            <div class="delete-symbol">
+              <span class="glyphicon glyphicon-remove"
+                    ng-click="deleteOption(input, $index)"></span>
+            </div>
+          </div>
+        </div>
+        <button class="dynamic-option btn btn-primary"
+                ng-click="addOption(input)">
+          Add Option <span class="glyphicon glyphicon-plus">
+        </button>
+      </div>
+    </div>
+    <div class="margin-top">
+      <button class="btn btn-primary"
+              ng-click="addInput()">
+        Add Input <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </div>
+  </div>
+  <div ng-if="form && response">
+    <div ng-repeat="input in form">
+      <div ng-if="allowAddOption(input.inputType)">
+        <p>{{input.question}}</p>
+      </div>
+      <div ng-if="input.inputType === 'text'">
+        <input type="text"
+               class="form-control"
+               ng-model="response[{{input.label}}]"
+               placeholder="{{input.label}}"/>
+      </div>
+      <div ng-if="input.inputType === 'textarea'">
+        <textarea class="form-control dynamic-paragraph"
+                  ng-model="response[{{input.label}}]"
+                  placeholder="{{input.label}}">
+        </textarea>
+      </div>
+      <div ng-if="input.inputType === 'radio'">
+        <div ng-repeat="option in input.validOptions">
+          <input type="radio"
+                 name="{{input.label}}"
+                 value="{{option}}"
+                 ng-model="response[{{input.label}}]">
+            {{option}}
+          </input>
+        </div>
+      </div>
+      <div ng-if="input.inputType === 'checkbox'">
+        <div ng-repeat="option in input.validOptions">
+          <input type="checkbox"
+                 name="{{input.label}}"
+                 ng-model="response[{{input.label}}][{{option}}]">
+            {{option}}
+          </input>
+        </div>
+      </div>
+      <div ng-if="input.inputType === 'select'">
+        <select class="form-control"
+                ng-model="response[$index]"
+                ng-options="input.validOptions.indexOf(selected) as selected for selected in input.validOptions">
+        </select>
+      </div>
+      <hr/>
+    </div>
+  </div>
+</div>
