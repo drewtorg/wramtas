@@ -193,3 +193,7 @@ input[type="file"] {
   width: 90%;
   display: inline-block;
 }
+
+.app-check-value {
+  margin-left: 20px;
+}

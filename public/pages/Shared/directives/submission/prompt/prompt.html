@@ -84,14 +84,27 @@
           <button class="btn btn-primary"
                   ng-click="toggleContactInfo($index)">
             <span ng-show="!showContact[$index]">Show</span>
-            <span ng-show="showContact[$index]">Hide</span> Contact Information
+            <span ng-show="showContact[$index]">Hide</span> Applicant
           </button>
         </h4>
         <div ng-show="showContact[$index]">
-          <p>Applicant Name: {{application.name}}</p>
-          <p>Applicant Email: 
-            <a ng-href="mailto:{{application.email}}">{{application.email}}</a>
-          </p>
+          <div ng-repeat="(label, value) in application">
+            <div ng-if="label !== 'uploadPaths'">
+              <div ng-if="!isObject(value)">
+                <p>{{label}}: {{value}}</p>
+              </div>
+              <div ng-if="isObject(value)">
+                <p>{{label}}:</p>
+                <div ng-repeat="(option, checked) in value">
+                  <p class="app-check-value">
+                    <span ng-if="checked"><i class="glyphicon glyphicon-check"></i></span>
+                    <span ng-if="!checked"><i class="glyphicon glyphicon-unchecked"></i></span>
+                    {{option}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div ng-repeat="path in application.uploadPaths">
           <p>File {{$index + 1}}: 

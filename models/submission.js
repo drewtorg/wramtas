@@ -24,12 +24,7 @@ var Submission = new Schema({
         default: Date.now()
       },
     },
-    applications: [{
-      name: String,
-      amtaId: String,
-      email: String,
-      uploadPaths: [String]
-    }]
+    applications: [Schema.Types.Mixed]
   }]
 });
 

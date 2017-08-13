@@ -20,18 +20,33 @@ app.directive('wraSubmissionPrompt', function(
           scope.tinymceOptions = TINY_MCE_OPTIONS;
         },
         post: function(scope) {
+          scope.getDefaultApp = function() {
+            var app = {
+              uploadPaths: []
+            };
+
+            scope.prompt.fields.forEach(function(input) {
+              if (input.inputType === 'checkbox') {
+                app[input.label] = {};
+                input.validOptions.forEach(function(option) {
+                  app[input.label][option] = false;
+                });
+              }
+              else {
+                app[input.label] = '';
+              }
+            });
+
+            return app;
+          };
+
           scope.prompt.inEditMode =
             angular.isDefined(scope.prompt.inEditMode)
               ? scope.prompt.inEditMode
               : false;
           scope.tempPrompt = angular.copy(scope.prompt);
           scope.showApp = false;
-          scope.app = {
-            name: '',
-            amtaId: '',
-            email: '',
-            uploadPaths: []
-          };
+          scope.app = scope.getDefaultApp();
           scope.showContact =
             new Array(scope.prompt.applications.length).fill(false);
           scope.files = [];
@@ -77,6 +92,7 @@ app.directive('wraSubmissionPrompt', function(
               var prompt = angular.copy(scope.prompt);
               prompt.dates = dateService.toBackendDateFormat(prompt.dates);
               submissionsService.savePrompt(scope.page, prompt);
+              scope.app = scope.getDefaultApp();
               scope.toggleEditMode();
             }
           };
@@ -96,7 +112,9 @@ app.directive('wraSubmissionPrompt', function(
           };
 
           scope.submitApplication = function() {
-            submissionsService.saveApplication(scope.page, scope.prompt._id, scope.app);
+            submissionsService.saveApplication(scope.page,
+                                               scope.prompt._id,
+                                               scope.app);
             scope.showContact.push(false);
             scope.toggleShowApp();
             scope.toggleShowSaved();
@@ -124,6 +142,8 @@ app.directive('wraSubmissionPrompt', function(
             return Date.now() > scope.prompt.dates.openDate.date &&
                      Date.now() < scope.prompt.dates.closeDate.date;
           };
+
+          scope.isObject = angular.isObject;
         }
       };
     }

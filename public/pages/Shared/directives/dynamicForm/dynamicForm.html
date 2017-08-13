@@ -54,17 +54,17 @@
   <div ng-if="form && response">
     <div ng-repeat="input in form">
       <div ng-if="allowAddOption(input.inputType)">
-        <p>{{input.question}}</p>
+        <p>{{input.label}}:</p>
       </div>
       <div ng-if="input.inputType === 'text'">
         <input type="text"
                class="form-control"
-               ng-model="response[{{input.label}}]"
+               ng-model="response[input.label]"
                placeholder="{{input.label}}"/>
       </div>
       <div ng-if="input.inputType === 'textarea'">
         <textarea class="form-control dynamic-paragraph"
-                  ng-model="response[{{input.label}}]"
+                  ng-model="response[input.label]"
                   placeholder="{{input.label}}">
         </textarea>
       </div>
@@ -73,7 +73,7 @@
           <input type="radio"
                  name="{{input.label}}"
                  value="{{option}}"
-                 ng-model="response[{{input.label}}]">
+                 ng-model="response[input.label]">
             {{option}}
           </input>
         </div>
@@ -82,18 +82,18 @@
         <div ng-repeat="option in input.validOptions">
           <input type="checkbox"
                  name="{{input.label}}"
-                 ng-model="response[{{input.label}}][{{option}}]">
+                 ng-model="response[input.label][option]">
             {{option}}
           </input>
         </div>
       </div>
       <div ng-if="input.inputType === 'select'">
         <select class="form-control"
-                ng-model="response[$index]"
-                ng-options="input.validOptions.indexOf(selected) as selected for selected in input.validOptions">
+                ng-model="response[input.label]"
+                ng-options="selected as selected for selected in input.validOptions">
         </select>
       </div>
-      <hr/>
+      <br/>
     </div>
   </div>
 </div>
