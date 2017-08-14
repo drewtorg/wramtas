@@ -9,7 +9,9 @@
     <div ng-show="masterClassInProgress()">
       <div ng-bind-html="trustAsHtml(masterClass.html)" class="margin-bottom">
       </div>
-      <youtube-video video-url="masterClass.url"></youtube-video>
+      <div class="text-center">
+        <youtube-video video-url="masterClass.url"></youtube-video>
+      </div>
       <button ng-hide="isAdmin()"
               class="btn btn-primary"
               ng-click="openSurvey()">
