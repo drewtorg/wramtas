@@ -30,12 +30,13 @@
 
   $scope.logIn = function(form) {
     authService.logIn(form).then(function() {
-      if (authService.isAdmin()) {
-        $scope.tabs.push({
-          href: '/upload',
-          title: 'Uploads'
-        });
-      }
+      // TODO: Remove once uploads page removal is final
+      // if (authService.isAdmin()) {
+      //   $scope.tabs.push({
+      //     href: '/upload',
+      //     title: 'Uploads'
+      //   });
+      // }
     });
   };
 
@@ -49,10 +50,11 @@
 
   $scope.logout = function() {
     authService.logout();
-    $scope.tabs.pop();
-    if ($location.path() === '/upload') {
-      $location.path('/');
-    }
+    // TODO: Remove once uploads page removal is final
+    // $scope.tabs.pop();
+    // if ($location.path() === '/upload') {
+    //   $location.path('/');
+    // }
   };
 
   $scope.isAdmin = function() {
@@ -63,10 +65,11 @@
     return angular.fromJson($cookies.get('session')).username;
   };
 
-  if (authService.isAdmin()) {
-    $scope.tabs.push({
-      href: '/upload',
-      title: 'Uploads'
-    });
-  }
+  // TODO: Remove once uploads page removal is final
+  // if (authService.isAdmin()) {
+  //   $scope.tabs.push({
+  //     href: '/upload',
+  //     title: 'Uploads'
+  //   });
+  // }
 });
