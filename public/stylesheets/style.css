@@ -73,10 +73,12 @@ input[type="file"] {
 }
 
 .login-box {
-  padding: 15px;
-  border: 1px solid #BABABA;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.login-field {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .candidate-box {
