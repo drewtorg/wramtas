@@ -115,7 +115,6 @@
       <nav class="navbar navbar-inverse" role="navigation">
         <a class="navbar-brand" href="/">WRAMTAS</a>
         <ul class="nav navbar-nav">
-          <!-- TODO: fix this isDropdown nonsense -->
           <li ng-repeat="tab in tabs"
               ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
             <a ng-if="!isDropdown(tab)" ng-href="{{tab.href}}">{{tab.title}}</a>
@@ -132,40 +131,39 @@
                 <a ng-href="{{subtab.href}}">{{subtab.title}}</a>
               </li>
             </ul>
+        </ul>
+        <ul ng-if="!isLoggedIn()" class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+               Log In <span class="caret"></span></a>
+            <ul class="dropdown-menu login-box">
+              <li>
+                <input type="text" ng-model="form.username"
+                        class="form-control login-field" placeholder="Username"/>
+              </li>
+              <li>
+                <input type="password" ng-model="form.password"
+                        class="form-control login-field" placeholder="Password"/>
+              </li>
+              <li>
+                <button class="btn btn-primary"
+                        ng-click="logIn(form)">Log In</button>
+              </li>
+            </ul>
           </li>
         </ul>
+        <ul ng-if="isLoggedIn()" class="nav navbar-nav">
+          <li><a ng-click="logout()" role="button">Log Out</a></li>
+        </ul>
+      </li>
       </nav>
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-2">
-          <!-- TODO: move this into the navbar -->
-          <form ng-if="!isLoggedIn()" ng-submit="logIn(form)">
-            <div class="form-group login-box">
-              <input type="text"
-                     class="form-control"
-                     placeholder="Username"
-                     ng-model="form.username" />
-              <br/>
-              <input type="password"
-                     class="form-control"
-                     placeholder="Password"
-                     ng-model="form.password" />
-              <br/>
-              <input type="submit"
-                     class="btn btn-primary"
-                     value="Log in" />
-              <!--<a class="pointer" ng-click="register(form)">Register</a>-->
-            </div>
-          </form>
-          <div ng-if="isLoggedIn()" class="login-box">
-            <p>Welcome, {{ getUsername() }}!</p>
-            <a class="pointer" ng-click="logout()">Logout</a>
-          </div>
-        </div>
+        <div class="col-md-2"></div>
         <div class="col-md-8" ng-view></div>
-        <div class="col-md-2">
-        </div>
+        <div class="col-md-2"></div>
       </div>
     </div>
   </div>
