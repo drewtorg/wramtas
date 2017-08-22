@@ -37,4 +37,23 @@
              value="Nominate" />
     </form>
   </div>
+  <div ng-if="isAdmin()">
+    <h3>All Nominations</h3>
+    <!-- One table per position -->
+    <div ng-repeat="(id, candidateGroup) in candidates | groupBy: 'position'">
+      <div ng-show="hasCandidates(candidateGroup)">
+        <h3>{{positionTitles[id]}}:</h3>
+        <table class="table table-bordered table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+          <tr ng-repeat="candidate in candidateGroup">
+            <td>{{candidate.name}}</td>
+            <td>{{candidate.email}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
