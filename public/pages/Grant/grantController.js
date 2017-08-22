@@ -1,3 +1,3 @@
-app.controller('grantController', function($scope) {
+app.controller('grantController', function() {
 
 });

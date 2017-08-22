@@ -77,7 +77,8 @@ Account.findOne({}, function(err, doc) {
     }), process.env.ADMIN_PASSWORD, function(err) {
       if (err) {
         console.log('Could not create admin account!');
-      } else {
+      }
+      else {
         console.log('Created admin account');
       }
     });
