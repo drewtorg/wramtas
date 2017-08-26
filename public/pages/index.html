@@ -52,7 +52,6 @@
   <!-- Services -->
   <script src="pages/About/aboutPageService.js"></script>
   <script src="pages/About/biosService.js"></script>
-  <script src="pages/Conference/conferencePageService.js"></script>
   <script src="pages/MasterClass/masterClassService.js"></script>
   <script src="pages/MasterClass/survey/surveyService.js"></script>
   <script src="pages/Nominate/nominateService.js"></script>
@@ -60,6 +59,7 @@
   <script src="pages/Shared/services/authService.js"></script>
   <script src="pages/Shared/services/dateService.js"></script>
   <script src="pages/Shared/services/electionService.js"></script>
+  <script src="pages/Shared/services/informationPageService.js"></script>
   <script src="pages/Shared/services/postsService.js"></script>
   <script src="pages/Shared/services/positionsService.js"></script>
   <script src="pages/Shared/services/universitiesService.js"></script>
@@ -93,6 +93,7 @@
   <script src="pages/Shared/directives/blogPost/blogPostDirective.js"></script>
   <script src="pages/Shared/directives/blog/blogDirective.js"></script>
   <script src="pages/Shared/directives/dynamicForm/dynamicFormDirective.js"></script>
+  <script src="pages/Shared/directives/information/informationDirective.js"></script>
   <script src="pages/Shared/directives/pdf/pdfDirective.js"></script>
   <script src="pages/Shared/directives/submission/prompt/promptDirective.js"></script>
   <script src="pages/Shared/directives/submission/promptList/promptListDirective.js"></script>
@@ -136,11 +137,11 @@
             <ul class="dropdown-menu login-box">
               <li>
                 <input type="text" ng-model="form.username"
-                        class="form-control login-field" placeholder="Username"/>
+                       class="form-control login-field" placeholder="Username"/>
               </li>
               <li>
                 <input type="password" ng-model="form.password"
-                        class="form-control login-field" placeholder="Password"/>
+                       class="form-control login-field" placeholder="Password"/>
               </li>
               <li>
                 <button class="btn btn-primary"
