@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var MasterClass = new Schema({
+var VideoPage = new Schema({
   preHtml: String,
   html: String,
   url: String,
@@ -28,7 +28,8 @@ var MasterClass = new Schema({
     responses: [String],
     tallies: [Number]
   }],
-  ipAddresses: [String]
+  ipAddresses: [String],
+  page: String
 });
 
-module.exports = mongoose.model('MasterClass', MasterClass);
+module.exports = mongoose.model('VideoPage', VideoPage);

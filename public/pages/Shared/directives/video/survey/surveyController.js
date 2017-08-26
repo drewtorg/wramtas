@@ -1,13 +1,13 @@
 app.controller('SurveyController', function(
     $scope,
     authService,
-    masterClassService,
-    surveyService) {
+    surveyService,
+    videoPageService) {
   $scope.survey = {};
   $scope.responses = [];
   $scope.userMode = false;
 
-  masterClassService.getMasterClass().then(function(res) {
+  videoPageService.getVideoPage($scope.page).then(function(res) {
     $scope.survey = res.data.survey;
     $scope.survey.forEach(function(s) {
       if (s.inputType === 'checkbox') {

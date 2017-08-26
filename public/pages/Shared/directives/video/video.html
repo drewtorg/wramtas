@@ -1,0 +1,135 @@
+<div>
+  <div ng-show="!videoPage.inEditMode">
+    <div ng-show="videoPageComing()">
+      <div ng-bind-html="trustAsHtml(videoPage.preHtml)"
+            class="margin-bottom">
+      </div>
+    </div>
+    <div ng-show="videoPageInProgress()">
+      <div ng-bind-html="trustAsHtml(videoPage.html)" class="margin-bottom">
+      </div>
+      <div class="text-center">
+        <youtube-video video-url="videoPage.url"></youtube-video>
+      </div>
+      <button ng-hide="isAdmin()"
+              class="btn btn-primary"
+              ng-click="openSurvey()">
+        Take Survey <span class="glyphicon glyphicon-edit"></span>
+      </button>
+    </div>
+    <div ng-show="videoPageOver()">
+      <p>
+        There is currently no Virtual Master Class. We will be giving more 
+        information about the next Virtual Master Class shortly.
+      </p>
+    </div>
+  </div>
+  <div ng-show="isAdmin()">
+    <div ng-hide="videoPage.inEditMode">
+      <button class="btn btn-primary"
+              ng-click="editVideoPage()">
+        Edit Master Class <span class="glyphicon glyphicon-edit"></span>
+      </button>
+      <button class="btn btn-primary"
+              ng-click="editSurvey()">
+        Edit Survey <span class="glyphicon glyphicon-edit"></span>
+      </button>
+    </div>
+    <div ng-show="videoPage.inEditMode" class="margin-top">
+      <label>Message before Master Class</label>
+      <textarea ui-tinymce="tinymceOptions" ng-model="tempVideoPage.preHtml">
+      </textarea>
+      <br/>
+      <label>Message during Master Class</label>
+      <textarea ui-tinymce="tinymceOptions" ng-model="tempVideoPage.html">
+      </textarea>
+      <label class="control-label margin-top">YouTube Link</label>
+      <input type="text"
+             class="form-control"
+             ng-model="tempVideoPage.url"
+             placeholder="Youtube URL" />
+      <div class="row margin-top">
+        <div class="col-md-6">
+          <label class="control-label">Start Time:</label>
+          <p class="input-group">
+            <input type="text"
+                   class="form-control"
+                   uib-datepicker-popup="{{format}}"
+                   ng-model="tempVideoPage.dates.openDate.date"
+                   is-open="tempVideoPage.dates.openDate.opened"
+                   datepicker-options="datepickerOptions"
+                   close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button"
+                      class="btn btn-default"
+                      ng-click="toggleOpened(tempVideoPage.dates.openDate)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <label class="control-label">End Time:</label>
+          <p class="input-group">
+            <input type="text"
+                   class="form-control"
+                   uib-datepicker-popup="{{format}}"
+                   ng-model="tempVideoPage.dates.closeDate.date"
+                   is-open="tempVideoPage.dates.closeDate.opened"
+                   datepicker-options="datepickerOptions"
+                   close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button"
+                      class="btn btn-default"
+                      ng-click="toggleOpened(tempVideoPage.dates.closeDate)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+      <button class="btn btn-success" ng-click="saveVideoPage()">
+        Save Changes <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
+      <button class="btn btn-danger" ng-click="undoEdits()">
+        Undo Changes <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+    <hr/>
+    <div ng-if="videoPage.survey">
+      <h2>Survey Results</h2>
+      <div ng-repeat="s in videoPage.survey">
+        <h4>Question #{{$index + 1}}: {{s.question}}</h4>
+        <div class="survey-responses">
+          <div ng-if="s.inputType === 'text' || s. inputType === 'textarea'">
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th>Responses</th>
+              </tr>
+              <tr ng-repeat="response in s.responses">
+                <td>{{response}}</td>
+              </tr>
+            </table>
+          </div>
+          <div ng-if="s.inputType === 'radio' || s.inputType === 'select' || s.inputType === 'checkbox'">
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th>Responses</th>
+                <th>Results</th>
+              </tr>
+              <tr ng-repeat="option in s.validOptions">
+                <td>{{option}}</td>
+                <td>{{s.tallies[$index]}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <h4>Total Video Views: {{videoPage.ipAddresses.length}}</h4>
+      <button class="btn btn-danger" ng-click="clearVideoCount()">
+        Clear Count <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+  </div>
+</div>
