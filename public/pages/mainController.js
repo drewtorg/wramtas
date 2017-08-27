@@ -30,15 +30,7 @@
   };
 
   $scope.logIn = function(form) {
-    authService.logIn(form).then(function() {
-      // TODO: Remove once uploads page removal is final
-      // if (authService.isAdmin()) {
-      //   $scope.tabs.push({
-      //     href: '/upload',
-      //     title: 'Uploads'
-      //   });
-      // }
-    });
+    authService.logIn(form);
   };
 
   $scope.register = function(form) {
@@ -51,11 +43,6 @@
 
   $scope.logout = function() {
     authService.logout();
-    // TODO: Remove once uploads page removal is final
-    // $scope.tabs.pop();
-    // if ($location.path() === '/upload') {
-    //   $location.path('/');
-    // }
   };
 
   $scope.isAdmin = function() {
@@ -70,35 +57,27 @@
     $scope.editingTabs = !$scope.editingTabs;
   };
 
-  $scope.menuOptions = [
-    // NEW IMPLEMENTATION
+  $scope.tabOptions = [
     {
-        text: 'Object-Select',
+        text: 'Remove Page',
         click: function ($itemScope, $event, modelValue, text, $li) {
-            $scope.selected = $itemScope.item.name;
+            $scope.removePage(); // pass in relevant information
         }
-    },
-    {
-        text: 'Object-Remove',
-        click: function ($itemScope, $event, modelValue, text, $li) {
-            $scope.items.splice($itemScope.$index, 1);
-        }
-    },
-    // LEGACY IMPLEMENTATION
-    ['Select', function ($itemScope, $event, modelValue, text, $li) {
-        $scope.selected = $itemScope.item.name;
-    }],
-    null, // Dividier
-    ['Remove', function ($itemScope, $event, modelValue, text, $li) {
-        $scope.items.splice($itemScope.$index, 1);
-    }]
-];
+    }
+  ];
 
-  // TODO: Remove once uploads page removal is final
-  // if (authService.isAdmin()) {
-  //   $scope.tabs.push({
-  //     href: '/upload',
-  //     title: 'Uploads'
-  //   });
-  // }
+  $scope.subtabOptions = [
+    {
+        text: 'Add Page',
+        click: function ($itemScope, $event, modelValue, text, $li) {
+            $scope.addPage();
+        }
+    },
+    {
+        text: 'Remove Page',
+        click: function ($itemScope, $event, modelValue, text, $li) {
+            $scope.removePage(); // pass in relevant information
+        }
+    }
+  ];
 });

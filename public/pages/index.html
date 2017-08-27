@@ -66,7 +66,6 @@
   <script src="pages/Shared/services/positionsService.js"></script>
   <script src="pages/Shared/services/submissionsService.js"></script>
   <script src="pages/Shared/services/universitiesService.js"></script>
-  <script src="pages/Shared/services/uploadsService.js"></script>
   <script src="pages/Shared/services/videoPageService.js"></script>
   <script src="pages/Vote/voteService.js"></script>
 
@@ -86,7 +85,6 @@
   <script src="pages/Scholarships/scholarshipsController.js"></script>
   <script src="pages/Shared/directives/video/survey/surveyController.js"></script>
   <script src="pages/Spotlight/spotlightController.js"></script>
-  <script src="pages/Upload/uploadController.js"></script>
   <script src="pages/Vote/voteController.js"></script>
 
   <!-- Directives -->
@@ -117,8 +115,23 @@
         <ul class="nav navbar-nav">
           <li ng-repeat="tab in tabs"
               ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
-            <a ng-if="!isDropdown(tab)" ng-href="{{tab.href}}">{{tab.title}}</a>
-            <a ng-if="isDropdown(tab)"
+            <a ng-if="!isDropdown(tab) && editingTabs"
+               ng-href="{{tab.href}}"
+               context-menu="tabOptions">{{tab.title}}
+            </a>
+            <a ng-if="!isDropdown(tab) && !editingTabs" ng-href="{{tab.href}}">
+              {{tab.title}}
+            </a>
+            <a ng-if="isDropdown(tab) && editingTabs"
+               class="dropdown-toggle"
+               data-toggle="dropdown"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false"
+               context-menu="tabOptions">
+              {{tab.title}}<span class="caret"></span>
+            </a>
+            <a ng-if="isDropdown(tab) && !editingTabs"
                class="dropdown-toggle"
                data-toggle="dropdown"
                role="button"
@@ -128,7 +141,13 @@
             </a>
             <ul ng-if="isDropdown(tab)" class="dropdown-menu">
               <li ng-repeat="subtab in tab.subtabs">
-                <a ng-href="{{subtab.href}}" context-menu="menuOptions">{{subtab.title}}</a>
+                <a ng-if="editingTabs"
+                   ng-href="{{subtab.href}}"
+                   context-menu="subtabOptions">{{subtab.title}}
+                </a>
+                <a ng-if="!editingTabs" ng-href="{{subtab.href}}">
+                  {{subtab.title}}
+                </a>
               </li>
             </ul>
         </ul>
