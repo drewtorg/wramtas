@@ -13,6 +13,60 @@
     password: ''
   };
 
+  $scope.tabOptions = [
+    {
+      text: 'Remove Page',
+      click: function ($itemScope) {
+        var title = $itemScope.$parent.tab.title;
+        $scope.removePage(title);
+      }
+    },
+    {
+      text: 'Move Page Left',
+      click: function ($itemScope) {
+        var title = $itemScope.$parent.tab.title;
+        $scope.movePageLeft(title);
+      }
+    },
+    {
+      text: 'Move Page Right',
+      click: function ($itemScope) {
+        var title = $itemScope.$parent.tab.title;
+        $scope.movePageRight(title);
+      }
+    }
+  ];
+
+  $scope.subtabOptions = [
+    {
+      text: 'Add Page',
+      click: function() {
+        $scope.addPage();
+      }
+    },
+    {
+      text: 'Remove Page',
+      click: function ($itemScope) {
+        var title = $itemScope.$parent.subtab.title;
+        $scope.removePage(title);
+      }
+    },
+    {
+      text: 'Move Page Up',
+      click: function ($itemScope) {
+        var title = $itemScope.$parent.subtab.title;
+        $scope.movePageUp(title);
+      }
+    },
+    {
+      text: 'Move Page Down',
+      click: function ($itemScope) {
+        var title = $itemScope.$parent.subtab.title;
+        $scope.movePageDown(title);
+      }
+    }
+  ];
+
   $scope.isActive = function(tab) {
     if (tab.href === $location.path())
       return true;
@@ -57,27 +111,28 @@
     $scope.editingTabs = !$scope.editingTabs;
   };
 
-  $scope.tabOptions = [
-    {
-        text: 'Remove Page',
-        click: function ($itemScope, $event, modelValue, text, $li) {
-            $scope.removePage(); // pass in relevant information
-        }
-    }
-  ];
+  $scope.addPage = function() {
+    console.log('Adding Page');
+    // TODO: pop open modal w/ dropdown and give title
+  };
 
-  $scope.subtabOptions = [
-    {
-        text: 'Add Page',
-        click: function ($itemScope, $event, modelValue, text, $li) {
-            $scope.addPage();
-        }
-    },
-    {
-        text: 'Remove Page',
-        click: function ($itemScope, $event, modelValue, text, $li) {
-            $scope.removePage(); // pass in relevant information
-        }
-    }
-  ];
+  $scope.removePage = function(title) {
+    console.log('Removing Page', title);
+  };
+
+  $scope.movePageLeft = function(title) {
+    console.log('Moving Page Left', title);
+  };
+
+  $scope.movePageRight = function(title) {
+    console.log('Moving Page Right', title);
+  };
+
+  $scope.movePageUp = function(title) {
+    console.log('Moving Page Up', title);
+  };
+
+  $scope.movePageDown = function(title) {
+    console.log('Moving Page Down', title);
+  };
 });
