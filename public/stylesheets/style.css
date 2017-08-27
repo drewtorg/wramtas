@@ -199,3 +199,8 @@ input[type="file"] {
 .app-check-value {
   margin-left: 20px;
 }
+
+.nav-btn {
+  margin-left: 4px;
+  margin-right: 4px;
+}

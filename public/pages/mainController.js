@@ -6,6 +6,7 @@
     authService,
     TABS) {
   $scope.tabs = TABS;
+  $scope.editingTabs = false;
 
   $scope.form = {
     username: '',
@@ -64,6 +65,34 @@
   $scope.getUsername = function() {
     return angular.fromJson($cookies.get('session')).username;
   };
+
+  $scope.toggleEditing = function() {
+    $scope.editingTabs = !$scope.editingTabs;
+  };
+
+  $scope.menuOptions = [
+    // NEW IMPLEMENTATION
+    {
+        text: 'Object-Select',
+        click: function ($itemScope, $event, modelValue, text, $li) {
+            $scope.selected = $itemScope.item.name;
+        }
+    },
+    {
+        text: 'Object-Remove',
+        click: function ($itemScope, $event, modelValue, text, $li) {
+            $scope.items.splice($itemScope.$index, 1);
+        }
+    },
+    // LEGACY IMPLEMENTATION
+    ['Select', function ($itemScope, $event, modelValue, text, $li) {
+        $scope.selected = $itemScope.item.name;
+    }],
+    null, // Dividier
+    ['Remove', function ($itemScope, $event, modelValue, text, $li) {
+        $scope.items.splice($itemScope.$index, 1);
+    }]
+];
 
   // TODO: Remove once uploads page removal is final
   // if (authService.isAdmin()) {

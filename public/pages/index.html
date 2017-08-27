@@ -36,6 +36,9 @@
   <script src="https://youtube.com/iframe_api"></script>
   <script src="/angular-youtube-embed/dist/angular-youtube-embed.min.js"></script>
 
+  <!-- Context Menu -->
+  <script src="/angular-bootstrap-contextmenu/contextMenu.js"></script>
+
   <!-- Styles -->
   <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="stylesheets/style.css">
@@ -74,7 +77,6 @@
   <script src="pages/Application/applicationController.js"></script>
   <script src="pages/Candidates/candidatesController.js"></script>
   <script src="pages/Conference/conferenceController.js"></script>
-  <script src="pages/Donate/donateController.js"></script>
   <script src="pages/ElectionInfo/electionInfoController.js"></script>
   <script src="pages/Grant/grantController.js"></script>
   <script src="pages/Home/homeController.js"></script>
@@ -126,7 +128,7 @@
             </a>
             <ul ng-if="isDropdown(tab)" class="dropdown-menu">
               <li ng-repeat="subtab in tab.subtabs">
-                <a ng-href="{{subtab.href}}">{{subtab.title}}</a>
+                <a ng-href="{{subtab.href}}" context-menu="menuOptions">{{subtab.title}}</a>
               </li>
             </ul>
         </ul>
@@ -153,6 +155,27 @@
         </ul>
         <ul ng-if="isLoggedIn()" class="nav navbar-nav">
           <li><a ng-click="logout()" role="button">Log Out</a></li>
+          <li>
+            <div ng-if="editingTabs">
+              <button ng-click="addPage()" class="btn btn-success navbar-btn nav-btn">
+                Add Page <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </div>
+          </li>
+          <li>
+            <div ng-if="editingTabs">
+              <button ng-click="toggleEditing()" class="btn btn-primary navbar-btn nav-btn">
+                Finish Editing
+              </button>
+            </div>
+          </li>
+          <li>
+            <div ng-if="!editingTabs">
+              <button ng-click="toggleEditing()" class="btn btn-primary navbar-btn nav-btn">
+                Edit Pages <span class="glyphicon glyphicon-edit"></span>
+              </button>
+            </div>
+          </li>
         </ul>
       </li>
       </nav>

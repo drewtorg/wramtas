@@ -7,6 +7,7 @@
    'angularSpinner',
    'pdf',
    'ui.bootstrap',
+   'ui.bootstrap.contextMenu',
    'ui.tinymce',
    'youtube-embed'
 ]);
