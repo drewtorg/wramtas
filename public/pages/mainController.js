@@ -4,8 +4,8 @@
     $http,
     $cookies,
     authService,
-    TABS) {
-  $scope.tabs = TABS;
+    pageListService) {
+  $scope.tabs = {};
   $scope.editingTabs = false;
 
   $scope.form = {
@@ -67,10 +67,28 @@
     }
   ];
 
+  pageListService.getPageList().then(function(res) {
+    $scope.tabs = angular.copy(res.data.pages);
+    for (var tabIndex in $scope.tabs) {
+      var tab = $scope.tabs[tabIndex];
+      if (tab.pageType === 'placeholder') {
+        for (var i in tab.subtabs) {
+          var subtab = tab.subtabs[i];
+          if (subtab.pageType !== 'election') {
+            subtab.href = $scope.toKebabCase(subtab.title);
+          }
+        }
+      }
+      else {
+        tab.href = $scope.toKebabCase(tab.title);
+      }
+    }
+  });
+
   $scope.isActive = function(tab) {
     if (tab.href === $location.path())
       return true;
-    if ('subtabs' in tab) {
+    if (tab.pageType === 'placeholder') {
       for (var i in tab.subtabs) {
         if (tab.subtabs[i].href === $location.path())
           return true;
@@ -80,7 +98,7 @@
   };
 
   $scope.isDropdown = function(tab) {
-    return 'subtabs' in tab;
+    return tab.pageType === 'placeholder';
   };
 
   $scope.logIn = function(form) {
@@ -134,5 +152,9 @@
 
   $scope.movePageDown = function(title) {
     console.log('Moving Page Down', title);
+  };
+
+  $scope.toKebabCase = function(str) {
+    return str.toLowerCase().split(' ').join('-');
   };
 });
