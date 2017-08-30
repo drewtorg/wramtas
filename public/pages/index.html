@@ -118,7 +118,7 @@
               ng-class="{active: isActive(tab), dropdown: isDropdown(tab)}">
             <a ng-if="!isDropdown(tab) && editingTabs"
                ng-href="{{tab.href}}"
-               context-menu="{{getTabOptions(tab.pageType)}}">{{tab.title}}
+               context-menu="tabOptions">{{tab.title}}
             </a>
             <a ng-if="!isDropdown(tab) && !editingTabs" ng-href="{{tab.href}}">
               {{tab.title}}
@@ -129,7 +129,7 @@
                role="button"
                aria-haspopup="true"
                aria-expanded="false"
-               context-menu="{{getTabOptions(tab.pageType)}}">
+               context-menu="tabOptions">
               {{tab.title}}<span class="caret"></span>
             </a>
             <a ng-if="isDropdown(tab) && !editingTabs"
@@ -144,7 +144,7 @@
               <li ng-repeat="subtab in tab.subtabs">
                 <a ng-if="editingTabs"
                    ng-href="{{subtab.href}}"
-                   context-menu="{{getSubtabOptions(subtab.pageType)}}">{{subtab.title}}
+                   context-menu="subtabOptions">{{subtab.title}}
                 </a>
                 <a ng-if="!editingTabs" ng-href="{{subtab.href}}">
                   {{subtab.title}}

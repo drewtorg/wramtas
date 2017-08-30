@@ -13,74 +13,62 @@
     password: ''
   };
 
-  $scope.getTabOptions = function(pageType) {
-    var tabOptions = [
-      {
-        text: 'Move Page Left',
-        click: function ($itemScope) {
-          $scope.movePageLeft($itemScope.$parent.$index);
-        }
-      },
-      {
-        text: 'Move Page Right',
-        click: function ($itemScope) {
-          $scope.movePageRight($itemScope.$parent.$index);
-        }
+  $scope.tabOptions = [
+    {
+      text: 'Remove Page',
+      click: function ($itemScope) {
+        var tabIndex = $itemScope.$parent.$parent.$index;
+        $scope.removePage(tabIndex);
       }
-    ];
-    if (pageType !== 'election') {
-      tabOptions.splice(0, 0,
-      {
-        text: 'Remove Page',
-        click: function ($itemScope) {
-          var tabIndex = $itemScope.$parent.$parent.$index;
-          $scope.removePage(tabIndex);
-        }
-      });
+    },
+    {
+      text: 'Move Page Left',
+      click: function ($itemScope) {
+        $scope.movePageLeft($itemScope.$parent.$index);
+      }
+    },
+    {
+      text: 'Move Page Right',
+      click: function ($itemScope) {
+        $scope.movePageRight($itemScope.$parent.$index);
+      }
     }
-    return tabOptions;
-  };
+  ];
 
-  $scope.getSubtabOptions = function(pageType) {
-    var subtabOptions = [
-      {
-        text: 'Add Page',
-        click: function($itemScope) {
-          var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-          var subtabIndex = $itemScope.$parent.$index;
-          $scope.addPage(tabIndex, subtabIndex);
-        }
-      },
-      {
-        text: 'Move Page Up',
-        click: function ($itemScope) {
-          var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-          var subtabIndex = $itemScope.$parent.$index;
-          $scope.movePageUp(tabIndex, subtabIndex);
-        }
-      },
-      {
-        text: 'Move Page Down',
-        click: function ($itemScope) {
-          var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-          var subtabIndex = $itemScope.$parent.$index;
-          $scope.movePageDown(tabIndex, subtabIndex);
-        }
+  $scope.subtabOptions = [
+    {
+      text: 'Add Page',
+      click: function($itemScope) {
+        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
+        var subtabIndex = $itemScope.$parent.$index;
+        $scope.addPage(tabIndex, subtabIndex);
       }
-    ];
-    if (pageType !== 'election') {
-      subtabOptions.splice(1, 0,
-      {
-        text: 'Remove Page',
-        click: function ($itemScope) {
-          var tabIndex = $itemScope.$parent.$parent.$index;
-          var subtabIndex = $itemScope.$parent.$index;
-          $scope.removePage(tabIndex, subtabIndex);
-        }
-      });
+    },
+    {
+      text: 'Remove Page',
+      click: function ($itemScope) {
+        var tabIndex = $itemScope.$parent.$parent.$index;
+        var subtabIndex = $itemScope.$parent.$index;
+        $scope.removePage(tabIndex, subtabIndex);
+      }
+    },
+    {
+      text: 'Move Page Up',
+      click: function ($itemScope) {
+        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
+        var subtabIndex = $itemScope.$parent.$index;
+        $scope.movePageUp(tabIndex, subtabIndex);
+      }
+    },
+    {
+      text: 'Move Page Down',
+      click: function ($itemScope) {
+        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
+        var subtabIndex = $itemScope.$parent.$index;
+        $scope.movePageDown(tabIndex, subtabIndex);
+      }
     }
-    return subtabOptions;
-  };
+  ];
 
   pageListService.getPageList().then(function(res) {
     $scope.tabs = angular.copy(res.data.pages);
@@ -159,12 +147,14 @@
     // this.savePageList($scope.tabs);
   };
 
-  $scope.movePageLeft = function(title) {
-    console.log('Moving Page Left', title);
+  $scope.movePageLeft = function(tabIndex) {
+    var moveIndex = Math.max(0, tabIndex - 1);
+    $scope.swapTabs(tabIndex, moveIndex);
   };
 
-  $scope.movePageRight = function(title) {
-    console.log('Moving Page Right', title);
+  $scope.movePageRight = function(tabIndex) {
+    var moveIndex = Math.min($scope.tabs.length - 1, tabIndex + 1);
+    $scope.swapTabs(tabIndex, moveIndex);
   };
 
   $scope.movePageUp = function(title) {
@@ -177,5 +167,11 @@
 
   $scope.toKebabCase = function(str) {
     return str.toLowerCase().split(' ').join('-');
+  };
+
+  $scope.swapTabs = function(a, b) {
+    var temp = $scope.tabs[a];
+    $scope.tabs[a] = $scope.tabs[b];
+    $scope.tabs[b] = temp;
   };
 });
