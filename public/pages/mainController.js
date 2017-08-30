@@ -3,6 +3,7 @@
     $location,
     $http,
     $cookies,
+    $uibModal,
     authService,
     pageListService) {
   $scope.tabs = {};
@@ -144,8 +145,16 @@
   };
 
   $scope.addPage = function(tab, subtab) {
-    console.log('Adding Page');
-    // TODO: pop open modal w/ dropdown and give title
+    var modalOptions = {
+      controller: 'AddPageController',
+      templateUrl: 'pages/addPageModal/addPage.html',
+      backdrop: 'static',
+      keyboard: false
+    };
+    var modalInstance = $uibModal.open(modalOptions);
+    modalInstance.result.then(function (result) {
+      
+    }, function() {}); // eslint-disable-line no-empty-function
   };
 
   $scope.removePage = function(tab, subtab) {
