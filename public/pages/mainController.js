@@ -17,24 +17,19 @@
     {
       text: 'Remove Page',
       click: function ($itemScope) {
-        var tabIndex = $itemScope.$parent.$index;
-        var pageType = $itemScope.$parent.tab.pageType;
-        $scope.removePage(pageType, tabIndex);
-        pageListService.savePageList($scope.tabs);
+        $scope.onTabContextMenu($itemScope, 'remove');
       }
     },
     {
       text: 'Move Page Left',
       click: function ($itemScope) {
-        $scope.movePageLeft($itemScope.$parent.$index);
-        pageListService.savePageList($scope.tabs);
+        $scope.onTabContextMenu($itemScope, 'left');
       }
     },
     {
       text: 'Move Page Right',
       click: function ($itemScope) {
-        $scope.movePageRight($itemScope.$parent.$index);
-        pageListService.savePageList($scope.tabs);
+        $scope.onTabContextMenu($itemScope, 'right');
       }
     }
   ];
@@ -43,37 +38,25 @@
     {
       text: 'Add Page',
       click: function($itemScope) {
-        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-        var subtabIndex = $itemScope.$parent.$index;
-        $scope.addPage(tabIndex, subtabIndex);
+        $scope.onSubtabContextMenu($itemScope, 'add');
       }
     },
     {
       text: 'Remove Page',
       click: function ($itemScope) {
-        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-        var subtabIndex = $itemScope.$parent.$index;
-        var pageType = $itemScope.$parent.subtab.pageType;
-        $scope.removePage(pageType, tabIndex, subtabIndex);
-        pageListService.savePageList($scope.tabs);
+        $scope.onSubtabContextMenu($itemScope, 'remove');
       }
     },
     {
       text: 'Move Page Up',
       click: function ($itemScope) {
-        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-        var subtabIndex = $itemScope.$parent.$index;
-        $scope.movePageUp(tabIndex, subtabIndex);
-        pageListService.savePageList($scope.tabs);
+        $scope.onSubtabContextMenu($itemScope, 'left');
       }
     },
     {
       text: 'Move Page Down',
       click: function ($itemScope) {
-        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
-        var subtabIndex = $itemScope.$parent.$index;
-        $scope.movePageDown(tabIndex, subtabIndex);
-        pageListService.savePageList($scope.tabs);
+        $scope.onSubtabContextMenu($itemScope, 'right');
       }
     }
   ];
@@ -140,44 +123,66 @@
     $scope.editingTabs = !$scope.editingTabs;
   };
 
-  $scope.addPage = function() {
+  $scope.onSubtabContextMenu = function($itemScope, action) {
+    var tab = $itemScope.$parent.$parent.$parent;
+    var subtab = $itemScope.$parent;
+    $scope.executeAction(action, tab, subtab);
+  };
+
+  $scope.onTabContextMenu = function($itemScope, action) {
+    var tab = $itemScope.$parent;
+    $scope.executeAction(action, tab);
+  };
+
+  $scope.executeAction = function(action, tab, subtab) {
+    if (action === 'left') $scope.movePageLeft(tab, subtab);
+    else if (action === 'right') $scope.movePageRight(tab, subtab);
+    else if (action === 'remove') $scope.removePage(tab, subtab);
+    else if (action === 'add') $scope.addPage(tab, subtab);
+
+    // pageListService.savePageList($scope.tabs);
+  };
+
+  $scope.addPage = function(tab, subtab) {
     console.log('Adding Page');
     // TODO: pop open modal w/ dropdown and give title
   };
 
-  $scope.removePage = function(pageType, tabIndex, subtabIndex) {
-    if (pageType === 'election') {
+  $scope.removePage = function(tab, subtab) {
+    if (tab.tab.pageType === 'election' || subtab && subtab.subtab.pageType === 'election') {
       alert('You cannot remove election pages!');
     }
-    else if (angular.isDefined(subtabIndex)) {
-      $scope.tabs[tabIndex].subtabs.splice(subtabIndex, 1);
+    else if (angular.isDefined(subtab)) {
+      $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
     }
     else {
-      $scope.tabs.splice(tabIndex, 1);
+      $scope.tabs.splice(tab.$index, 1);
     }
-    // this.savePageList($scope.tabs);
   };
 
-  $scope.movePageLeft = function(tabIndex) {
-    var moveIndex = Math.max(0, tabIndex - 1);
-    $scope.swap($scope.tabs, tabIndex, moveIndex);
+  $scope.movePageLeft = function(tab, subtab) {
+    var moveIndex = 0;
+    if (angular.isDefined(subtab)) {
+      moveIndex = Math.max(0, subtab.$index - 1);
+      $scope.swap($scope.tabs[tab.$index].subtabs, subtab.$index, moveIndex);
+    }
+    else {
+      moveIndex = Math.max(0, tab.$index - 1);
+      $scope.swap($scope.tabs, tab.$index, moveIndex);
+    }
   };
 
-  $scope.movePageRight = function(tabIndex) {
-    var moveIndex = Math.min($scope.tabs.length - 1, tabIndex + 1);
-    $scope.swap($scope.tabs, tabIndex, moveIndex);
-  };
-
-  $scope.movePageUp = function(tabIndex, subtabIndex) {
-    var subtab = $scope.tabs[tabIndex].subtabs;
-    var moveIndex = Math.max(0, subtabIndex - 1);
-    $scope.swap(subtab, subtabIndex, moveIndex);
-  };
-
-  $scope.movePageDown = function(tabIndex, subtabIndex) {
-    var subtab = $scope.tabs[tabIndex].subtabs;
-    var moveIndex = Math.min(subtab.length - 1, subtabIndex + 1);
-    $scope.swap(subtab, subtabIndex, moveIndex);
+  $scope.movePageRight = function(tab, subtab) {
+    var moveIndex = 0;
+    if (angular.isDefined(subtab)) {
+      var subtabs = $scope.tabs[tab.$index].subtabs;
+      moveIndex = Math.min(subtabs.length - 1, subtab.$index + 1);
+      $scope.swap(subtabs, subtab.$index, moveIndex);
+    }
+    else {
+      moveIndex = Math.min($scope.tabs.length - 1, tab.$index + 1);
+      $scope.swap($scope.tabs, tab.$index, moveIndex);
+    }
   };
 
   $scope.toKebabCase = function(str) {
