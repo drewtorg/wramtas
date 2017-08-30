@@ -20,18 +20,21 @@
         var tabIndex = $itemScope.$parent.$index;
         var pageType = $itemScope.$parent.tab.pageType;
         $scope.removePage(pageType, tabIndex);
+        pageListService.savePageList($scope.tabs);
       }
     },
     {
       text: 'Move Page Left',
       click: function ($itemScope) {
         $scope.movePageLeft($itemScope.$parent.$index);
+        pageListService.savePageList($scope.tabs);
       }
     },
     {
       text: 'Move Page Right',
       click: function ($itemScope) {
         $scope.movePageRight($itemScope.$parent.$index);
+        pageListService.savePageList($scope.tabs);
       }
     }
   ];
@@ -52,6 +55,7 @@
         var subtabIndex = $itemScope.$parent.$index;
         var pageType = $itemScope.$parent.subtab.pageType;
         $scope.removePage(pageType, tabIndex, subtabIndex);
+        pageListService.savePageList($scope.tabs);
       }
     },
     {
@@ -60,6 +64,7 @@
         var tabIndex = $itemScope.$parent.$parent.$parent.$index;
         var subtabIndex = $itemScope.$parent.$index;
         $scope.movePageUp(tabIndex, subtabIndex);
+        pageListService.savePageList($scope.tabs);
       }
     },
     {
@@ -68,6 +73,7 @@
         var tabIndex = $itemScope.$parent.$parent.$parent.$index;
         var subtabIndex = $itemScope.$parent.$index;
         $scope.movePageDown(tabIndex, subtabIndex);
+        pageListService.savePageList($scope.tabs);
       }
     }
   ];
