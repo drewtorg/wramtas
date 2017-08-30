@@ -149,29 +149,33 @@
 
   $scope.movePageLeft = function(tabIndex) {
     var moveIndex = Math.max(0, tabIndex - 1);
-    $scope.swapTabs(tabIndex, moveIndex);
+    $scope.swap($scope.tabs, tabIndex, moveIndex);
   };
 
   $scope.movePageRight = function(tabIndex) {
     var moveIndex = Math.min($scope.tabs.length - 1, tabIndex + 1);
-    $scope.swapTabs(tabIndex, moveIndex);
+    $scope.swap($scope.tabs, tabIndex, moveIndex);
   };
 
-  $scope.movePageUp = function(title) {
-    console.log('Moving Page Up', title);
+  $scope.movePageUp = function(tabIndex, subtabIndex) {
+    var subtab = $scope.tabs[tabIndex].subtabs;
+    var moveIndex = Math.max(0, subtabIndex - 1);
+    $scope.swap(subtab, subtabIndex, moveIndex);
   };
 
-  $scope.movePageDown = function(title) {
-    console.log('Moving Page Down', title);
+  $scope.movePageDown = function(tabIndex, subtabIndex) {
+    var subtab = $scope.tabs[tabIndex].subtabs;
+    var moveIndex = Math.min(subtab.length - 1, subtabIndex + 1);
+    $scope.swap(subtab, subtabIndex, moveIndex);
   };
 
   $scope.toKebabCase = function(str) {
     return str.toLowerCase().split(' ').join('-');
   };
 
-  $scope.swapTabs = function(a, b) {
-    var temp = $scope.tabs[a];
-    $scope.tabs[a] = $scope.tabs[b];
-    $scope.tabs[b] = temp;
+  $scope.swap = function(array, a, b) {
+    var temp = array[a];
+    array[a] = array[b];
+    array[b] = temp;
   };
 });
