@@ -17,8 +17,9 @@
     {
       text: 'Remove Page',
       click: function ($itemScope) {
-        var tabIndex = $itemScope.$parent.$parent.$index;
-        $scope.removePage(tabIndex);
+        var tabIndex = $itemScope.$parent.$index;
+        var pageType = $itemScope.$parent.tab.pageType;
+        $scope.removePage(pageType, tabIndex);
       }
     },
     {
@@ -47,9 +48,10 @@
     {
       text: 'Remove Page',
       click: function ($itemScope) {
-        var tabIndex = $itemScope.$parent.$parent.$index;
+        var tabIndex = $itemScope.$parent.$parent.$parent.$index;
         var subtabIndex = $itemScope.$parent.$index;
-        $scope.removePage(tabIndex, subtabIndex);
+        var pageType = $itemScope.$parent.subtab.pageType;
+        $scope.removePage(pageType, tabIndex, subtabIndex);
       }
     },
     {
@@ -137,8 +139,11 @@
     // TODO: pop open modal w/ dropdown and give title
   };
 
-  $scope.removePage = function(tabIndex, subtabIndex) {
-    if (angular.isDefined(subtabIndex)) {
+  $scope.removePage = function(pageType, tabIndex, subtabIndex) {
+    if (pageType === 'election') {
+      alert('You cannot remove election pages!');
+    }
+    else if (angular.isDefined(subtabIndex)) {
       $scope.tabs[tabIndex].subtabs.splice(subtabIndex, 1);
     }
     else {
