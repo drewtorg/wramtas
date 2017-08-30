@@ -13,65 +13,80 @@
     password: ''
   };
 
-  $scope.tabOptions = [
-    {
-      text: 'Remove Page',
-      click: function ($itemScope) {
-        var title = $itemScope.$parent.tab.title;
-        $scope.removePage(title);
+  $scope.getTabOptions = function(pageType) {
+    var tabOptions = [
+      {
+        text: 'Move Page Left',
+        click: function ($itemScope) {
+          $scope.movePageLeft($itemScope.$parent.$index);
+        }
+      },
+      {
+        text: 'Move Page Right',
+        click: function ($itemScope) {
+          $scope.movePageRight($itemScope.$parent.$index);
+        }
       }
-    },
-    {
-      text: 'Move Page Left',
-      click: function ($itemScope) {
-        var title = $itemScope.$parent.tab.title;
-        $scope.movePageLeft(title);
-      }
-    },
-    {
-      text: 'Move Page Right',
-      click: function ($itemScope) {
-        var title = $itemScope.$parent.tab.title;
-        $scope.movePageRight(title);
-      }
+    ];
+    if (pageType !== 'election') {
+      tabOptions.splice(0, 0,
+      {
+        text: 'Remove Page',
+        click: function ($itemScope) {
+          var tabIndex = $itemScope.$parent.$parent.$index;
+          $scope.removePage(tabIndex);
+        }
+      });
     }
-  ];
+    return tabOptions;
+  };
 
-  $scope.subtabOptions = [
-    {
-      text: 'Add Page',
-      click: function() {
-        $scope.addPage();
+  $scope.getSubtabOptions = function(pageType) {
+    var subtabOptions = [
+      {
+        text: 'Add Page',
+        click: function($itemScope) {
+          var tabIndex = $itemScope.$parent.$parent.$parent.$index;
+          var subtabIndex = $itemScope.$parent.$index;
+          $scope.addPage(tabIndex, subtabIndex);
+        }
+      },
+      {
+        text: 'Move Page Up',
+        click: function ($itemScope) {
+          var tabIndex = $itemScope.$parent.$parent.$parent.$index;
+          var subtabIndex = $itemScope.$parent.$index;
+          $scope.movePageUp(tabIndex, subtabIndex);
+        }
+      },
+      {
+        text: 'Move Page Down',
+        click: function ($itemScope) {
+          var tabIndex = $itemScope.$parent.$parent.$parent.$index;
+          var subtabIndex = $itemScope.$parent.$index;
+          $scope.movePageDown(tabIndex, subtabIndex);
+        }
       }
-    },
-    {
-      text: 'Remove Page',
-      click: function ($itemScope) {
-        var title = $itemScope.$parent.subtab.title;
-        $scope.removePage(title);
-      }
-    },
-    {
-      text: 'Move Page Up',
-      click: function ($itemScope) {
-        var title = $itemScope.$parent.subtab.title;
-        $scope.movePageUp(title);
-      }
-    },
-    {
-      text: 'Move Page Down',
-      click: function ($itemScope) {
-        var title = $itemScope.$parent.subtab.title;
-        $scope.movePageDown(title);
-      }
+    ];
+    if (pageType !== 'election') {
+      subtabOptions.splice(1, 0,
+      {
+        text: 'Remove Page',
+        click: function ($itemScope) {
+          var tabIndex = $itemScope.$parent.$parent.$index;
+          var subtabIndex = $itemScope.$parent.$index;
+          $scope.removePage(tabIndex, subtabIndex);
+        }
+      });
     }
-  ];
+    return subtabOptions;
+  };
 
   pageListService.getPageList().then(function(res) {
     $scope.tabs = angular.copy(res.data.pages);
     for (var tabIndex in $scope.tabs) {
       var tab = $scope.tabs[tabIndex];
-      if (tab.pageType === 'placeholder') {
+      if ($scope.isDropdown(tab)) {
         for (var i in tab.subtabs) {
           var subtab = tab.subtabs[i];
           if (subtab.pageType !== 'election') {
@@ -88,7 +103,7 @@
   $scope.isActive = function(tab) {
     if (tab.href === $location.path())
       return true;
-    if (tab.pageType === 'placeholder') {
+    if ($scope.isDropdown(tab)) {
       for (var i in tab.subtabs) {
         if (tab.subtabs[i].href === $location.path())
           return true;
@@ -98,7 +113,7 @@
   };
 
   $scope.isDropdown = function(tab) {
-    return tab.pageType === 'placeholder';
+    return tab.subtabs && tab.subtabs.length;
   };
 
   $scope.logIn = function(form) {
@@ -134,8 +149,14 @@
     // TODO: pop open modal w/ dropdown and give title
   };
 
-  $scope.removePage = function(title) {
-    console.log('Removing Page', title);
+  $scope.removePage = function(tabIndex, subtabIndex) {
+    if (angular.isDefined(subtabIndex)) {
+      $scope.tabs[tabIndex].subtabs.splice(subtabIndex, 1);
+    }
+    else {
+      $scope.tabs.splice(tabIndex, 1);
+    }
+    // this.savePageList($scope.tabs);
   };
 
   $scope.movePageLeft = function(title) {
