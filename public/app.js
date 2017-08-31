@@ -41,8 +41,8 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
     })
     // DYNAMIC PAGES
     .when('/about/:route', {
-      templateUrl: 'pages/About/about.html',
-      controller: 'aboutController'
+      templateUrl: 'pages/About/aboutPage.html',
+      controller: 'aboutPageController'
     })
     .when('/blog/:route', {
       templateUrl: 'pages/Blog/blog.html',
