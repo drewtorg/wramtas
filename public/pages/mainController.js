@@ -142,6 +142,7 @@
     else if (action === 'remove') $scope.removePage(tab, subtab);
     else if (action === 'add') $scope.addPage(tab, subtab);
 
+    // TODO: save once we are confident
     // pageListService.savePageList($scope.tabs);
   };
 
@@ -154,20 +155,24 @@
     };
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function (result) {
-      
+      // Need to add page in the page specific manner
     }, function() {}); // eslint-disable-line no-empty-function
   };
 
   $scope.removePage = function(tab, subtab) {
     if (tab.tab.pageType === 'election' || subtab && subtab.subtab.pageType === 'election') {
       alert('You cannot remove election pages!');
+      return;
     }
-    else if (angular.isDefined(subtab)) {
+    // needs a confirmation modal
+    if (angular.isDefined(subtab)) {
       $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
     }
     else {
       $scope.tabs.splice(tab.$index, 1);
     }
+    // need to remove the page in the page specific manner
+    // placeholder removal needs to remove all pages in its subtab
   };
 
   $scope.movePageLeft = function(tab, subtab) {
