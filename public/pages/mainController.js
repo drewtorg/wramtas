@@ -5,6 +5,7 @@
     $cookies,
     $uibModal,
     authService,
+    changeCaseService,
     pageListService) {
   $scope.tabs = {};
   $scope.editingTabs = false;
@@ -70,12 +71,12 @@
         for (var i in tab.subtabs) {
           var subtab = tab.subtabs[i];
           if (subtab.pageType !== 'election') {
-            subtab.href = $scope.toKebabCase(subtab.title);
+            subtab.href = subtab.pageType + '/' + changeCaseService.toKebabCase(subtab.title);
           }
         }
       }
       else {
-        tab.href = $scope.toKebabCase(tab.title);
+        tab.href = tab.pageType + '/' + changeCaseService.toKebabCase(tab.title);
       }
     }
   });
@@ -194,13 +195,16 @@
     }
   };
 
-  $scope.toKebabCase = function(str) {
-    return str.toLowerCase().split(' ').join('-');
-  };
-
   $scope.swap = function(array, a, b) {
     var temp = array[a];
     array[a] = array[b];
     array[b] = temp;
+  };
+
+  $scope.getPageLink = function(tab) {
+    var href = tab.href;
+    if (tab.pageType !== 'election')
+      href = tab.pageType + '/' + href;
+    return href;
   };
 });

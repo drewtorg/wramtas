@@ -19,8 +19,8 @@
     </div>
     <div ng-show="videoPageOver()">
       <p>
-        There is currently no Virtual Master Class. We will be giving more 
-        information about the next Virtual Master Class shortly.
+        There is currently no {{page}}. We will be giving more 
+        information about the next {{page}} shortly.
       </p>
     </div>
   </div>
@@ -28,7 +28,7 @@
     <div ng-hide="videoPage.inEditMode">
       <button class="btn btn-primary"
               ng-click="editVideoPage()">
-        Edit Master Class <span class="glyphicon glyphicon-edit"></span>
+        Edit {{page}} <span class="glyphicon glyphicon-edit"></span>
       </button>
       <button class="btn btn-primary"
               ng-click="editSurvey()">
@@ -36,11 +36,11 @@
       </button>
     </div>
     <div ng-show="videoPage.inEditMode" class="margin-top">
-      <label>Message before Master Class</label>
+      <label>Message before {{page}}</label>
       <textarea ui-tinymce="tinymceOptions" ng-model="tempVideoPage.preHtml">
       </textarea>
       <br/>
-      <label>Message during Master Class</label>
+      <label>Message during {{page}}</label>
       <textarea ui-tinymce="tinymceOptions" ng-model="tempVideoPage.html">
       </textarea>
       <label class="control-label margin-top">YouTube Link</label>

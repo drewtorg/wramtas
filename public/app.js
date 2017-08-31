@@ -14,18 +14,11 @@
 
 app.config(function($routeProvider, $locationProvider, $controllerProvider) {
   $routeProvider
+    // HARD-CODED PAGES
     .when('/', {
       templateUrl: 'pages/Home/home.html',
       controller: 'homeController'
     })
-    .when('/about', {
-      templateUrl: 'pages/About/about.html',
-      controller: 'aboutController'
-    })
-    // .when('/affiliates', {
-    //   templateUrl: 'pages/Affiliates/affiliates.html',
-    //   controller: 'affiliatesController'
-    // })
     .when('/application', {
       templateUrl: 'pages/Application/application.html',
       controller: 'applicationController'
@@ -34,41 +27,38 @@ app.config(function($routeProvider, $locationProvider, $controllerProvider) {
       templateUrl: 'pages/Candidates/candidates.html',
       controller: 'candidatesController'
     })
-    // .when('/conference', {
-    //   templateUrl: 'pages/Conference/conference.html',
-    //   controller: 'conferenceController'
-    // })
     .when('/election-info', {
       templateUrl: 'pages/ElectionInfo/electionInfo.html',
       controller: 'electionInfoController'
     })
-    // .when('/grant', {
-    //   templateUrl: 'pages/Grant/grant.html',
-    //   controller: 'grantController'
-    // })
-    // .when('/master-class', {
-    //   templateUrl: 'pages/MasterClass/masterClass.html',
-    //   controller: 'masterClassController'
-    // })
     .when('/nominate', {
       templateUrl: 'pages/Nominate/nominate.html',
       controller: 'nominateController'
     })
-    // .when('/presentations', {
-    //   templateUrl: 'pages/Presentations/presentations.html',
-    //   controller: 'presentationsController'
-    // })
-    // .when('/scholarships', {
-    //   templateUrl: 'pages/Scholarships/scholarships.html',
-    //   controller: 'scholarshipsController'
-    // })
-    // .when('/spotlight', {
-    //   templateUrl: 'pages/Spotlight/spotlight.html',
-    //   controller: 'spotlightController'
-    // })
     .when('/vote', {
       templateUrl: 'pages/Vote/vote.html',
       controller: 'voteController'
+    })
+    // DYNAMIC PAGES
+    .when('/about/:route', {
+      templateUrl: 'pages/About/about.html',
+      controller: 'aboutController'
+    })
+    .when('/blog/:route', {
+      templateUrl: 'pages/Blog/blog.html',
+      controller: 'blogController'
+    })
+    .when('/information/:route', {
+      templateUrl: 'pages/Information/information.html',
+      controller: 'informationController'
+    })
+    .when('/submission/:route', {
+      templateUrl: 'pages/Submission/submission.html',
+      controller: 'submissionController'
+    })
+    .when('/video/:route', {
+      templateUrl: 'pages/Video/video.html',
+      controller: 'videoController'
     })
     .otherwise({
       redirectTo: '/'
