@@ -14,6 +14,17 @@ router.get('/:page', function(req, res) {
     });
 });
 
+// DELETE the information page
+router.delete('/:page', function(req, res) {
+  InformationPage.findOneAndRemove({
+      page: req.params.page
+    },
+    function(err) {
+      if (err) res.status(500).end();
+      else return res.status(204).end();
+    });
+});
+
 // POST upsert the information page
 router.post('/:page', function(req, res) {
   InformationPage.findOneAndUpdate({

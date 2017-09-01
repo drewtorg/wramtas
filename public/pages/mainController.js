@@ -147,8 +147,7 @@
     else if (action === 'remove') $scope.removePage(tab, subtab);
     else if (action === 'add') $scope.addPage(tab, subtab);
 
-    // TODO: save once we are confident
-    // pageListService.savePageList($scope.tabs);
+    pageListService.savePageList($scope.tabs);
   };
 
   $scope.addPage = function(tab, subtab) {
@@ -200,7 +199,7 @@
       }
       else {
         $scope.tabs.splice(tab.$index, 1);
-        $scope.removePageBackend(pageType, title);
+        $scope.removePageBackend(pageType, title, $scope.tabs[tab.$index].subtabs);
       }
     }, function() { }); // eslint-disable-line no-empty-function
   };
@@ -269,21 +268,27 @@
     }
   };
 
-  $scope.removePageBackend = function(pageType, title) {
+  $scope.removePageBackend = function(pageType, title, subtabs) {
     if (pageType === 'about') {
       aboutPageService.deleteAboutPage(title);
     }
     else if (pageType === 'blog') {
-      postsService.deleteAllPosts(title);
+      postsService.deletePosts(title);
     }
     else if (pageType === 'information') {
-      informationPageService.deleteInformationPage(changeCaseService.toTitleCase(title));
+      informationPageService.deleteInformationPage(
+        changeCaseService.toTitleCase(title));
     }
-    else if( pageType === 'submission') {
-      submissionsService.deleteSubmissionPage(changeCaseService.toTitleCase(title));
+    else if (pageType === 'submission') {
+      submissionsService.deleteSubmissionPage(
+        changeCaseService.toTitleCase(title));
     }
     else if (pageType === 'video') {
       videoPageService.deleteVideoPage(changeCaseService.toTitleCase(title));
+    }
+    else if (pageType === 'placeholder') {
+      for (var i = 0; i < subtabs.length; i += 1)
+        $scope.removePageBackend(subtabs[i].pageType, subtabs[i].title);
     }
   };
 });

@@ -12,6 +12,16 @@ router.get('/:page', function(req, res) {
   });
 });
 
+// DELETE the about information
+router.delete('/:page', function(req, res) {
+  AboutPage.findOneAndRemove({
+    page: req.params.page
+  }, function(err) {
+    if (err) res.status(500).end();
+    else res.status(204).end();
+  });
+});
+
 // POST upsert the about information
 router.post('/:page', function(req, res) {
   AboutPage.findOneAndUpdate({

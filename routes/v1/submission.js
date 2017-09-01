@@ -2,13 +2,24 @@ var express = require('express');
 var Submission = require('../../models/submission');
 var router = express.Router();
 
-// GET returns one submission page
+// GET a submission page
 router.get('/:page', function(req, res) {
   Submission.findOne({
     page: req.params.page
   },
   function(err, doc) {
     res.json(doc);
+  });
+});
+
+// DELETES a submission page
+router.delete('/:page', function(req, res) {
+  Submission.findOneAndRemove({
+    page: req.params.page
+  },
+  function(err) {
+    if (err) res.status(500).end();
+    else res.status(204).end();
   });
 });
 

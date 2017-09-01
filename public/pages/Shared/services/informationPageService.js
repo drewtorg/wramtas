@@ -6,4 +6,8 @@ app.service('informationPageService', function($http) {
   this.updateInformationPage = function(page, data) {
     return $http.post('/api/v1/information-page/' + page, data);
   };
+
+  this.deleteInformationPage = function(page) {
+    return $http.delete('/api/v1/information-page/' + page);
+  };
 });

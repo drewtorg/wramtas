@@ -12,6 +12,16 @@ router.get('/:page', function(req, res) {
   });
 });
 
+// DELETE the video page
+router.get('/:page', function(req, res) {
+  VideoPage.findOneAndRemove({
+    page: req.params.page
+  }, function(err, doc) {
+    if (err) res.status(500).end();
+    return res.status(204).end();
+  });
+});
+
 // POST upsert the video page
 router.post('/:page', function(req, res) {
   VideoPage.findOneAndUpdate({

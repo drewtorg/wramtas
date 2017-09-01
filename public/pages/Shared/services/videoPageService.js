@@ -3,6 +3,10 @@ app.service('videoPageService', function($http, dateService) {
     return $http.get('/api/v1/video-page/' + page);
   };
 
+  this.deleteVideoPage = function(page) {
+    return $http.delete('/api/v1/video-page/' + page);
+  };
+
   this.saveVideoPage = function(page, videoPage) {
     var backendFormat = angular.copy(videoPage);
     backendFormat.dates = dateService.toBackendDateFormat(backendFormat.dates);

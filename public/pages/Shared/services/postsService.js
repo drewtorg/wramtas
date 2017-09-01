@@ -3,6 +3,10 @@ app.service('postsService', function($http) {
     return $http.get('/api/v1/posts?page=' + page);
   };
 
+  this.deletePosts = function(page) {
+    return $http.delete('/api/v1/posts?page=' + page);
+  };
+
   this.createPost = function(page) {
     return $http.post('/api/v1/posts?page=' + page);
   };

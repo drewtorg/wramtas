@@ -3,12 +3,8 @@ app.service('submissionsService', function($http) {
     return $http.put('/api/v1/submission/' + info.page, info);
   };
 
-  this.deleteSubmission = function(info) {
-    return $http.delete('/api/v1/submission/' + info._id);
-  };
-
-  this.createSubmission = function() {
-    return $http.post('/api/v1/submission');
+  this.deleteSubmissionPage = function(info) {
+    return $http.delete('/api/v1/submission/' + info.page);
   };
 
   this.getSubmissionInfo = function(page) {
