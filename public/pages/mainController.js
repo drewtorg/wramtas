@@ -149,7 +149,7 @@
   $scope.addPage = function(tab, subtab) {
     var modalOptions = {
       controller: 'AddPageController',
-      templateUrl: 'pages/addPageModal/addPage.html',
+      templateUrl: 'pages/Shared/modals/addPage/addPage.html',
       backdrop: 'static',
       keyboard: false
     };
@@ -164,15 +164,30 @@
       alert('You cannot remove election pages!');
       return;
     }
-    // needs a confirmation modal
-    if (angular.isDefined(subtab)) {
-      $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
-    }
-    else {
-      $scope.tabs.splice(tab.$index, 1);
-    }
-    // need to remove the page in the page specific manner
-    // placeholder removal needs to remove all pages in its subtab
+
+    var modalOptions = {
+      controller: 'ConfirmController',
+      templateUrl: 'pages/Shared/modals/confirm/confirm.html',
+      backdrop: 'static',
+      keyboard: false,
+      size: 'sm',
+      resolve: {
+        message: function() {
+          return 'Are you sure you want to delete this page?';
+        }
+      }
+    };
+    var modalInstance = $uibModal.open(modalOptions);
+    modalInstance.result.then(function () {
+      if (angular.isDefined(subtab)) {
+        $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
+      }
+      else {
+        $scope.tabs.splice(tab.$index, 1);
+      }
+      // need to remove the page in the page specific manner
+      // placeholder removal needs to remove all pages in its subtab
+    }, function() { }); // eslint-disable-line no-empty-function
   };
 
   $scope.movePageLeft = function(tab, subtab) {
