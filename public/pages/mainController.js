@@ -5,8 +5,13 @@
     $cookies,
     $uibModal,
     authService,
+    aboutPageService,
     changeCaseService,
-    pageListService) {
+    informationPageService,
+    pageListService,
+    postsService,
+    submissionsService,
+    videoPageService) {
   $scope.tabs = {};
   $scope.editingTabs = false;
 
@@ -155,7 +160,6 @@
     };
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function (result) {
-      // Need to add page in the page specific manner
       var pageType = tab.pageType;
       var title = tab.title;
       if (angular.isDefined(subtab)) {
@@ -192,7 +196,6 @@
         pageType = subtab.pageType;
         title = subtab.title;
         $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
-        // loop over all subtabs
         $scope.removePageBackend(pageType, title);
       }
       else {
@@ -238,5 +241,49 @@
     if (tab.pageType !== 'election')
       href = tab.pageType + '/' + href;
     return href;
+  };
+
+  $scope.addPageBackend = function(pageType, title) {
+    if (pageType === 'about') {
+      aboutPageService.updateAboutPage(title, {
+        page: title
+      });
+    }
+    else if (pageType === 'blog') {
+      postsService.createPost(title);
+    }
+    else if (pageType === 'information') {
+      informationPageService.updateInformationPage(title, {
+        page: changeCaseService.toTitleCase(title)
+      });
+    }
+    else if(pageType === 'submission') {
+      submissionsService.saveSubmissionInfo(title, {
+        page: changeCaseService.toTitleCase(title)
+      });
+    }
+    else if (pageType === 'video') {
+      videoPageService.saveVideoPage(title, {
+        page: changeCaseService.toTitleCase(title)
+      });
+    }
+  };
+
+  $scope.removePageBackend = function(pageType, title) {
+    if (pageType === 'about') {
+      aboutPageService.deleteAboutPage(title);
+    }
+    else if (pageType === 'blog') {
+      postsService.deleteAllPosts(title);
+    }
+    else if (pageType === 'information') {
+      informationPageService.deleteInformationPage(changeCaseService.toTitleCase(title));
+    }
+    else if( pageType === 'submission') {
+      submissionsService.deleteSubmissionPage(changeCaseService.toTitleCase(title));
+    }
+    else if (pageType === 'video') {
+      videoPageService.deleteVideoPage(changeCaseService.toTitleCase(title));
+    }
   };
 });
