@@ -156,6 +156,13 @@
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function (result) {
       // Need to add page in the page specific manner
+      var pageType = tab.pageType;
+      var title = tab.title;
+      if (angular.isDefined(subtab)) {
+        pageType = subtab.pageType;
+        title = subtab.title;
+      }
+      $scope.addPageBackend(pageType, title);
     }, function() {}); // eslint-disable-line no-empty-function
   };
 
@@ -179,14 +186,19 @@
     };
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function () {
+      var pageType = tab.pageType;
+      var title = tab.title;
       if (angular.isDefined(subtab)) {
+        pageType = subtab.pageType;
+        title = subtab.title;
         $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
+        // loop over all subtabs
+        $scope.removePageBackend(pageType, title);
       }
       else {
         $scope.tabs.splice(tab.$index, 1);
+        $scope.removePageBackend(pageType, title);
       }
-      // need to remove the page in the page specific manner
-      // placeholder removal needs to remove all pages in its subtab
     }, function() { }); // eslint-disable-line no-empty-function
   };
 
