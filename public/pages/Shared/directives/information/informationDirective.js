@@ -1,5 +1,6 @@
 app.directive('wraInformation', function(
   $sce,
+  $location,
   authService,
   informationPageService,
   TINY_MCE_OPTIONS) {
@@ -22,14 +23,17 @@ app.directive('wraInformation', function(
         pdfUrl: ''
       };
 
+      $scope.informationPage.html = $scope.page + ' Information goes here.';
+
       informationPageService.getInformationPage($scope.page)
         .then(function(res) {
         if (res.data) {
           $scope.informationPage.html = res.data.html;
           $scope.informationPage.pdfUrl = res.data.pdfUrl;
         }
-        else
-          $scope.informationPage.html = $scope.page + ' Information goes here.';
+        else {
+          $location.path('/');
+        }
       });
 
       $scope.editInformationPage = function() {

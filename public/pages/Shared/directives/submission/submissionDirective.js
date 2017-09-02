@@ -1,5 +1,6 @@
 app.directive('wraSubmission', function(
     $sce,
+    $location,
     authService,
     dateService,
     submissionsService,
@@ -27,16 +28,21 @@ app.directive('wraSubmission', function(
       };
 
       submissionsService.getSubmissionInfo($scope.page).then(function(res) {
-        if (res.data && res.data.description) {
-          $scope.submissionInfo = res.data;
-          $scope.submissionInfo.prompts.forEach(function(prompt) {
-            prompt.dates = dateService.toUIDateFormat(prompt.dates);
-            if (!prompt.fields) prompt.fields = [];
-          });
+        if (res.data) {
+          if (res.data.description) {
+            $scope.submissionInfo = res.data;
+            $scope.submissionInfo.prompts.forEach(function(prompt) {
+              prompt.dates = dateService.toUIDateFormat(prompt.dates);
+              if (!prompt.fields) prompt.fields = [];
+            });
+          }
+          else {
+            $scope.submissionInfo.description =
+              $scope.submissionInfo.page + ' Information goes here.';
+          }
         }
         else {
-          $scope.submissionInfo.description =
-            $scope.submissionInfo.page + ' Information goes here.';
+          $location.path('/');
         }
       });
 
