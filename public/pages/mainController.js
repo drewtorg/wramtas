@@ -209,8 +209,9 @@
       var title = tab.tab.title;
       var tabs = $scope.tabs[tab.$index];
       if (angular.isDefined(subtab)) {
-        pageType = tabs.subtabs.pageType;
-        title = tabs.subtabs.title;
+        var subtabs = tabs.subtabs[subtab.$index];
+        pageType = subtabs.pageType;
+        title = subtabs.title;
         tabs.subtabs.splice(subtab.$index, 1);
         $scope.removePageBackend(pageType, title);
       }
