@@ -263,7 +263,7 @@
 
   $scope.addPageBackend = function(pageType, title) {
     if (pageType === 'blog') {
-      postsService.createPost(title);
+      postsService.createPost(changeCaseService.toKebabCase(title));
     }
     else if (pageType === 'information') {
       informationPageService.updateInformationPage(title, {
@@ -284,7 +284,7 @@
 
   $scope.removePageBackend = function(pageType, title, subtabs) {
     if (pageType === 'blog') {
-      postsService.deletePosts(title);
+      postsService.deletePosts(changeCaseService.toKebabCase(title));
     }
     else if (pageType === 'information') {
       informationPageService.deleteInformationPage(
