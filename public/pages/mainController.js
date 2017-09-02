@@ -157,6 +157,11 @@
   };
 
   $scope.addPage = function(tab, subtab) {
+    if (angular.isDefined(tab) && tab.tab.pageType !== 'placeholder') {
+      alert('You can only add sub-pages on placeholder pages!');
+      return;
+    }
+
     var modalOptions = {
       controller: 'AddPageController',
       templateUrl: 'pages/Shared/modals/addPage/addPage.html',
@@ -168,8 +173,9 @@
     modalInstance.result.then(function (result) {
       result.href = result.pageType + '/' +
         changeCaseService.toKebabCase(result.title);
-      if (angular.isDefined(tab) && angular.isDefined(subtab)) {
-        $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 0, result);
+      // always add subtab at the beginning of the list
+      if (angular.isDefined(tab) && tab.tab.pageType === 'placeholder') {
+        $scope.tabs[tab.$index].subtabs.push(result);
       }
       else {
         $scope.tabs.push(result);

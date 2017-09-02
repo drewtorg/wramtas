@@ -1,7 +1,8 @@
 app.controller('AddPageController', function($scope, changeCaseService) {
   $scope.form = {
     pageType: 'blog',
-    title: ''
+    title: '',
+    subtabs: []
   };
 
   $scope.onSubmit = function() {
