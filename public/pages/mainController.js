@@ -155,25 +155,27 @@
       controller: 'AddPageController',
       templateUrl: 'pages/Shared/modals/addPage/addPage.html',
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      size: 'sm'
     };
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function (result) {
       result.href = result.pageType + '/' +
         changeCaseService.toKebabCase(result.title);
-      if (angular.isDefined(subtab)) {
+        console.log(result);
+      if (angular.isDefined(tab) && angular.isDefined(subtab)) {
         $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 0, result);
       }
       else {
-        $scope.tabs.splice(tab.$index, 0, result);
+        $scope.tabs.push(result);
       }
       $scope.addPageBackend(result.pageType, result.title);
     }, function() {}); // eslint-disable-line no-empty-function
   };
 
   $scope.removePage = function(tab, subtab) {
-    if (tab.tab.pageType === 'election' || subtab && subtab.subtab.pageType === 'election') {
-      alert('You cannot remove election pages!');
+    if (tab.tab.pageType === 'about' || tab.tab.pageType === 'election' || subtab && subtab.subtab.pageType === 'election') {
+      alert('You cannot remove this page!');
       return;
     }
 
@@ -246,12 +248,7 @@
   };
 
   $scope.addPageBackend = function(pageType, title) {
-    if (pageType === 'about') {
-      aboutPageService.updateAboutPage(title, {
-        page: title
-      });
-    }
-    else if (pageType === 'blog') {
+    if (pageType === 'blog') {
       postsService.createPost(title);
     }
     else if (pageType === 'information') {
@@ -272,10 +269,7 @@
   };
 
   $scope.removePageBackend = function(pageType, title, subtabs) {
-    if (pageType === 'about') {
-      aboutPageService.deleteAboutPage(title);
-    }
-    else if (pageType === 'blog') {
+    if (pageType === 'blog') {
       postsService.deletePosts(title);
     }
     else if (pageType === 'information') {

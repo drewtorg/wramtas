@@ -1,4 +1,4 @@
-app.directive('wraBlog', function($sce, postsService, authService) {
+app.directive('wraBlog', function($sce, $location, postsService, authService) {
   return {
     restrict: 'E',
     templateUrl: 'pages/Shared/directives/blog/blog.html',
@@ -10,7 +10,12 @@ app.directive('wraBlog', function($sce, postsService, authService) {
       $scope.itemsPerPage = 5;
 
       postsService.getPosts($scope.page).then(function(response) {
-        $scope.posts = response.data;
+        if (response.data) {
+          $scope.posts = response.data;
+        }
+        else {
+          $location.path('/');
+        }
       });
 
       $scope.isAdmin = function() {

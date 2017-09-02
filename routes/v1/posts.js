@@ -13,10 +13,20 @@ var getIdFromRequest = function(req) {
 // not mess with the $index and filtering nonsense
 // alternative would be to do a total refresh on delete
 router.get('/', function(req, res) {
-  var Post = mongoose.model(req.query.page + '_post', postSchema);
-  Post.find().sort('-datePosted').find(function(err, posts) {
-    if (err) res.status(200).end();
-    res.json(posts);
+  var schemaName = req.query.page + '_post';
+  mongoose.connection.db.listCollections({name: schemaName + 's'})
+    .next(function(err, collinfo) {
+      if (err) res.status(500).end();
+      else if (collinfo) {
+        var Post = mongoose.model(schemaName, postSchema);
+        Post.find().sort('-datePosted').find(function(err, posts) {
+          if (err) res.status(500).end();
+          else res.json(posts);
+        });
+      }
+      else {
+        res.status(200).end();
+      }
   });
 });
 

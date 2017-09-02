@@ -1,5 +1,6 @@
 ﻿app.directive('wraAbout', function(
   $sce,
+  $location,
   authService,
   aboutPageService) {
   return {
@@ -22,12 +23,14 @@
         inEditMode: false
       };
 
+      $scope.pageInfo.description = 'Description of the WRAMTAS organization goes here.';
+      $scope.pageInfo.contactEmail = 'default@gmail.com';
+
       aboutPageService.getAboutPage($scope.page).then(function(res) {
         if (res.data)
           $scope.pageInfo = res.data;
         else {
-          $scope.pageInfo.description = 'Description of the WRAMTAS organization goes here.';
-          $scope.pageInfo.contactEmail = 'default@gmail.com';
+          $location.path('/');
         }
       });
 

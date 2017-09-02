@@ -1,16 +1,15 @@
-app.controller('AddPageController', function($scope) {
+app.controller('AddPageController', function($scope, changeCaseService) {
   $scope.form = {
-    pageType: '',
+    pageType: 'about',
     title: ''
   };
 
   $scope.onSubmit = function() {
-    console.log('On Submit');
+    $scope.form.title = changeCaseService.toTitleCase($scope.form.title);
     $scope.$close($scope.form);
   };
 
   $scope.onCancel = function() {
-    console.log('On Cancel');
     $scope.$dismiss('cancel');
   };
 });
