@@ -1,3 +1,20 @@
 <div class="modal-body">
-    Heyheyhey
+  <form>
+    <div class="form-group">
+      <label>Page Title</label>
+      <input class="form-control" ng-model="form.title"/>
+    </div>
+    <div class="form-group">
+      <select class="form-control" ng-model="form.pageType">
+        <option value="about">About</option>
+        <option value="blog">Blog</option>
+        <option value="information">Information</option>
+        <option value="placeholder">Placeholder</option>
+        <option value="submission">Submission</option>
+        <option value="video">Video</option>
+      </select>
+    </div>
+    <button class="btn btn-success" ng-click="onSubmit()"></button>
+    <button class="btn btn-danger" ng-click="onCancel()"></button>
+  </form>
 </div>

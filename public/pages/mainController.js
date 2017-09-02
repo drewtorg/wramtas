@@ -159,13 +159,15 @@
     };
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function (result) {
-      var pageType = tab.pageType;
-      var title = tab.title;
+      result.href = result.pageType + '/' +
+        changeCaseService.toKebabCase(result.title);
       if (angular.isDefined(subtab)) {
-        pageType = subtab.pageType;
-        title = subtab.title;
+        $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 0, result);
       }
-      $scope.addPageBackend(pageType, title);
+      else {
+        $scope.tabs.splice(tab.$index, 0, result);
+      }
+      $scope.addPageBackend(result.pageType, result.title);
     }, function() {}); // eslint-disable-line no-empty-function
   };
 
@@ -191,15 +193,16 @@
     modalInstance.result.then(function () {
       var pageType = tab.pageType;
       var title = tab.title;
+      var tabs = $scope.tabs[tab.$index];
       if (angular.isDefined(subtab)) {
         pageType = subtab.pageType;
         title = subtab.title;
-        $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 1);
+        tabs.subtabs.splice(subtab.$index, 1);
         $scope.removePageBackend(pageType, title);
       }
       else {
         $scope.tabs.splice(tab.$index, 1);
-        $scope.removePageBackend(pageType, title, $scope.tabs[tab.$index].subtabs);
+        $scope.removePageBackend(pageType, title, tabs.subtabs);
       }
     }, function() { }); // eslint-disable-line no-empty-function
   };
@@ -256,7 +259,7 @@
         page: changeCaseService.toTitleCase(title)
       });
     }
-    else if(pageType === 'submission') {
+    else if (pageType === 'submission') {
       submissionsService.saveSubmissionInfo(title, {
         page: changeCaseService.toTitleCase(title)
       });
