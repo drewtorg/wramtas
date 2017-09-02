@@ -50,8 +50,6 @@ app.directive('wraVideo', function(
       });
 
       $scope.loadVideoPage = function() {
-        $scope.videoPage.html = 'No ' + $scope.page + ' data could be found.';
-        $scope.videoPage.preHtml = 'No ' + $scope.page + ' data could be found.';
         videoPageService.getVideoPage($scope.page).then(function(res) {
           if (res.data) {
             $scope.videoPage.html = res.data.html;

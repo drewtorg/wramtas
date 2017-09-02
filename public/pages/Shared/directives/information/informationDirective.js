@@ -23,8 +23,6 @@ app.directive('wraInformation', function(
         pdfUrl: ''
       };
 
-      $scope.informationPage.html = $scope.page + ' Information goes here.';
-
       informationPageService.getInformationPage($scope.page)
         .then(function(res) {
         if (res.data) {

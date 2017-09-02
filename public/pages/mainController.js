@@ -162,7 +162,6 @@
     modalInstance.result.then(function (result) {
       result.href = result.pageType + '/' +
         changeCaseService.toKebabCase(result.title);
-        console.log(result);
       if (angular.isDefined(tab) && angular.isDefined(subtab)) {
         $scope.tabs[tab.$index].subtabs.splice(subtab.$index, 0, result);
       }
@@ -170,6 +169,7 @@
         $scope.tabs.push(result);
       }
       $scope.addPageBackend(result.pageType, result.title);
+      pageListService.savePageList($scope.tabs);
     }, function() {}); // eslint-disable-line no-empty-function
   };
 
@@ -206,6 +206,7 @@
         $scope.tabs.splice(tab.$index, 1);
         $scope.removePageBackend(pageType, title, tabs.subtabs);
       }
+      pageListService.savePageList($scope.tabs);
     }, function() { }); // eslint-disable-line no-empty-function
   };
 
