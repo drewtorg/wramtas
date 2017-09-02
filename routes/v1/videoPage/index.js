@@ -13,7 +13,7 @@ router.get('/:page', function(req, res) {
 });
 
 // DELETE the video page
-router.get('/:page', function(req, res) {
+router.delete('/:page', function(req, res) {
   VideoPage.findOneAndRemove({
     page: req.params.page
   }, function(err, doc) {

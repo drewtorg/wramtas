@@ -36,10 +36,6 @@ app.directive('wraSubmission', function(
               if (!prompt.fields) prompt.fields = [];
             });
           }
-          else {
-            $scope.submissionInfo.description =
-              $scope.submissionInfo.page + ' Information goes here.';
-          }
         }
         else {
           $location.path('/');

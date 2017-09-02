@@ -1,6 +1,6 @@
 app.controller('AddPageController', function($scope, changeCaseService) {
   $scope.form = {
-    pageType: 'about',
+    pageType: 'blog',
     title: ''
   };
 

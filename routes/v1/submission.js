@@ -25,9 +25,11 @@ router.delete('/:page', function(req, res) {
 
 // POST create a new submission page
 router.post('/', function(req, res) {
+  console.log(req.body);
   var submission = new Submission(req.body);
-  submission.save(function(err, doc) {
-    res.json(doc);
+  submission.save(function(err) {
+    if (err) res.status(500).end();
+    else res.status(201).end();
   });
 });
 

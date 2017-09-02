@@ -22,6 +22,12 @@
 
   $scope.tabOptions = [
     {
+      text: 'Add Page',
+      click: function($itemScope) {
+        $scope.onTabContextMenu($itemScope, 'add');
+      }
+    },
+    {
       text: 'Remove Page',
       click: function ($itemScope) {
         $scope.onTabContextMenu($itemScope, 'remove');
@@ -193,12 +199,12 @@
     };
     var modalInstance = $uibModal.open(modalOptions);
     modalInstance.result.then(function () {
-      var pageType = tab.pageType;
-      var title = tab.title;
+      var pageType = tab.tab.pageType;
+      var title = tab.tab.title;
       var tabs = $scope.tabs[tab.$index];
       if (angular.isDefined(subtab)) {
-        pageType = subtab.pageType;
-        title = subtab.title;
+        pageType = tabs.subtabs.pageType;
+        title = tabs.subtabs.title;
         tabs.subtabs.splice(subtab.$index, 1);
         $scope.removePageBackend(pageType, title);
       }
@@ -258,7 +264,7 @@
       });
     }
     else if (pageType === 'submission') {
-      submissionsService.saveSubmissionInfo(title, {
+      submissionsService.createSubmissionPage({
         page: changeCaseService.toTitleCase(title)
       });
     }

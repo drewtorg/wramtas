@@ -32,11 +32,10 @@ router.get('/', function(req, res) {
 
 // DELETE all posts for this page
 router.delete('/', function(req, res) {
-  var Post = mongoose.model(req.query.page + '_post', postSchema);
-  Post.remove(function(err) {
-    if (err) res.status(500).end();
-    else res.status(204).end();
-  });
+  var modelName = req.query.page + '_post';
+  var Post = mongoose.model(modelName + 's', postSchema);
+  Post.collection.drop();
+  res.status(204).end();
 });
 
 // GET a single post
