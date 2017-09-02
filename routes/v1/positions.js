@@ -6,9 +6,8 @@ var router = express.Router();
 /* GET all positions. */
 router.get('/', function(req, res) {
   Position.find().find(function(err, positions) {
-    if (err) res.status(200).end();
-    else
-      res.json(positions);
+    if (err) res.status(500).end();
+    else res.json(positions);
   });
 });
 

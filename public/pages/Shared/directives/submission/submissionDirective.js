@@ -19,12 +19,14 @@ app.directive('wraSubmission', function(
       $scope.submissionInfo = {
         inEditMode: false,
         description: '',
-        prompts: []
+        prompts: [],
+        page: $scope.page
       };
       $scope.tempSubmissionInfo = {
         inEditMode: false,
         description: '',
-        prompts: []
+        prompts: [],
+        page: $scope.page
       };
 
       submissionsService.getSubmissionInfo($scope.page).then(function(res) {

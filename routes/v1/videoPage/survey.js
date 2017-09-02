@@ -3,10 +3,16 @@ var VideoPage = require('../../../models/videoPage');
 
 var router = express.Router();
 
+var getPageFromRequest = function(req) {
+  return req.baseUrl.split('/')[4].replace(/%20/g, ' ');
+};
+
 // POST submit a survey response
 router.post('/', function(req, res) {
+  var page = getPageFromRequest(req);
+
   VideoPage.findOne({
-      page: req.params.page
+      page: page
     },
     function(err, videoPage) {
       var responses = req.body;
@@ -28,9 +34,11 @@ router.post('/', function(req, res) {
           }
         }
       }
-      VideoPage.findOneAndUpdate({}, videoPage, function(err, doc) {
+      VideoPage.findOneAndUpdate({
+        page: page
+      }, videoPage, function(err, doc) {
         if (err) res.status(500).end();
-        res.json(doc);
+        else res.json(doc);
       });
     });
 });

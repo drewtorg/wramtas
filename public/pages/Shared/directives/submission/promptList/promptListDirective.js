@@ -16,6 +16,7 @@ app.directive('wraSubmissionPromptList', function(
       };
 
       $scope.addPrompt = function() {
+        console.log('Page: ', $scope.page);
         submissionsService.createPrompt($scope.page).then(function(response) {
           var prompt = angular.copy(response.data);
           prompt.dates = dateService.toUIDateFormat(prompt.dates);

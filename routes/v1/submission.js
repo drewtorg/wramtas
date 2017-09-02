@@ -8,7 +8,8 @@ router.get('/:page', function(req, res) {
     page: req.params.page
   },
   function(err, doc) {
-    res.json(doc);
+    if (err) res.status(500).end();
+    else res.json(doc);
   });
 });
 
@@ -25,27 +26,10 @@ router.delete('/:page', function(req, res) {
 
 // POST create a new submission page
 router.post('/', function(req, res) {
-  console.log(req.body);
   var submission = new Submission(req.body);
   submission.save(function(err) {
     if (err) res.status(500).end();
     else res.status(201).end();
-  });
-});
-
-// PUT updates an existing submission page
-router.put('/:_id', function(req, res) {
-  Submission.findByIdAndUpdate(req.body._id, req.body, {
-    new: true
-  }, function(err, doc) {
-    res.json(doc);
-  });
-});
-
-// DELETE the submission page with the given id
-router.delete('/:_id', function(req, res) {
-  Submission.findByIdAndRemove(req.params._id, function(err) {
-    if (!err) res.status(200).end();
   });
 });
 
@@ -65,7 +49,8 @@ router.put('/:page', function(req, res) {
       upsert: true,
     },
     function(err, doc) {
-      res.json(doc);
+      if (err) res.status(500).end();
+      else res.json(doc);
     });
   }
 );
@@ -85,7 +70,8 @@ router.post('/:page/prompt', function(req, res) {
       new: true
     },
     function(err, doc) {
-      res.json(doc.prompts[doc.prompts.length - 1]);
+      if (err) res.status(500).end();
+      else res.json(doc.prompts[doc.prompts.length - 1]);
     });
   }
 );
@@ -117,9 +103,12 @@ router.delete('/:page/prompt/:_id', function(req, res) {
       'prompts._id': req.params._id
     },
     function(err, doc) {
-      doc.prompts.id(req.params._id).remove();
-      doc.save();
-      res.status(200).end();
+      if (err) res.status(500).end();
+      else {
+        doc.prompts.id(req.params._id).remove();
+        doc.save();
+        res.status(200).end();
+      }
     });
   }
 );

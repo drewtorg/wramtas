@@ -93,11 +93,12 @@
   });
 
   $scope.isActive = function(tab) {
-    if (tab.href === $location.path())
+    var path = $location.path().substring(1);
+    if (tab.href === path)
       return true;
     if ($scope.isDropdown(tab)) {
       for (var i in tab.subtabs) {
-        if (tab.subtabs[i].href === $location.path())
+        if (tab.subtabs[i].href === path)
           return true;
       }
     }
@@ -220,6 +221,9 @@
         $scope.removePageBackend(pageType, title, tabs.subtabs);
       }
       pageListService.savePageList($scope.tabs);
+      if ($scope.isActive(tabs)) {
+        $location.path('/');
+      }
     }, function() { }); // eslint-disable-line no-empty-function
   };
 
