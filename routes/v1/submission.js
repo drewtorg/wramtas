@@ -115,6 +115,22 @@ router.delete('/:page/prompt/:_id', function(req, res) {
 
 // POST add a new application
 router.post('/:page/prompt/:_id/application', function(req, res) {
+  for (var prop in req.body) {
+    if (prop !== 'uploadPaths') {
+      var value = req.body[prop];
+      var type = typeof value;
+      if (type === 'string') {
+        value.replace('.', '');
+      }
+      else if (type === 'object') {
+        for (var prop in value) {
+          var valid = prop.replace('.', '');
+          value[valid] = value[prop];
+          delete value[prop];
+        }
+      }
+    }
+  }
   Submission.findOneAndUpdate(
     {
       page: req.params.page,

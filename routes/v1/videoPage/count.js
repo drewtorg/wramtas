@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
       if (!hasIp) ipAddresses.push(ipAddr);
       videoPage.ipAddresses = ipAddresses;
       VideoPage.findOneAndUpdate({
-        page: req.params.page
+        page: page
       }, videoPage, function(err, doc) {
         if (err) res.status(500).end();
         else res.json(doc);
