@@ -11,6 +11,8 @@ app.service('authService', function($http, $cookies) {
   this.logIn = function(form) {
     return $http.post('/api/v1/login', form).then(function(response) {
       $cookies.put('session', angular.toJson(response.data));
+    }, function() {
+      alert('Incorrect username or password');
     });
   };
 
