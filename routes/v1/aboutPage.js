@@ -24,10 +24,6 @@ router.delete('/:page', function(req, res) {
 
 // POST upsert the about information
 router.post('/:page', function(req, res) {
-  if (req.body && req.body.__v) {
-    delete req.body[__v];
-  }
-
   AboutPage.findOneAndUpdate({
     page: req.params.page
   }, req.body, {
