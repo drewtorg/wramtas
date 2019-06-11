@@ -31,6 +31,10 @@ router.post('/:page', function(req, res) {
       new: true
     },
     function(err, doc) {
+      if (err) {
+        console.log(err);
+        return res.sendStatus(500);
+      }
       return res.json(doc);
     });
 });
