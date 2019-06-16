@@ -1,6 +1,6 @@
-import { graphql } from "gatsby";
-import * as React from "react";
-import Layout from "../layouts";
+import { graphql } from 'gatsby';
+import * as React from 'react';
+import Layout from '../layouts';
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
@@ -34,7 +34,8 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
         <p>
           This site is named <strong>{siteName}</strong>
         </p>
-        <button className="btn">Hi there</button>
+        <button className="btn btn-primary">Hi there</button>
+        <button className="btn btn-danger">Oh no!</button>
       </Layout>
     );
   }
