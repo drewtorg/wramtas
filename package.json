@@ -1,53 +1,39 @@
 {
-  "name": "wramtas",
-  "version": "1.0.0",
+  "name": "contentful-starter-gatsby-blog",
+  "description": "Contentful Gatsby Starter Blog",
   "private": true,
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev-start": "sudo service mongod start && sudo nodemon ./app.js",
-    "lint": "eslint ."
-  },
-  "description": "wramtas",
-  "author": {
-    "name": "Drew",
-    "email": ""
+  "version": "0.0.1",
+  "author": "Contentful <opensource@contentful.com>",
+  "bugs": {
+    "url": "https://github.com/contentful/starter-gatsby-blog/issues"
   },
   "dependencies": {
-    "angular": "^1.4.8",
-    "angular-bootstrap-contextmenu": "^0.9.9",
-    "angular-cookies": "^1.4.8",
-    "angular-filter": "^0.5.11",
-    "angular-pdf": "^2.0.0",
-    "angular-route": "^1.4.8",
-    "angular-sanitize": "^1.4.8",
-    "angular-spinner": "^0.8.1",
-    "angular-ui-bootstrap": "^2.2.0",
-    "angular-ui-tinymce": "^0.0.18",
-    "angular-youtube-embed": "^1.3.1",
-    "body-parser": "~1.8.1",
-    "bootstrap": "^3.3.6",
-    "change-case": "^3.0.1",
-    "connect-mongo": "1.2.1",
-    "cookie-parser": "~1.3.3",
-    "dateformat": "1.0.12",
-    "debug": "~2.0.0",
-    "dotenv": "2.0.0",
-    "express": "~4.9.0",
-    "express-session": "^1.10.1",
-    "jquery": "^1.11.1",
-    "mailgun-js": "0.7.11",
-    "mongoose": "^4.4.19",
-    "morgan": "~1.3.0",
-    "multer": "1.2.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^4.0.0",
-    "pdfjs-dist": "^1.8.423",
-    "serve-favicon": "~2.1.3",
-    "tinymce": "^4.3.10"
+    "gatsby": "^1.9.277",
+    "gatsby-image": "^1.0.55",
+    "gatsby-link": "^1.6.46",
+    "gatsby-plugin-react-helmet": "^1.0.8",
+    "gatsby-plugin-sharp": "^1.6.46",
+    "gatsby-source-contentful": "^1.3.54",
+    "gatsby-transformer-remark": "^1.7.44",
+    "lodash": "^4.17.10"
   },
-  "devDependencies": {
-    "eslint": "^3.19.0"
+  "homepage": "https://github.com/contentful/starter-gatsby-blog#readme",
+  "keywords": [
+    "gatsby",
+    "contentful",
+    "starter"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/starter-gatsby-blog.git"
+  },
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "heroku-postbuild": "gatsby build",
+    "serve": "gatsby serve",
+    "setup": "npm install --no-save contentful-import yargs-parser axios chalk && node ./setup.js"
   }
 }
