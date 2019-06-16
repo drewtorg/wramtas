@@ -34,6 +34,7 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
         <p>
           This site is named <strong>{siteName}</strong>
         </p>
+        <button className="btn">Hi there</button>
       </Layout>
     );
   }

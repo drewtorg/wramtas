@@ -27,6 +27,7 @@ module.exports = {
   pathPrefix: "/wramtas",
   plugins: [
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {

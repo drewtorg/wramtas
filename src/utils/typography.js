@@ -1,6 +1,7 @@
 import Typography from "typography";
 import theme from "typography-theme-bootstrap";
 
+// TODO: Montserrat and Open Sans
 theme.overrideThemeStyles = ({ rhythm, scale }, options) => {
   return {
     "h1, h2, h3": {
