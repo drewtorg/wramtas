@@ -1,13 +1,8 @@
 {
-  "name": "Contentful Gatsby Starter",
-  "description": "Gatsby starter for a Contentful project.",
-  "keywords": [
-    "contentful",
-    "gatsby",
-    "static",
-    "ssg"
-  ],
-  "repository": "https://github.com/contentful-userland/gatsby-contentful-starter",
+  "name": "WRAMTAS",
+  "description": "WRAMTAS Homepage",
+  "keywords": ["contentful", "gatsby", "static", "ssg"],
+  "repository": "https://github.com/drewtorg/wramtas",
   "success_url": "/",
   "buildpacks": [
     {
