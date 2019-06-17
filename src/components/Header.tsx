@@ -17,32 +17,65 @@ const Header: React.SFC = () => (
       <span className="navbar-toggler-icon" />
     </button>
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div className="navbar-nav">
-        <a className="nav-item nav-link active" href="#">
-          About <span className="sr-only">(current)</span>
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Affiliates
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Conferences
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Elections
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Scholarships
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Internship Spotlights
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Master Class
-        </a>
-        <a className="nav-item nav-link" href="#">
-          Membership Resources
-        </a>
-      </div>
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <a className="nav-link active" href="#">
+            Blog <span className="sr-only">(current)</span>
+          </a>
+        </li>
+        <li className="nav-item dropdown">
+          <a
+            className="nav-link dropdown-toggle"
+            href="#"
+            id="conferenceDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Conference
+          </a>
+          <div className="dropdown-menu" aria-labelledby="conferenceDropdown">
+            <a className="dropdown-item" href="#">
+              Regional Conference
+            </a>
+            <a className="dropdown-item" href="#">
+              National Conference
+            </a>
+            <a className="dropdown-item" href="#">
+              Presentation Proposals
+            </a>
+            <a className="dropdown-item" href="#">
+              Scholarships
+            </a>
+          </div>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" href="#">
+            Elections
+          </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" href="#">
+            Internships
+          </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" href="#">
+            Master Class
+          </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" href="#">
+            Resources
+          </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" href="#">
+            About
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 );
