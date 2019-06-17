@@ -1,23 +1,16 @@
-import * as React from "react";
-
-import { rhythm } from "../utils/typography";
-import "../scss/main.scss";
+import * as React from 'react';
+import '../scss/main.scss';
+import Header from '../components/Header';
+import 'bootstrap/dist/js/bootstrap.js';
 
 const MainLayout: React.SFC = ({ children }) => (
-  // TODO: Insert Header
-  <div
-    style={{
-      margin: `0 auto`,
-      marginBottom: rhythm(1.5),
-      marginTop: rhythm(1.5),
-      maxWidth: 650,
-      paddingLeft: rhythm(3 / 4),
-      paddingRight: rhythm(3 / 4)
-    }}
-  >
-    {children}
+  <div>
+    <Header />
+    <div className="container">
+      <div>{children}</div>
+    </div>
+    // TODO: Insert Footer
   </div>
-  //   TODO: Insert Footer
 );
 
 export default MainLayout;
