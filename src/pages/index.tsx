@@ -30,12 +30,17 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     const { siteName } = this.props.data.site.siteMetadata;
     return (
       <Layout>
-        <h1>{this.hello} TypeScript world!</h1>
+        <h1>Welcome to WRAMTAS</h1>
+        <h3>The Western Region chapter of the American Music Therapy Association for Students</h3>
         <p>
-          This site is named <strong>{siteName}</strong>
+          We promote the advancement of the purpose and objectives of AMTA within the framework of the students and
+          interns of the western region.
         </p>
-        <button className="btn btn-primary">Hi there</button>
-        <button className="btn btn-danger">Oh no!</button>
+        <p>
+          AMTA strives toward the progressive development of the therapeutic use of music in rehabilitation, special
+          education, and community settings. WRAMTAS includes the states of Alaska, Arizona, California, Hawaii, Idaho,
+          Nevada, Oregon, Utah, and Washington.
+        </p>
       </Layout>
     );
   }

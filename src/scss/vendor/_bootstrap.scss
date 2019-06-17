@@ -1,4 +1,18 @@
 // MY OVERRIDES
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap');
+
+$paragraph-margin-bottom: 20px;
+
+$body-bg: #f8f8f8;
+$body-color: #929292;
+
+$font-family-base: 'Open Sans', sans-serif;
+$line-height-base: 1.8;
+
+$headings-font-family: Montserrat, sans-serif;
+$headings-font-weight: 700;
+$headings-color: #333333;
+$headings-margin-bottom: 20px;
 
 // REQUIRED
 @import '../../../node_modules/bootstrap/scss/functions';
