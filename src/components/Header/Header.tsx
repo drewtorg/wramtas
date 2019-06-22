@@ -1,6 +1,6 @@
 import * as React from 'react';
 import logo from './WRAMTAS-color.png';
-import { StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
 
 const Header: React.SFC = (props: any) => (
@@ -42,9 +42,9 @@ const Header: React.SFC = (props: any) => (
         {({ location }) => {
           return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-              <a className="navbar-brand" href="/">
+              <Link to="/" className="navbar-brand">
                 <img src={logo} width="250" alt="" />
-              </a>
+              </Link>
               <button
                 className="navbar-toggler"
                 type="button"
@@ -65,9 +65,9 @@ const Header: React.SFC = (props: any) => (
                     }
                     return (
                       <li className={classes} key={link.id}>
-                        <a className="nav-link" href={'/' + link.slug}>
+                        <Link className="nav-link" to={link.slug}>
                           {link.title}
-                        </a>
+                        </Link>
                       </li>
                     );
                   })}
