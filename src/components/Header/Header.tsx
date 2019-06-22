@@ -1,9 +1,10 @@
 import * as React from 'react';
+import logo from './WRAMTAS-color.png';
 
 const Header: React.SFC = () => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <a className="navbar-brand" href="#">
-      WRAMTAS
+      <img src={logo} width="250" alt="" />
     </a>
     <button
       className="navbar-toggler"
