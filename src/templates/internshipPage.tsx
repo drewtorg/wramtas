@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
@@ -14,6 +14,7 @@ const InternshipPage = ({ data }: any) => {
           return (
             <div key={spotlight.id}>
               <h2>{spotlight.title}</h2>
+              <Link to={spotlight.slug}>See More</Link>
               {documentToReactComponents(spotlight.body.json)}
             </div>
           );
@@ -32,6 +33,7 @@ export const pageQuery = graphql`
       internshipSpotlights {
         id
         title
+        slug
         body {
           json
         }

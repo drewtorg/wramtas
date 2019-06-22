@@ -41,6 +41,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        allContentfulInternshipSpotlight {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
       }
     `
   )
@@ -51,7 +58,7 @@ exports.createPages = ({ graphql, actions }) => {
       const blogPostPage = path.resolve('./src/templates/blogPost.tsx');
       result.data.allContentfulBlogPost.edges.forEach(edge => {
         createPage({
-          path: `/blogPost/${edge.node.slug}`,
+          path: `${edge.node.slug}`,
           component: blogPostPage,
           context: {
             $slug: edge.node.slug,
@@ -101,6 +108,18 @@ exports.createPages = ({ graphql, actions }) => {
         createPage({
           path: `/${edge.node.slug}`,
           component: internshipPage,
+          context: {
+            $slug: edge.node.slug,
+            slug: edge.node.slug
+          }
+        });
+      });
+
+      const internshipSpotlight = path.resolve('./src/templates/internshipSpotlight.tsx');
+      result.data.allContentfulInternshipSpotlight.edges.forEach(edge => {
+        createPage({
+          path: `${edge.node.slug}`,
+          component: internshipSpotlight,
           context: {
             $slug: edge.node.slug,
             slug: edge.node.slug
