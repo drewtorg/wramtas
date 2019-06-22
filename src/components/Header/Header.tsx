@@ -12,14 +12,17 @@ const Header: React.SFC = () => (
             node {
               links {
                 ... on ContentfulAboutPage {
+                  id
                   title
                   slug
                 }
                 ... on ContentfulBlogPage {
+                  id
                   title
                   slug
                 }
                 ... on ContentfulInformationPage {
+                  id
                   title
                   slug
                 }
@@ -56,7 +59,7 @@ const Header: React.SFC = () => (
                       classes += ' active';
                     }
                     return (
-                      <li className={classes}>
+                      <li className={classes} key={link.id}>
                         <a className="nav-link" href={link.slug}>
                           {link.title}
                         </a>
