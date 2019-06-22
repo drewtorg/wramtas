@@ -1,9 +1,9 @@
-import * as React from "react";
-import Layout from "../layouts";
+import * as React from 'react';
+import MainLayout from '../layouts';
 
 export default () => (
-  <Layout>
+  <MainLayout>
     <h1>You are here!</h1>
     <h2>But nothing found for you #404</h2>
-  </Layout>
+  </MainLayout>
 );
