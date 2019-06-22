@@ -12,7 +12,7 @@ const BlogPost = ({ data }: any) => {
         {documentToReactComponents(page.description.json)}
         <p>Contact us at: {page.mainEmail}</p>
         <h3>Executive Board Members</h3>
-        <img srcset={page.boardImage.fixed.srcSet} />
+        <img srcSet={page.boardImage.fixed.srcSet} />
         {page.boardMembers.map((member: any) => {
           return (
             <>
@@ -20,7 +20,7 @@ const BlogPost = ({ data }: any) => {
                 {member.name} - {member.title}
               </p>
               <p>Contact: {member.email}</p>
-              <img srcset={member.image.fixed.srcSet} />
+              <img srcSet={member.image.fixed.srcSet} />
             </>
           );
         })}
@@ -32,7 +32,7 @@ const BlogPost = ({ data }: any) => {
                 {member.name} - {member.title}
               </p>
               <p>Contact: {member.email}</p>
-              <img srcset={member.image.fixed.srcSet} />
+              <img srcSet={member.image.fixed.srcSet} />
             </>
           );
         })}

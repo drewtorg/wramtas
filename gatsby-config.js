@@ -28,6 +28,14 @@ module.exports = {
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-142204062-1',
+        head: true,
+        respectDNT: true
+      }
     }
   ]
 };
