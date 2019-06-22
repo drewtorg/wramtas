@@ -27,23 +27,25 @@ exports.createPages = ({ graphql, actions }) => {
       if (result.errors) {
         console.log('Error retrieving Contentful data: ', result.errors);
       }
-      const blogPostPage = path.resolve('./src/pages/blogPost.tsx');
+      const blogPostPage = path.resolve('./src/templates/blogPost.tsx');
       result.data.allContentfulBlogPost.edges.forEach(edge => {
         createPage({
           path: `/blogPost/${edge.node.slug}/`,
           component: blogPostPage,
           context: {
+            $slug: edge.node.slug,
             slug: edge.node.slug
           }
         });
       });
 
-      const aboutPage = path.resolve('./src/pages/aboutPage.tsx');
+      const aboutPage = path.resolve('./src/templates/aboutPage.tsx');
       result.data.allContentfulAboutPage.edges.forEach(edge => {
         createPage({
           path: `/${edge.node.slug}/`,
           component: aboutPage,
           context: {
+            $slug: edge.node.slug,
             slug: edge.node.slug
           }
         });
