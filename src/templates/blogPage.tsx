@@ -9,12 +9,13 @@ const BlogPage = ({ data }: any) => {
   return (
     <MainLayout>
       <div className="blogpage">
-        {posts.map((post: any) => (
-          <div key={post.id}>
-            <h2>{post.title}</h2>
-            {documentToReactComponents(post.bodyHtml.json)}
-          </div>
-        ))}
+        {posts !== null &&
+          posts.map((post: any) => (
+            <div key={post.id}>
+              <h2>{post.title}</h2>
+              {documentToReactComponents(post.bodyHtml.json)}
+            </div>
+          ))}
       </div>
     </MainLayout>
   );
