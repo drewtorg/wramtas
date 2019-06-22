@@ -15,25 +15,25 @@ const AboutPage = ({ data }: any) => {
         <img srcSet={page.boardImage.fixed.srcSet} />
         {page.boardMembers.map((member: any) => {
           return (
-            <>
+            <div key={member.id}>
               <p>
                 {member.name} - {member.title}
               </p>
               <p>Contact: {member.email}</p>
               <img srcSet={member.image.fixed.srcSet} />
-            </>
+            </div>
           );
         })}
         <h3>University Representatives</h3>
         {page.universityReps.map((member: any) => {
           return (
-            <>
+            <div key={member.id}>
               <p>
                 {member.name} - {member.title}
               </p>
               <p>Contact: {member.email}</p>
               <img srcSet={member.image.fixed.srcSet} />
-            </>
+            </div>
           );
         })}
       </div>
@@ -56,6 +56,7 @@ export const pageQuery = graphql`
         }
       }
       boardMembers {
+        id
         shortBio {
           shortBio
         }
@@ -69,6 +70,7 @@ export const pageQuery = graphql`
         title
       }
       universityReps {
+        id
         shortBio {
           shortBio
         }

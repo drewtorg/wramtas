@@ -4,7 +4,6 @@ import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const BlogPage = ({ data }: any) => {
-  console.log(data);
   const posts = data.contentfulBlogPage.blogPosts;
   return (
     <MainLayout>

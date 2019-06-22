@@ -44,7 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
       const blogPostPage = path.resolve('./src/templates/blogPost.tsx');
       result.data.allContentfulBlogPost.edges.forEach(edge => {
         createPage({
-          path: `/blogPost/${edge.node.slug}/`,
+          path: `/blogPost/${edge.node.slug}`,
           component: blogPostPage,
           context: {
             $slug: edge.node.slug,
@@ -56,7 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
       const aboutPage = path.resolve('./src/templates/aboutPage.tsx');
       result.data.allContentfulAboutPage.edges.forEach(edge => {
         createPage({
-          path: `/${edge.node.slug}/`,
+          path: `/${edge.node.slug}`,
           component: aboutPage,
           context: {
             $slug: edge.node.slug,
@@ -68,7 +68,7 @@ exports.createPages = ({ graphql, actions }) => {
       const blogPage = path.resolve('./src/templates/blogPage.tsx');
       result.data.allContentfulBlogPage.edges.forEach(edge => {
         createPage({
-          path: `/${edge.node.slug}/`,
+          path: `/${edge.node.slug}`,
           component: blogPage,
           context: {
             $slug: edge.node.slug,
@@ -80,7 +80,7 @@ exports.createPages = ({ graphql, actions }) => {
       const informationPage = path.resolve('./src/templates/informationPage.tsx');
       result.data.allContentfulInformationPage.edges.forEach(edge => {
         createPage({
-          path: `/${edge.node.slug}/`,
+          path: `/${edge.node.slug}`,
           component: informationPage,
           context: {
             $slug: edge.node.slug,
