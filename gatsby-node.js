@@ -34,6 +34,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        allContentfulInternshipPage {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
       }
     `
   )
@@ -82,6 +89,18 @@ exports.createPages = ({ graphql, actions }) => {
         createPage({
           path: `/${edge.node.slug}`,
           component: informationPage,
+          context: {
+            $slug: edge.node.slug,
+            slug: edge.node.slug
+          }
+        });
+      });
+
+      const internshipPage = path.resolve('./src/templates/internshipPage.tsx');
+      result.data.allContentfulInternshipPage.edges.forEach(edge => {
+        createPage({
+          path: `/${edge.node.slug}`,
+          component: internshipPage,
           context: {
             $slug: edge.node.slug,
             slug: edge.node.slug

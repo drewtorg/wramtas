@@ -26,6 +26,11 @@ const Header: React.SFC = (props: any) => (
                   title
                   slug
                 }
+                ... on ContentfulInternshipPage {
+                  id
+                  title
+                  slug
+                }
               }
             }
           }
