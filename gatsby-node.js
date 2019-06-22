@@ -1,40 +1,37 @@
-const Promise = require("bluebird");
-const path = require("path");
+const Promise = require('bluebird');
+const path = require('path');
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  // const { createPage } = boundActionCreators
-  // return new Promise((resolve, reject) => {
-  //   const blogPost = path.resolve('./src/templates/blog-post.js')
-  //   resolve(
-  //     graphql(
-  //       `
-  //         {
-  //           allContentfulBlogPost {
-  //             edges {
-  //               node {
-  //                 title
-  //                 slug
-  //               }
-  //             }
-  //           }
-  //         }
-  //         `
-  //     ).then(result => {
-  //       if (result.errors) {
-  //         console.log(result.errors)
-  //         reject(result.errors)
-  //       }
-  //       const posts = result.data.allContentfulBlogPost.edges
-  //       posts.forEach((post, index) => {
-  //         createPage({
-  //           path: `/blog/${post.node.slug}/`,
-  //           component: blogPost,
-  //           context: {
-  //             slug: post.node.slug
-  //           },
-  //         })
-  //       })
-  //     })
-  //   )
-  // })
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions;
+  return graphql(
+    `
+      {
+        allContentfulBlogPost {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
+      }
+    `
+  )
+    .then(result => {
+      if (result.errors) {
+        console.log('Error retrieving Blog Posts: ', result.errors);
+      }
+      const blogPostPage = path.resolve('./src/pages/blogPost.tsx');
+      result.data.allContentfulBlogPost.edges.forEach(edge => {
+        createPage({
+          path: `/blogPost/${edge.node.slug}/`,
+          component: blogPostPage,
+          context: {
+            slug: edge.node.slug
+          }
+        });
+      });
+    })
+    .catch(error => {
+      console.log('Error retrieving Blog Posts: ', error);
+    });
 };
