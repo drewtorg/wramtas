@@ -60,7 +60,7 @@ const Header: React.SFC = () => (
                     }
                     return (
                       <li className={classes} key={link.id}>
-                        <a className="nav-link" href={link.slug}>
+                        <a className="nav-link" href={'/' + link.slug}>
                           {link.title}
                         </a>
                       </li>

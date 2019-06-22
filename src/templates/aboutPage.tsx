@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-const BlogPost = ({ data }: any) => {
+const AboutPage = ({ data }: any) => {
   const page = data.contentfulAboutPage;
   return (
     <MainLayout>
@@ -40,7 +40,9 @@ const BlogPost = ({ data }: any) => {
     </MainLayout>
   );
 };
-export default BlogPost;
+
+export default AboutPage;
+
 export const pageQuery = graphql`
   query($slug: String!) {
     contentfulAboutPage(slug: { eq: $slug }) {

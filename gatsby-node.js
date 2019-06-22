@@ -27,6 +27,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        allContentfulInformationPage {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
       }
     `
   )
@@ -63,6 +70,18 @@ exports.createPages = ({ graphql, actions }) => {
         createPage({
           path: `/${edge.node.slug}/`,
           component: blogPage,
+          context: {
+            $slug: edge.node.slug,
+            slug: edge.node.slug
+          }
+        });
+      });
+
+      const informationPage = path.resolve('./src/templates/informationPage.tsx');
+      result.data.allContentfulInformationPage.edges.forEach(edge => {
+        createPage({
+          path: `/${edge.node.slug}/`,
+          component: informationPage,
           context: {
             $slug: edge.node.slug,
             slug: edge.node.slug
