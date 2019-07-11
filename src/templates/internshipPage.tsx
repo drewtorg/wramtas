@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import truncate from '../utils/truncate';
 
 const InternshipPage = ({ data }: any) => {
   const page = data.contentfulInternshipPage;
@@ -13,9 +14,10 @@ const InternshipPage = ({ data }: any) => {
         {page.internshipSpotlights.map((spotlight: any) => {
           return (
             <div key={spotlight.id}>
-              <h2>{spotlight.title}</h2>
-              <Link to={spotlight.slug}>See More</Link>
-              {documentToReactComponents(spotlight.body.json)}
+              <Link to={spotlight.slug} className="spotlight-title">
+                {spotlight.title}
+              </Link>
+              {truncate(spotlight.body.content[0].content[0].value, 50, true)}
             </div>
           );
         })}
@@ -35,7 +37,11 @@ export const pageQuery = graphql`
         title
         slug
         body {
-          json
+          content {
+            content {
+              value
+            }
+          }
         }
       }
     }
