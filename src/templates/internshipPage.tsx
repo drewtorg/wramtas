@@ -14,7 +14,7 @@ const InternshipPage = ({ data }: any) => {
         {page.internshipSpotlights.map((spotlight: any) => {
           return (
             <div key={spotlight.id} className="row">
-              <div className="col-xs-12 col-sm-8">
+              <div className="col">
                 <div className="row">
                   <div className="col">
                     <Link to={spotlight.slug} className="spotlight-title">
@@ -23,16 +23,21 @@ const InternshipPage = ({ data }: any) => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col">{truncate(spotlight.body.content[0].content[0].value, 500, true)}</div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <Link to={spotlight.slug}>Continue Reading</Link>
+                  <div className="col-xs-12 col-sm-8">
+                    <p>{truncate(spotlight.body.content[0].content[0].value, 500, true)}</p>
+                    <p>
+                      <Link to={spotlight.slug}>Continue Reading</Link>
+                    </p>
+                  </div>
+                  <div className="col-xs-12">
+                    <div className="d-none d-sm-block col-sm-4 col-md-3">
+                      <Img fixed={spotlight.heroImage.fixed} />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xs-12 col-sm-4 col-md-3">
-                <Img fixed={spotlight.heroImage.fixed} />
+                <div className="row">
+                  <div className="col" />
+                </div>
               </div>
             </div>
           );
@@ -64,6 +69,7 @@ export const pageQuery = graphql`
             ...GatsbyContentfulFixed
           }
         }
+        publishDate
       }
     }
   }
