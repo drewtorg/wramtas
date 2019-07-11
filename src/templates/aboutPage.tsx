@@ -4,6 +4,33 @@ import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Img from 'gatsby-image';
 
+const renderPerson = (member: any) => {
+  return (
+    <div key={member.id} className="row">
+      <div className="col">
+        <div className="row">
+          <div className="col">
+            <h4>
+              {member.name}: {member.title}
+            </h4>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-xs-12 col-sm-6">
+            <Img fluid={member.image.fluid} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <p>{member.shortBio.shortBio}</p>
+            {member.email && <p>Contact: {member.email}</p>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const AboutPage = ({ data }: any) => {
   const page = data.contentfulAboutPage;
   return (
@@ -26,37 +53,13 @@ const AboutPage = ({ data }: any) => {
             <h3>Executive Board Members</h3>
           </div>
         </div>
-        {page.boardMembers.map((member: any) => {
-          return (
-            <div key={member.id} className="row">
-              <div className="col">
-                <p>
-                  {member.name} - {member.title}
-                </p>
-                {member.email && <p>Contact: {member.email}</p>}
-                <img srcSet={member.image.fixed.srcSet} />
-              </div>
-            </div>
-          );
-        })}
+        {page.boardMembers.map(renderPerson)}
         <div className="row">
           <div className="col">
             <h3>University Representatives</h3>
           </div>
         </div>
-        {page.universityReps.map((member: any) => {
-          return (
-            <div key={member.id} className="row">
-              <div className="col">
-                <p>
-                  {member.name} - {member.title}
-                </p>
-                {member.email && <p>Contact: {member.email}</p>}
-                <img srcSet={member.image.fixed.srcSet} />
-              </div>
-            </div>
-          );
-        })}
+        {page.universityReps.map(renderPerson)}
       </div>
     </MainLayout>
   );
@@ -82,8 +85,8 @@ export const pageQuery = graphql`
           shortBio
         }
         image {
-          fixed {
-            srcSet
+          fluid {
+            ...GatsbyContentfulFluid
           }
         }
         name
@@ -97,8 +100,8 @@ export const pageQuery = graphql`
         }
 
         image {
-          fixed {
-            srcSet
+          fluid {
+            ...GatsbyContentfulFluid
           }
         }
         name
