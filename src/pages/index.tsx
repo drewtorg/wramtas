@@ -17,6 +17,7 @@ const IndexPage: React.SFC = (props: any) => {
         education, and community settings. WRAMTAS includes the states of Alaska, Arizona, California, Hawaii, Idaho,
         Nevada, Oregon, Utah, and Washington.
       </p>
+      {/* TODO: Insert Hero Image here */}
     </MainLayout>
   );
 };
