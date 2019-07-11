@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
@@ -10,9 +10,14 @@ const BlogPage = ({ data }: any) => {
       <div className="blogpage">
         {posts !== null &&
           posts.map((post: any) => (
-            <div key={post.id}>
-              <h2>{post.title}</h2>
-              {documentToReactComponents(post.bodyHtml.json)}
+            <div key={post.id} className="row">
+              <div className="col">
+                <Link to={post.slug} className="blog-title">
+                  {post.title}
+                </Link>
+                {documentToReactComponents(post.bodyHtml.json)}
+                <p>Published: {new Date(post.publishDate).toDateString()}</p>
+              </div>
             </div>
           ))}
       </div>
@@ -29,6 +34,7 @@ export const pageQuery = graphql`
         bodyHtml {
           json
         }
+        slug
         publishDate
       }
     }
