@@ -24,20 +24,38 @@ const InternshipSpotlight = ({ data }: any) => {
           <div className="col-xs-12 col-md-3">
             <h3>Important information</h3>
 
-            <h4>Internship Director</h4>
-            <div className="mb-4">{documentToReactComponents(page.directorContactInformation.json, renderOptions)}</div>
-
-            <h4>Location</h4>
-            <div className="mb-4">{documentToReactComponents(page.location.json, renderOptions)}</div>
-
-            <h4>Population Served</h4>
-            <div className="mb-4">{documentToReactComponents(page.populationServed.json, renderOptions)}</div>
-
-            <h4>Expected Schedule and Application Due Dates</h4>
-            <div className="mb-4">{documentToReactComponents(page.applicationSchedule.json, renderOptions)}</div>
-
-            <h4>Stipend</h4>
-            <div className="mb-4">{documentToReactComponents(page.stipend.json, renderOptions)}</div>
+            {page.directorContactInformation && (
+              <>
+                <h4>Internship Director</h4>
+                <div className="mb-4">
+                  {documentToReactComponents(page.directorContactInformation.json, renderOptions)}
+                </div>
+              </>
+            )}
+            {page.location && (
+              <>
+                <h4>Location</h4>
+                <div className="mb-4">{documentToReactComponents(page.location.json, renderOptions)}</div>
+              </>
+            )}
+            {page.populationServed && (
+              <>
+                <h4>Population Served</h4>
+                <div className="mb-4">{documentToReactComponents(page.populationServed.json, renderOptions)}</div>
+              </>
+            )}
+            {page.applicationSchedule && (
+              <>
+                <h4>Expected Schedule and Application Due Dates</h4>
+                <div className="mb-4">{documentToReactComponents(page.applicationSchedule.json, renderOptions)}</div>
+              </>
+            )}
+            {page.stipend && (
+              <>
+                <h4>Stipend</h4>
+                <div className="mb-4">{documentToReactComponents(page.stipend.json, renderOptions)}</div>
+              </>
+            )}
           </div>
         </div>
       </div>
