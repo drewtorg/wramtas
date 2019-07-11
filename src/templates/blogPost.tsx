@@ -4,12 +4,13 @@ import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const BlogPost = ({ data }: any) => {
-  const { title, bodyHtml } = data.contentfulBlogPost;
+  const post = data.contentfulBlogPost;
   return (
     <MainLayout>
       <div className="blogpost">
-        <h1>{title}</h1>
-        {documentToReactComponents(bodyHtml.json)}
+        <h1>{post.title}</h1>
+        {documentToReactComponents(post.bodyHtml.json)}
+        <p>Published: {new Date(post.publishDate).toDateString()}</p>
       </div>
     </MainLayout>
   );
@@ -20,6 +21,7 @@ export const pageQuery = graphql`
     contentfulBlogPost(slug: { eq: $slug }) {
       title
       slug
+      publishDate
       bodyHtml {
         json
       }
