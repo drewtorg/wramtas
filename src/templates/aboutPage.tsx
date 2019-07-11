@@ -23,7 +23,11 @@ const renderPerson = (member: any) => {
         <div className="row">
           <div className="col">
             <p>{member.shortBio.shortBio}</p>
-            {member.email && <p>Contact: {member.email}</p>}
+            {member.email && (
+              <p>
+                Contact: <a href={'mailto:' + member.email}>{member.email}</a>
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -40,7 +44,9 @@ const AboutPage = ({ data }: any) => {
           <div className="col">
             <h1>About WRAMTAS</h1>
             {documentToReactComponents(page.description.json)}
-            <p>Contact us at: {page.mainEmail}</p>
+            <p>
+              Contact us at: <a href={'mailto:' + page.mainEmail}>{page.mainEmail}</a>
+            </p>
           </div>
         </div>
         <div className="row justify-content-center">
