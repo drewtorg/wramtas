@@ -16,7 +16,7 @@ const renderPerson = (member: any) => {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="col-xs-12 col-sm-6">
+          <div className="col-xs-12 col-sm-6 col-md-5">
             <Img fluid={member.image.fluid} />
           </div>
         </div>
@@ -39,12 +39,12 @@ const AboutPage = ({ data }: any) => {
         <div className="row">
           <div className="col">
             <h1>About WRAMTAS</h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
             {documentToReactComponents(page.description.json)}
             <p>Contact us at: {page.mainEmail}</p>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-xs-12 col-sm-10">
             <Img fluid={page.boardImage.fluid} />
           </div>
         </div>
