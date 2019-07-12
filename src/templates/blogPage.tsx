@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import Img from 'gatsby-image';
 
 const renderPosts = (posts: any): any => {
   return []
@@ -13,6 +14,11 @@ const renderPosts = (posts: any): any => {
           <Link to={post.slug} className="blog-title">
             {post.title}
           </Link>
+          <div className="row justify-content-center">
+            <div className="col-xs-12 col-sm-8 col-md-6">
+              <Img fluid={post.heroImage.fluid} />
+            </div>
+          </div>
           {documentToReactComponents(post.bodyHtml.json)}
           <p>Published: {new Date(post.publishDate).toDateString()}</p>
         </div>
@@ -40,6 +46,11 @@ export const pageQuery = graphql`
         }
         slug
         publishDate
+        heroImage {
+          fluid {
+            ...GatsbyContentfulFluid
+          }
+        }
       }
     }
   }
