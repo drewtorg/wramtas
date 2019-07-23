@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { richTextToComponents } from '../utils/render';
 
 const Text = ({ children }: any) => <p className="mb-0">{children}</p>;
 
@@ -20,7 +21,7 @@ const InternshipSpotlight = ({ data }: any) => {
       <div className="internshipSpotlight">
         <h1>{page.title}</h1>
         <div className="row">
-          <div className="col-xs-12 col-md-9">{documentToReactComponents(page.body.json)}</div>
+          <div className="col-xs-12 col-md-9">{richTextToComponents(page.body.json)}</div>
           <div className="col-xs-12 col-md-3">
             <h3>Important information</h3>
 

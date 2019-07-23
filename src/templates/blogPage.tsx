@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Img from 'gatsby-image';
+import { richTextToComponents } from '../utils/render';
 
 const renderPosts = (posts: any): any => {
   return []
@@ -19,7 +20,7 @@ const renderPosts = (posts: any): any => {
               <Img fluid={post.heroImage.fluid} />
             </div>
           </div>
-          {documentToReactComponents(post.bodyHtml.json)}
+          {richTextToComponents(post.bodyHtml.json)}
           <p>Published: {new Date(post.publishDate).toDateString()}</p>
         </div>
       </div>

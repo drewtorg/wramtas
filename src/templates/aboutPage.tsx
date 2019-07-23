@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Img from 'gatsby-image';
+import { richTextToComponents } from '../utils/render';
 
 const renderPerson = (member: any) => {
   return (
@@ -43,7 +44,7 @@ const AboutPage = ({ data }: any) => {
         <div className="row">
           <div className="col">
             <h1>About WRAMTAS</h1>
-            {documentToReactComponents(page.description.json)}
+            {richTextToComponents(page.description.json)}
             <p>
               Contact us at: <a href={'mailto:' + page.mainEmail}>{page.mainEmail}</a>
             </p>
