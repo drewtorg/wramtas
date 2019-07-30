@@ -1,53 +1,55 @@
 {
   "name": "wramtas",
-  "version": "1.0.0",
+  "description": "WRAMTAS home page",
   "private": true,
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev-start": "sudo service mongod start && sudo nodemon ./app.js",
-    "lint": "eslint ."
-  },
-  "description": "wramtas",
-  "author": {
-    "name": "Drew",
-    "email": ""
+  "version": "2.00.0-alpha",
+  "author": "Drew Torgeson <drew.torgeson@gmail.com",
+  "bugs": {
+    "url": "https://github.com/drewtorg/wramtas/issues"
   },
   "dependencies": {
-    "angular": "^1.4.8",
-    "angular-bootstrap-contextmenu": "^0.9.9",
-    "angular-cookies": "^1.4.8",
-    "angular-filter": "^0.5.11",
-    "angular-pdf": "^2.0.0",
-    "angular-route": "^1.4.8",
-    "angular-sanitize": "^1.4.8",
-    "angular-spinner": "^0.8.1",
-    "angular-ui-bootstrap": "^2.2.0",
-    "angular-ui-tinymce": "^0.0.18",
-    "angular-youtube-embed": "^1.3.1",
-    "body-parser": "~1.8.1",
-    "bootstrap": "^3.3.6",
-    "change-case": "^3.0.1",
-    "connect-mongo": "1.2.1",
-    "cookie-parser": "~1.3.3",
-    "dateformat": "1.0.12",
-    "debug": "~2.0.0",
-    "dotenv": "2.0.0",
-    "express": "~4.9.0",
-    "express-session": "^1.10.1",
-    "jquery": "^1.11.1",
-    "mailgun-js": "0.7.11",
-    "mongoose": "^4.4.19",
-    "morgan": "~1.3.0",
-    "multer": "1.2.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^4.0.0",
-    "pdfjs-dist": "^1.8.423",
-    "serve-favicon": "~2.1.3",
-    "tinymce": "^4.3.10"
+    "@contentful/rich-text-react-renderer": "^13.2.0",
+    "@types/node": "^10.3.1",
+    "@types/react": "16.3.16",
+    "@types/react-dom": "16.0.6",
+    "bootstrap": "^4.3.1",
+    "gatsby": "^2.0.0",
+    "gatsby-image": "^2.2.4",
+    "gatsby-plugin-google-analytics": "^2.1.0",
+    "gatsby-plugin-sass": "^2.0.11",
+    "gatsby-plugin-sharp": "^2.2.3",
+    "gatsby-plugin-typescript": "^2.0.0",
+    "gatsby-plugin-typography": "^2.2.0",
+    "gatsby-source-contentful": "^2.0.71",
+    "gatsby-transformer-sharp": "^2.2.1",
+    "jquery": "^3.4.1",
+    "node-sass": "^4.12.0",
+    "popper.js": "^1.15.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-typography": "^0.16.13",
+    "typography": "^0.16.17",
+    "typography-theme-bootstrap": "^0.16.7"
   },
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "typescript": "^2.9.1"
+  },
+  "homepage": "https://github.com/drewtorg/wramtas#readme",
+  "keywords": [
+    "gatsby",
+    "contentful",
+    "starter"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewtorg/wramtas.git"
+  },
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "heroku-postbuild": "gatsby build",
+    "serve": "gatsby serve"
   }
 }

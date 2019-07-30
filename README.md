@@ -1,27 +1,43 @@
-﻿# wramtas
+# Contentful Gatsby Starter Blog
 
-This is the repository for the code behind http://www.wramtas.org/.
+Create a [Gatsby](http://gatsbyjs.com/) blog powered by [Contentful](https://www.contentful.com). This is a simplified version of the [Gatsby Contentful Starter](https://github.com/contentful-userland/gatsby-contentful-starter) which is maintained by our Community.
 
-# Set up
+![The index page of the starter blog](https://rawgit.com/contentful-userland/gatsby-contentful-starter/master/screenshot.jpg "The index page of the starter blog")
 
-In order to begin development on wramtas, you'll need to install some programs.  The latest versions should be fine.
-1. NodeJS
-2. MongoDB
+Static sites are scalable, secure and have very little required maintenance. They come with a drawback though. Not everybody feels good editing files, building a project and uploading it somewhere. This is where Contentful comes into play.
 
-Run npm install to get all the latest versions of the javascript dependencies.
+With Contentful and Gatsby you can connect your favorite static site generator with an API that provides an easy to use interface for people writing content and automate the publishing using services like [Travis CI](https://travis-ci.org/) or [Netlify](https://www.netlify.com/).
 
-You'll also need a .env file that lives in the root of the project.  It will require these keys:
-1. MAILGUN_API_KEY - The API key for mailgun, which is our email service
-2. MAILGUN_DOMAIN - The domain for mailgun, becomes part of the "From" address
-3. MONGODB_URI - The URI to the MongoDB you are connecting to
-4. PASSPORT_SECRET - A secret key for authenticating using passport
-5. ADMIN_USERNAME - Username for the auto-generated admin account
-6. ADMIN_PASSWORD - Password for the auto-generated admin account
+## Features
 
-# Running the web server
-The package.json file has three scripts.  Two of them can be used for running the web server.
-1. start - Simply starts up the web server. Heroku uses this to host the application.
-2. dev-start - Only works on Linux for now.  Starts up MongoDB and web server with auto-reloading.
+* Simple content model and structure. Easy to adjust to your needs.
+* Use the [synchronization feature](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization) of our [Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/).
+* Responsive/adaptive images via [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and our [Images API](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization/initial-synchronization-of-entries-of-a-specific-content-type).
 
-# Code Standards
-We use eslint to ensure that all javascript code is up to our standards.  All code should be checked before merging in order to ensure compliance with the rules in the .eslintrc.json file.  You can lint the whole repo by running npm lint.
+## Getting started
+
+See our [official Contentful getting started guide](https://www.contentful.com/developers/docs/tutorials/general/get-started/).
+
+## Crucial Commands
+
+### `npm run dev`
+
+Run the project locally with live reload in development mode.
+
+### `npm run build`
+
+Run a production build into `./public`. The result is ready to be put on any static hosting you prefer.
+
+### `npm run serve`
+
+Spin up a production-ready server with your blog. Don't forget to build your page beforehand.
+
+## Deployment
+
+See the [official Contentful getting started guide](https://www.contentful.com/developers/docs/tutorials/general/get-started/).
+
+## Contribution
+
+Feel free to open pull requests to fix bugs. If you want to add features, please have a look at the [original version](https://github.com/contentful-userland/gatsby-contentful-starter). It is always open to contributions and pull requests.
+
+You can learn more about how Contentful userland is organized by visiting [our about repository](https://github.com/contentful-userland/about).
