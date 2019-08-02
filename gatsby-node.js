@@ -57,6 +57,7 @@ exports.createPages = ({ graphql, actions }) => {
       }
       const blogPostPage = path.resolve('./src/templates/blogPost.tsx');
       result.data.allContentfulBlogPost.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
         createPage({
           path: `${edge.node.slug}`,
           component: blogPostPage,
@@ -69,6 +70,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       const aboutPage = path.resolve('./src/templates/aboutPage.tsx');
       result.data.allContentfulAboutPage.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
         createPage({
           path: `/${edge.node.slug}`,
           component: aboutPage,
@@ -81,6 +83,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       const blogPage = path.resolve('./src/templates/blogPage.tsx');
       result.data.allContentfulBlogPage.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
         createPage({
           path: `/${edge.node.slug}`,
           component: blogPage,
@@ -93,6 +96,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       const informationPage = path.resolve('./src/templates/informationPage.tsx');
       result.data.allContentfulInformationPage.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
         createPage({
           path: `/${edge.node.slug}`,
           component: informationPage,
@@ -105,6 +109,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       const internshipPage = path.resolve('./src/templates/internshipPage.tsx');
       result.data.allContentfulInternshipPage.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
         createPage({
           path: `/${edge.node.slug}`,
           component: internshipPage,
@@ -117,6 +122,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       const internshipSpotlight = path.resolve('./src/templates/internshipSpotlight.tsx');
       result.data.allContentfulInternshipSpotlight.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
         createPage({
           path: `${edge.node.slug}`,
           component: internshipSpotlight,

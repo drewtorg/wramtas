@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import MainLayout from '../layouts';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { richTextToComponents } from '../utils/render';
 
@@ -15,7 +14,6 @@ const renderOptions = {
 
 const InternshipSpotlight = ({ data }: any) => {
   const page = data.contentfulInternshipSpotlight;
-  console.log(page);
   return (
     <MainLayout>
       <div className="internshipSpotlight">
@@ -29,32 +27,32 @@ const InternshipSpotlight = ({ data }: any) => {
               <>
                 <h4>Internship Director</h4>
                 <div className="mb-4">
-                  {documentToReactComponents(page.directorContactInformation.json, renderOptions)}
+                  {richTextToComponents(page.directorContactInformation.json, renderOptions)}
                 </div>
               </>
             )}
             {page.location && (
               <>
                 <h4>Location</h4>
-                <div className="mb-4">{documentToReactComponents(page.location.json, renderOptions)}</div>
+                <div className="mb-4">{richTextToComponents(page.location.json, renderOptions)}</div>
               </>
             )}
             {page.populationServed && (
               <>
                 <h4>Population Served</h4>
-                <div className="mb-4">{documentToReactComponents(page.populationServed.json, renderOptions)}</div>
+                <div className="mb-4">{richTextToComponents(page.populationServed.json, renderOptions)}</div>
               </>
             )}
             {page.applicationSchedule && (
               <>
                 <h4>Expected Schedule and Application Due Dates</h4>
-                <div className="mb-4">{documentToReactComponents(page.applicationSchedule.json, renderOptions)}</div>
+                <div className="mb-4">{richTextToComponents(page.applicationSchedule.json, renderOptions)}</div>
               </>
             )}
             {page.stipend && (
               <>
                 <h4>Stipend</h4>
-                <div className="mb-4">{documentToReactComponents(page.stipend.json, renderOptions)}</div>
+                <div className="mb-4">{richTextToComponents(page.stipend.json, renderOptions)}</div>
               </>
             )}
           </div>
