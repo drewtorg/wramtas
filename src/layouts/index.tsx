@@ -5,13 +5,13 @@ import Footer from '../components/Footer/Footer';
 import HttpsRedirect from 'react-https-redirect';
 
 const MainLayout: React.SFC = ({ children }) => (
-  <HttpsRedirect>
+  <div>
     <Header />
     <div className="container">
       <div>{children}</div>
     </div>
     <Footer />
-  </HttpsRedirect>
+  </div>
 );
 
 export default MainLayout;
