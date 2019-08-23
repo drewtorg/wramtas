@@ -12,7 +12,7 @@ const renderPosts = (posts: any): any => {
     .map((post: any) => (
       <div key={post.id} className="row">
         <div className="col">
-          <Link to={'/' + post.slug} className="blog-title">
+          <Link to={'/' + post.slug + '/'} className="blog-title">
             {post.title}
           </Link>
           <div className="row justify-content-center">

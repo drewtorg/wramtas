@@ -34,7 +34,7 @@ const InternshipPage = ({ data }: any) => {
                 <div className="col">
                   <div className="row  align-items-center">
                     <div className="col-xs-12 col-sm-8">
-                      <Link to={'/' + spotlight.slug} className="spotlight-title">
+                      <Link to={'/' + spotlight.slug + '/'} className="spotlight-title">
                         {spotlight.title}
                       </Link>
                     </div>
@@ -46,7 +46,7 @@ const InternshipPage = ({ data }: any) => {
                     <div className="col-xs-12 col-sm-8">
                       <p>{getSnippet(spotlight.body.content)}</p>
                       <p>
-                        <Link to={'/' + spotlight.slug}>Continue Reading</Link>
+                        <Link to={'/' + spotlight.slug + '/'}>Continue Reading</Link>
                       </p>
                     </div>
                     <div className="col-xs-12">

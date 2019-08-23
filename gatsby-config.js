@@ -27,7 +27,7 @@ module.exports = {
     `gatsby-plugin-sass`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-remove-trailing-slashes`,
+    `gatsby-plugin-force-trailing-slashes`,
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig
