@@ -5,7 +5,6 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Img from 'gatsby-image';
 
 const IndexPage: React.SFC = ({ data }: any) => {
-  console.log(data);
   const page = data.allContentfulHomePage.edges[0].node;
   return (
     <MainLayout>
