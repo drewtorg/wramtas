@@ -58,6 +58,7 @@ exports.createPages = ({ graphql, actions }) => {
       const blogPostPage = path.resolve('./src/templates/blogPost.tsx');
       result.data.allContentfulBlogPost.edges.forEach(edge => {
         edge.node.slug = edge.node.slug.trim();
+        console.log(edge.node.slug);
         createPage({
           path: `${edge.node.slug}`,
           component: blogPostPage,

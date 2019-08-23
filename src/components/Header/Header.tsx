@@ -63,9 +63,10 @@ const Header: React.SFC = (props: any) => (
                     if (location.pathname.includes(link.slug)) {
                       classes += ' active';
                     }
+                    console.log(link.slug);
                     return (
                       <li className={classes} key={link.id}>
-                        <Link className="nav-link" to={link.slug}>
+                        <Link className="nav-link" to={'/' + link.slug}>
                           {link.title}
                         </Link>
                       </li>
