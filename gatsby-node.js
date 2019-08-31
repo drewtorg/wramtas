@@ -48,6 +48,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        allContentfulGoogleFormPage {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
       }
     `
   )
@@ -132,6 +139,45 @@ exports.createPages = ({ graphql, actions }) => {
           }
         });
       });
+
+      const googleFormPage = path.resolve('./src/templates/googleFormPage.tsx');
+      result.data.allContentfulGoogleFormPage.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
+        createPage({
+          path: `${edge.node.slug}`,
+          component: googleFormPage,
+          context: {
+            $slug: edge.node.slug,
+            slug: edge.node.slug
+          }
+        });
+      });
+
+      // const videoPage = path.resolve('./src/templates/videoPage.tsx');
+      // result.data.allContentfulVideoPage.edges.forEach(edge => {
+      //   edge.node.slug = edge.node.slug.trim();
+      //   createPage({
+      //     path: `${edge.node.slug}`,
+      //     component: videoPage,
+      //     context: {
+      //       $slug: edge.node.slug,
+      //       slug: edge.node.slug
+      //     }
+      //   });
+      // });
+
+      // const videoPost = path.resolve('./src/templates/videoPost.tsx');
+      // result.data.allContentfulVideoPost.edges.forEach(edge => {
+      //   edge.node.slug = edge.node.slug.trim();
+      //   createPage({
+      //     path: `${edge.node.slug}`,
+      //     component: videoPost,
+      //     context: {
+      //       $slug: edge.node.slug,
+      //       slug: edge.node.slug
+      //     }
+      //   });
+      // });
     })
     .catch(error => {
       console.log('Error retrieving Contentful data: ', error);
