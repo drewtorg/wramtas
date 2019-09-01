@@ -55,6 +55,20 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        allContentfulVideoPage {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
+        allContentfulVideoPost {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
       }
     `
   )
@@ -153,31 +167,31 @@ exports.createPages = ({ graphql, actions }) => {
         });
       });
 
-      // const videoPage = path.resolve('./src/templates/videoPage.tsx');
-      // result.data.allContentfulVideoPage.edges.forEach(edge => {
-      //   edge.node.slug = edge.node.slug.trim();
-      //   createPage({
-      //     path: `${edge.node.slug}`,
-      //     component: videoPage,
-      //     context: {
-      //       $slug: edge.node.slug,
-      //       slug: edge.node.slug
-      //     }
-      //   });
-      // });
+      const videoPage = path.resolve('./src/templates/videoPage.tsx');
+      result.data.allContentfulVideoPage.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
+        createPage({
+          path: `${edge.node.slug}`,
+          component: videoPage,
+          context: {
+            $slug: edge.node.slug,
+            slug: edge.node.slug
+          }
+        });
+      });
 
-      // const videoPost = path.resolve('./src/templates/videoPost.tsx');
-      // result.data.allContentfulVideoPost.edges.forEach(edge => {
-      //   edge.node.slug = edge.node.slug.trim();
-      //   createPage({
-      //     path: `${edge.node.slug}`,
-      //     component: videoPost,
-      //     context: {
-      //       $slug: edge.node.slug,
-      //       slug: edge.node.slug
-      //     }
-      //   });
-      // });
+      const videoPost = path.resolve('./src/templates/videoPost.tsx');
+      result.data.allContentfulVideoPost.edges.forEach(edge => {
+        edge.node.slug = edge.node.slug.trim();
+        createPage({
+          path: `${edge.node.slug}`,
+          component: videoPost,
+          context: {
+            $slug: edge.node.slug,
+            slug: edge.node.slug
+          }
+        });
+      });
     })
     .catch(error => {
       console.log('Error retrieving Contentful data: ', error);

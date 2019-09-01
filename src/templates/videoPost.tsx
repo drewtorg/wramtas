@@ -4,6 +4,7 @@ import MainLayout from '../layouts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Img from 'gatsby-image';
 import { richTextToComponents } from '../utils/render';
+import IFrame from '../components/IFrame/IFrame';
 
 
 const VideoPost = ({ data }: any) => {
@@ -11,22 +12,25 @@ const VideoPost = ({ data }: any) => {
   return (
     <MainLayout>
       <div className="videopost">
-          {/* Video */}
+          <h1>{video.title}</h1>
+          <IFrame iframe={video.youtubeEmbedLink} />
+          {richTextToComponents(video.body.json)}
+          <p>Published: {new Date(video.publishDate).toDateString()}</p>
       </div>
     </MainLayout>
   );
 };
 export default VideoPost;
-// export const pageQuery = graphql`
-//   query($slug: String!) {
-//     contentfulVideoPost(slug: { eq: $slug }) {
-//       id
-//       title
-//       bodyHtml {
-//           json
-//       }
-//       videoLink
-//       publishDate
-//     }
-//   }
-// `;
+export const pageQuery = graphql`
+  query($slug: String!) {
+    contentfulVideoPost(slug: { eq: $slug }) {
+      id
+      title
+      body {
+          json
+      }
+      youtubeEmbedLink
+      publishDate
+    }
+  }
+`;

@@ -35,19 +35,19 @@ const VideoPage = ({ data }: any) => {
   );
 };
 export default VideoPage;
-// export const pageQuery = graphql`
-//   query($slug: String!) {
-//     contentfulVideoPage(slug: { eq: $slug }) {
-//       videoPages {
-//         id
-//         title
-//         bodyHtml {
-//           json
-//         }
-//         slug
-//         publishDate
-//         videoLink
-//       }
-//     }
-//   }
-// `;
+export const pageQuery = graphql`
+  query($slug: String!) {
+    contentfulVideoPage(slug: { eq: $slug }) {
+      videoPosts {
+        id
+        title
+        body {
+          json
+        }
+        slug
+        publishDate
+        youtubeEmbedLink
+      }
+    }
+  }
+`;

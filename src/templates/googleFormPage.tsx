@@ -1,22 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import MainLayout from '../layouts';
+import IFrame from '../components/IFrame/IFrame';
 
-class IFrame extends React.Component<{iframe: string}> {
-  iframe() {
-    return {
-      __html: this.props.iframe
-    }
-  }
-
-  render() {
-    return (
-      <div className="row justify-content-center">
-        <div dangerouslySetInnerHTML={ this.iframe() } />
-      </div>
-    );
-  }
-};
 
 const GoogleFormPage = ({ data }: any) => {
   const page = data.contentfulGoogleFormPage;
