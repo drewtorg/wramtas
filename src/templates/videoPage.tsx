@@ -6,31 +6,22 @@ import Img from 'gatsby-image';
 import { richTextToComponents } from '../utils/render';
 import IFrame from '../components/IFrame/IFrame';
 
-const renderVideos = (videos: any): any => {
-    return []
-        .concat(videos)
-        .sort((a: any, b: any) => (new Date(a.publishDate) < new Date(b.publishDate) ? 1 : -1))
-        .map((video: any) => (
-            <div key={video.id} className="row">
-                <div className="col">
-                    <Link to={'/' + video.slug + '/'} className="video-title">
-                        {video.title}
-                    </Link>
-                    <div className="row justify-content-center">
-                        <div className="col-xs-12 col-sm-8 col-md-6">
-                            {/* Single, past video */}
-                        </div>
-                    </div>
-                    <p>Published: {new Date(video.publishDate).toDateString()}</p>
-                </div>
-            </div>
-        ));
+const renderVideoTile = (post: any): any => {
+    return (
+        <div className="col-xs-12 col-sm-4 col-md-3" key={post.id}>
+            <Link to={'/' + post.slug + '/'} className="tile-title">
+                {post.title}
+                <Img fluid={post.thumbnail.fluid} />
+            </Link>
+        </div>
+    );
 };
 
 const VideoPage = ({ data }: any) => {
-    console.log(data.contentfulVideoPage);
     const page = data.contentfulVideoPage;
-    const posts = page.videoPosts;
+    const posts: any = []
+        .concat(page.videoPosts)
+        .sort((a: any, b: any) => (new Date(a.publishDate) < new Date(b.publishDate) ? 1 : -1));
     return (
         <MainLayout>
             <div className="videopage">
@@ -46,6 +37,17 @@ const VideoPage = ({ data }: any) => {
                                 </Link>
                                 <IFrame iframe={posts[0].youtubeEmbedLink} />
                                 {richTextToComponents(posts[0].body.json)}
+                                <p>Published: {new Date(posts[0].publishDate).toDateString()}</p>
+
+                                {posts.length > 1 &&
+                                    <><h2>Past Masterclasses</h2>
+                                        <div className="row">
+                                            {posts.filter((_: any, index: number) => index !== 0).map((post: any) => {
+                                                return renderVideoTile(post);
+                                            })}
+                                        </div>
+                                    </>
+                                }
                             </>}
                     </>}
             </div>
@@ -69,6 +71,11 @@ export const pageQuery = graphql`
         slug
         publishDate
         youtubeEmbedLink
+        thumbnail {
+            fluid {
+                ...GatsbyContentfulFluid
+            }
+        }
       }
     }
   }
