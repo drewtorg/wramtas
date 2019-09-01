@@ -31,6 +31,11 @@ const Header: React.SFC = (props: any) => (
                   title
                   slug
                 }
+                ... on ContentfulVideoPage {
+                  id
+                  title
+                  slug
+                }
               }
             }
           }
