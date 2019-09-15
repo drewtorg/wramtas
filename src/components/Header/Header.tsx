@@ -10,31 +10,40 @@ const Header: React.SFC = (props: any) => (
         allContentfulHeader {
           edges {
             node {
-              links {
-                ... on ContentfulAboutPage {
-                  id
-                  title
-                  slug
-                }
-                ... on ContentfulBlogPage {
-                  id
-                  title
-                  slug
-                }
-                ... on ContentfulInformationPage {
-                  id
-                  title
-                  slug
-                }
-                ... on ContentfulInternshipPage {
-                  id
-                  title
-                  slug
-                }
-                ... on ContentfulVideoPage {
-                  id
-                  title
-                  slug
+              headerLinks {
+                id
+                name
+                pages {
+                  ... on ContentfulAboutPage {
+                    id
+                    title
+                    slug
+                  }
+                  ... on ContentfulBlogPage {
+                    id
+                    title
+                    slug
+                  }
+                  ... on ContentfulInformationPage {
+                    id
+                    title
+                    slug
+                  }
+                  ... on ContentfulInternshipPage {
+                    id
+                    title
+                    slug
+                  }
+                  ... on ContentfulVideoPage {
+                    id
+                    title
+                    slug
+                  }
+                  ... on ContentfulGoogleFormPage {
+                    id
+                    title
+                    slug
+                  }
                 }
               }
             }
@@ -63,18 +72,43 @@ const Header: React.SFC = (props: any) => (
               </button>
               <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul className="navbar-nav ml-auto">
-                  {data.allContentfulHeader.edges[0].node.links.map((link: any) => {
-                    let classes = 'nav-item';
-                    if (location.pathname.includes(link.slug)) {
-                      classes += ' active';
+                  {data.allContentfulHeader.edges[0].node.headerLinks.map((link: any, index: number) => {
+                    if (link.pages.length === 1) {
+                      const page = link.pages[0];
+                      let classes = 'nav-item';
+                      if (location.pathname.includes(page.slug)) {
+                        classes += ' active';
+                      }
+                      return (
+                        <li className={classes} key={page.id}>
+                          <Link className="nav-link" to={'/' + page.slug + '/'}>
+                            {page.title}
+                          </Link>
+                        </li>
+                      );
+                    } else {
+                      const id = "navbarDropdown-" + index;
+                      const isActive = link.pages.some((page: any) => location.pathname.includes(page.slug));
+                      let dropdownClasses = "nav-item dropdown";
+                      if (isActive) {
+                        dropdownClasses += ' active';
+                      }
+                      const li = (
+                        <li className={dropdownClasses} key={link.id}>
+                          <a className="nav-link dropdown-toggle" href="#" id={id} role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {link.name}
+                          </a>
+                          <div className="dropdown-menu" aria-labelledby={id}>
+                            {link.pages.map((page: any) => {
+                              return <Link className="dropdown-item" to={'/' + page.slug + '/'} key={page.id}>
+                                {page.title}
+                              </Link>
+                            })}
+                          </div>
+                        </li>
+                      )
+                      return li;
                     }
-                    return (
-                      <li className={classes} key={link.id}>
-                        <Link className="nav-link" to={'/' + link.slug + '/'}>
-                          {link.title}
-                        </Link>
-                      </li>
-                    );
                   })}
                 </ul>
               </div>
