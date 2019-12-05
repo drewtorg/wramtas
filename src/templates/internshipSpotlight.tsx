@@ -19,7 +19,15 @@ const InternshipSpotlight = ({ data }: any) => {
       <div className="internshipSpotlight">
         <h1>{page.title}</h1>
         <div className="row">
-          <div className="col-xs-12 col-md-9">{richTextToComponents(page.body.json)}</div>
+          <div className="col-xs-12 col-md-9">
+            {richTextToComponents(page.body.json)}
+            {page.populationServed && (
+              <>
+                <h4>Population Served</h4>
+                <div className="mb-4">{richTextToComponents(page.populationServed.json, renderOptions)}</div>
+              </>
+            )}
+          </div>
           <div className="col-xs-12 col-md-3">
             <h3>Important information</h3>
 
@@ -35,12 +43,6 @@ const InternshipSpotlight = ({ data }: any) => {
               <>
                 <h4>Location</h4>
                 <div className="mb-4">{richTextToComponents(page.location.json, renderOptions)}</div>
-              </>
-            )}
-            {page.populationServed && (
-              <>
-                <h4>Population Served</h4>
-                <div className="mb-4">{richTextToComponents(page.populationServed.json, renderOptions)}</div>
               </>
             )}
             {page.applicationSchedule && (
