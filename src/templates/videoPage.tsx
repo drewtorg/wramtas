@@ -35,7 +35,7 @@ const VideoPage = ({ data }: any) => {
                                 <Link to={'/' + posts[0].slug + '/'} className="video-title">
                                     {posts[0].title}
                                 </Link>
-                                <IFrame iframe={posts[0].youtubeEmbedLink} />
+                                <IFrame iframe={posts[0].embedLink} />
                                 {richTextToComponents(posts[0].body.json)}
                                 <p>Published: {new Date(posts[0].publishDate).toDateString()}</p>
 
@@ -70,7 +70,7 @@ export const pageQuery = graphql`
         }
         slug
         publishDate
-        youtubeEmbedLink
+        embedLink
         thumbnail {
             fluid {
                 ...GatsbyContentfulFluid

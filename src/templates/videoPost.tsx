@@ -13,7 +13,7 @@ const VideoPost = ({ data }: any) => {
     <MainLayout>
       <div className="videopost">
           <h1>{video.title}</h1>
-          <IFrame iframe={video.youtubeEmbedLink} />
+          <IFrame iframe={video.embedLink} />
           {richTextToComponents(video.body.json)}
           <p>Published: {new Date(video.publishDate).toDateString()}</p>
       </div>
@@ -29,7 +29,7 @@ export const pageQuery = graphql`
       body {
           json
       }
-      youtubeEmbedLink
+      embedLink
       publishDate
     }
   }
