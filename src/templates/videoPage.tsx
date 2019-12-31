@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import MainLayout from '../layouts';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Img from 'gatsby-image';
 import { richTextToComponents } from '../utils/render';
 import IFrame from '../components/IFrame/IFrame';
@@ -35,7 +34,7 @@ const VideoPage = ({ data }: any) => {
                                 <Link to={'/' + posts[0].slug + '/'} className="video-title">
                                     {posts[0].title}
                                 </Link>
-                                <IFrame iframe={posts[0].embedLink} />
+                                <IFrame iframe={posts[0].embedLink.embedLink} />
                                 {richTextToComponents(posts[0].body.json)}
                                 <p>Published: {new Date(posts[0].publishDate).toDateString()}</p>
 
@@ -70,7 +69,9 @@ export const pageQuery = graphql`
         }
         slug
         publishDate
-        embedLink
+        embedLink {
+            embedLink
+        }
         thumbnail {
             fluid {
                 ...GatsbyContentfulFluid
