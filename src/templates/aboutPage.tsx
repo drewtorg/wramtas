@@ -17,9 +17,7 @@ const renderPerson = (member: any) => {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="col-xs-12 col-sm-6 col-md-5">
-            <Img fluid={member.image.fluid} />
-          </div>
+          <div className="col-xs-12 col-sm-6 col-md-5">{member.image && <Img fluid={member.image.fluid} />}</div>
         </div>
         <div className="row">
           <div className="col">
