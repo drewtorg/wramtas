@@ -37,6 +37,9 @@
     "gatsby-plugin-remove-trailing-slashes": "^2.1.3",
     "typescript": "^2.9.1"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "homepage": "https://github.com/drewtorg/wramtas#readme",
   "keywords": [
     "gatsby",
